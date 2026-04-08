@@ -1,0 +1,676 @@
+{
+  "players": [
+    {
+      "character": "CHARACTER.THE_WATCHER"
+    }
+  ],
+  "win": true,
+  "ascension": 0,
+  "seed": "SEED00019",
+  "acts": 3,
+  "run_time": 3970,
+  "was_abandoned": false,
+  "game_mode": "NORMAL",
+  "killed_by_encounter": null,
+  "killed_by_event": null,
+  "map_point_history": [
+    [
+      {
+        "map_point_type": "monster",
+        "encounter": "Book of Stabbing",
+        "encounter_id": "Book of Stabbing",
+        "turns": 5,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 1,
+            "current_hp": 79,
+            "max_hp": 80,
+            "current_gold": 121,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "treasure",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [],
+                "relic_picked": "Mercury Hourglass"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 66,
+            "max_hp": 80,
+            "current_gold": 194,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "rest_site",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [
+              {
+                "rest_site_choice": "REST"
+              }
+            ],
+            "damage_taken": 0,
+            "current_hp": 42,
+            "max_hp": 80,
+            "current_gold": 176,
+            "hp_healed": 28,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "boss",
+        "encounter": "Time Eater",
+        "encounter_id": "Time Eater",
+        "turns": 2,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 24,
+            "current_hp": 41,
+            "max_hp": 80,
+            "current_gold": 175,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Bronze Automaton",
+        "encounter_id": "Bronze Automaton",
+        "turns": 4,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Reach Heaven",
+                  "Omega",
+                  "Vault"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 34,
+            "current_hp": 80,
+            "max_hp": 80,
+            "current_gold": 54,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Spire Growth",
+        "encounter_id": "Spire Growth",
+        "turns": 6,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 24,
+            "current_hp": 47,
+            "max_hp": 80,
+            "current_gold": 96,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "shop",
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Signature Move",
+                  "Reach Heaven",
+                  "Tranquility"
+                ],
+                "card_picked": "Reach Heaven"
+              }
+            ],
+            "relic_choices": [
+              {
+                "relics_offered": [
+                  "Violet Lotus",
+                  "Unceasing Top",
+                  "Blood Vial"
+                ],
+                "relic_picked": "Unceasing Top"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 45,
+            "max_hp": 80,
+            "current_gold": 75,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "elite",
+        "encounter": "Nemesis",
+        "encounter_id": "Nemesis",
+        "turns": 8,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Sash Whip",
+                  "Flying Sleeves",
+                  "Empty Mind"
+                ],
+                "card_picked": "Flying Sleeves"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 27,
+            "current_hp": 79,
+            "max_hp": 80,
+            "current_gold": 199,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "map_point_type": "rest_site",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [
+              {
+                "rest_site_choice": "TOKE"
+              }
+            ],
+            "damage_taken": 0,
+            "current_hp": 77,
+            "max_hp": 80,
+            "current_gold": 69,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "boss",
+        "encounter": "The Heart",
+        "encounter_id": "The Heart",
+        "turns": 7,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Defend",
+                  "Fasting",
+                  "Collect"
+                ],
+                "card_picked": "Fasting"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 45,
+            "current_hp": 76,
+            "max_hp": 80,
+            "current_gold": 276,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "elite",
+        "encounter": "Spire Growth",
+        "encounter_id": "Spire Growth",
+        "turns": 3,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Reach Heaven",
+                  "Deus Ex Machina",
+                  "Tranquility"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [
+              {
+                "relics_offered": [],
+                "relic_picked": "Juzu Bracelet"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 45,
+            "current_hp": 61,
+            "max_hp": 80,
+            "current_gold": 216,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "shop",
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Bowling Bash",
+                  "Wavelength",
+                  "Meditate"
+                ],
+                "card_picked": "Wavelength"
+              }
+            ],
+            "relic_choices": [
+              {
+                "relics_offered": [
+                  "Nunchaku",
+                  "Turnip",
+                  "Burning Blood"
+                ],
+                "relic_picked": null
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 70,
+            "max_hp": 80,
+            "current_gold": 72,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Gremlin Nob",
+        "encounter_id": "Gremlin Nob",
+        "turns": 7,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 20,
+            "current_hp": 33,
+            "max_hp": 80,
+            "current_gold": 55,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "ancient",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [
+                  "Preserved Insect",
+                  "Omamori",
+                  "Paper Crane"
+                ],
+                "relic_picked": "Preserved Insect"
+              }
+            ],
+            "ancient_choice": [
+              {
+                "relic": "Preserved Insect",
+                "picked": true
+              },
+              {
+                "relic": "Omamori",
+                "picked": false
+              },
+              {
+                "relic": "Paper Crane",
+                "picked": false
+              }
+            ],
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 80,
+            "max_hp": 80,
+            "current_gold": 122,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Sphere and 2 Orb Walkers",
+        "encounter_id": "Sphere and 2 Orb Walkers",
+        "turns": 5,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 20,
+            "current_hp": 38,
+            "max_hp": 80,
+            "current_gold": 299,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Exordium Wildlife",
+        "encounter_id": "Exordium Wildlife",
+        "turns": 4,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Empty Fist",
+                  "Sanctity",
+                  "Spirit Shield"
+                ],
+                "card_picked": "Empty Fist"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 7,
+            "current_hp": 63,
+            "max_hp": 80,
+            "current_gold": 270,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "map_point_type": "treasure",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [],
+                "relic_picked": "Molten Egg"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 30,
+            "max_hp": 80,
+            "current_gold": 159,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "shop",
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Like Water",
+                  "Empty Body",
+                  "Flying Sleeves"
+                ],
+                "card_picked": "Like Water"
+              }
+            ],
+            "relic_choices": [
+              {
+                "relics_offered": [
+                  "Pen Nib",
+                  "Orichalcum",
+                  "War Paint"
+                ],
+                "relic_picked": "War Paint"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 55,
+            "max_hp": 80,
+            "current_gold": 73,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "boss",
+        "encounter": "The Automaton",
+        "encounter_id": "The Automaton",
+        "turns": 4,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 11,
+            "current_hp": 31,
+            "max_hp": 80,
+            "current_gold": 102,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "rest_site",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [
+              {
+                "rest_site_choice": "SMITH"
+              }
+            ],
+            "damage_taken": 0,
+            "current_hp": 48,
+            "max_hp": 80,
+            "current_gold": 172,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Gremlin Gang",
+        "encounter_id": "Gremlin Gang",
+        "turns": 7,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Empty Fist",
+                  "Flurry of Blows",
+                  "Perseverance"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 21,
+            "current_hp": 40,
+            "max_hp": 80,
+            "current_gold": 277,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Automaton",
+        "encounter_id": "Automaton",
+        "turns": 2,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Omega",
+                  "Deus Ex Machina",
+                  "Sash Whip"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 24,
+            "current_hp": 52,
+            "max_hp": 80,
+            "current_gold": 189,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Jaw Worm",
+        "encounter_id": "Jaw Worm",
+        "turns": 4,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Vault",
+                  "Sash Whip",
+                  "Crescendo"
+                ],
+                "card_picked": "Vault"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 27,
+            "current_hp": 71,
+            "max_hp": 80,
+            "current_gold": 92,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "2 Louse",
+        "encounter_id": "2 Louse",
+        "turns": 2,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 18,
+            "current_hp": 31,
+            "max_hp": 80,
+            "current_gold": 131,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      }
+    ]
+  ]
+}

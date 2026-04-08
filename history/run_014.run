@@ -1,0 +1,439 @@
+{
+  "players": [
+    {
+      "character": "CHARACTER.THE_SILENT"
+    }
+  ],
+  "win": false,
+  "ascension": 0,
+  "seed": "SEED00014",
+  "acts": 2,
+  "run_time": 1897,
+  "was_abandoned": true,
+  "game_mode": "NORMAL",
+  "killed_by_encounter": null,
+  "killed_by_event": null,
+  "map_point_history": [
+    [
+      {
+        "map_point_type": "rest_site",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [
+              {
+                "rest_site_choice": "LIFT"
+              }
+            ],
+            "damage_taken": 0,
+            "current_hp": 59,
+            "max_hp": 80,
+            "current_gold": 186,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "elite",
+        "encounter": "Chosen",
+        "encounter_id": "Chosen",
+        "turns": 6,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Cloak and Dagger",
+                  "Riddle with Holes",
+                  "Prepared"
+                ],
+                "card_picked": "Riddle with Holes"
+              }
+            ],
+            "relic_choices": [
+              {
+                "relics_offered": [],
+                "relic_picked": "Hamster Wheel"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 24,
+            "current_hp": 30,
+            "max_hp": 80,
+            "current_gold": 104,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Bronze Automaton",
+        "encounter_id": "Bronze Automaton",
+        "turns": 5,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Predator",
+                  "Survivor",
+                  "Adrenaline"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 14,
+            "current_hp": 49,
+            "max_hp": 80,
+            "current_gold": 269,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "2 Louse",
+        "encounter_id": "2 Louse",
+        "turns": 8,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Adrenaline",
+                  "Outmaneuver",
+                  "Riddle with Holes"
+                ],
+                "card_picked": "Outmaneuver"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 4,
+            "current_hp": 42,
+            "max_hp": 80,
+            "current_gold": 255,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "boss",
+        "encounter": "The Heart",
+        "encounter_id": "The Heart",
+        "turns": 8,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Catalyst",
+                  "Predator",
+                  "Blade Dance"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 27,
+            "current_hp": 49,
+            "max_hp": 80,
+            "current_gold": 116,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Red Slaver",
+        "encounter_id": "Red Slaver",
+        "turns": 7,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Flying Knee",
+                  "Survivor",
+                  "Slice"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 28,
+            "current_hp": 53,
+            "max_hp": 80,
+            "current_gold": 73,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Exordium Thugs",
+        "encounter_id": "Exordium Thugs",
+        "turns": 7,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 24,
+            "current_hp": 45,
+            "max_hp": 80,
+            "current_gold": 115,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "treasure",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [],
+                "relic_picked": "Matryoshka"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 79,
+            "max_hp": 80,
+            "current_gold": 122,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "map_point_type": "monster",
+        "encounter": "Exordium Thugs",
+        "encounter_id": "Exordium Thugs",
+        "turns": 8,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Bullet Time",
+                  "Survivor",
+                  "Die Die Die"
+                ],
+                "card_picked": "Bullet Time"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 34,
+            "current_hp": 61,
+            "max_hp": 80,
+            "current_gold": 97,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Transient",
+        "encounter_id": "Transient",
+        "turns": 3,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Catalyst",
+                  "Predator",
+                  "Dagger Spray"
+                ],
+                "card_picked": "Dagger Spray"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 16,
+            "current_hp": 78,
+            "max_hp": 80,
+            "current_gold": 260,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "ancient",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [
+                  "Lab",
+                  "Sundial",
+                  "Blood Vial"
+                ],
+                "relic_picked": "Blood Vial"
+              }
+            ],
+            "ancient_choice": [
+              {
+                "relic": "Lab",
+                "picked": false
+              },
+              {
+                "relic": "Sundial",
+                "picked": false
+              },
+              {
+                "relic": "Blood Vial",
+                "picked": true
+              }
+            ],
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 80,
+            "max_hp": 80,
+            "current_gold": 270,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Giant Head",
+        "encounter_id": "Giant Head",
+        "turns": 6,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Dash",
+                  "Wraith Form",
+                  "Prepared"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 18,
+            "current_hp": 39,
+            "max_hp": 80,
+            "current_gold": 100,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "rest_site",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [
+              {
+                "rest_site_choice": "SMITH"
+              }
+            ],
+            "damage_taken": 0,
+            "current_hp": 43,
+            "max_hp": 80,
+            "current_gold": 179,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "elite",
+        "encounter": "Lagavulin",
+        "encounter_id": "Lagavulin",
+        "turns": 7,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 47,
+            "current_hp": 33,
+            "max_hp": 80,
+            "current_gold": 245,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "treasure",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [],
+                "relic_picked": "Ginger"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 34,
+            "max_hp": 80,
+            "current_gold": 88,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      }
+    ]
+  ]
+}

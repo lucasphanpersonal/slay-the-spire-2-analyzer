@@ -1,0 +1,622 @@
+{
+  "players": [
+    {
+      "character": "CHARACTER.IRONCLAD"
+    }
+  ],
+  "win": false,
+  "ascension": 5,
+  "seed": "SEED00008",
+  "acts": 3,
+  "run_time": 2030,
+  "was_abandoned": false,
+  "game_mode": "NORMAL",
+  "killed_by_encounter": "Hexaghost",
+  "killed_by_event": null,
+  "map_point_history": [
+    [
+      {
+        "map_point_type": "monster",
+        "encounter": "The Champ",
+        "encounter_id": "The Champ",
+        "turns": 4,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Wild Strike",
+                  "Defend",
+                  "Iron Wave"
+                ],
+                "card_picked": "Wild Strike"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 28,
+            "current_hp": 70,
+            "max_hp": 80,
+            "current_gold": 127,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "boss",
+        "encounter": "The Guardian",
+        "encounter_id": "The Guardian",
+        "turns": 6,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 33,
+            "current_hp": 66,
+            "max_hp": 80,
+            "current_gold": 216,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Lagavulin",
+        "encounter_id": "Lagavulin",
+        "turns": 5,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Inflame",
+                  "Bash",
+                  "Cleave"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 11,
+            "current_hp": 68,
+            "max_hp": 80,
+            "current_gold": 89,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Orb Walker",
+        "encounter_id": "Orb Walker",
+        "turns": 2,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 20,
+            "current_hp": 70,
+            "max_hp": 80,
+            "current_gold": 130,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "rest_site",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [
+              {
+                "rest_site_choice": "LIFT"
+              }
+            ],
+            "damage_taken": 0,
+            "current_hp": 67,
+            "max_hp": 80,
+            "current_gold": 191,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "elite",
+        "encounter": "Shield and Spear",
+        "encounter_id": "Shield and Spear",
+        "turns": 5,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Headbutt",
+                  "Bash",
+                  "Inflame"
+                ],
+                "card_picked": "Headbutt"
+              }
+            ],
+            "relic_choices": [
+              {
+                "relics_offered": [],
+                "relic_picked": "Strange Spoon"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 33,
+            "current_hp": 32,
+            "max_hp": 80,
+            "current_gold": 64,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "map_point_type": "boss",
+        "encounter": "The Champ",
+        "encounter_id": "The Champ",
+        "turns": 7,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Bludgeon",
+                  "Reaper",
+                  "Barricade"
+                ],
+                "card_picked": "Bludgeon"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 55,
+            "current_hp": 36,
+            "max_hp": 80,
+            "current_gold": 179,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Transient",
+        "encounter_id": "Transient",
+        "turns": 4,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Havoc",
+                  "Reaper",
+                  "Demon Form"
+                ],
+                "card_picked": "Reaper"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 6,
+            "current_hp": 65,
+            "max_hp": 80,
+            "current_gold": 223,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Gremlin Nob",
+        "encounter_id": "Gremlin Nob",
+        "turns": 4,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Sword Boomerang",
+                  "True Grit",
+                  "Body Slam"
+                ],
+                "card_picked": "True Grit"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 2,
+            "current_hp": 45,
+            "max_hp": 80,
+            "current_gold": 231,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Red Slaver",
+        "encounter_id": "Red Slaver",
+        "turns": 6,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Offering",
+                  "Limit Break",
+                  "Pommel Strike"
+                ],
+                "card_picked": "Limit Break"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 9,
+            "current_hp": 52,
+            "max_hp": 80,
+            "current_gold": 129,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Shield and Spear",
+        "encounter_id": "Shield and Spear",
+        "turns": 2,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Limit Break",
+                  "Body Slam",
+                  "Defend"
+                ],
+                "card_picked": "Defend"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 18,
+            "current_hp": 54,
+            "max_hp": 80,
+            "current_gold": 154,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "elite",
+        "encounter": "Giant Head",
+        "encounter_id": "Giant Head",
+        "turns": 2,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Double Tap",
+                  "Heavy Blade",
+                  "Bludgeon"
+                ],
+                "card_picked": "Heavy Blade"
+              }
+            ],
+            "relic_choices": [
+              {
+                "relics_offered": [],
+                "relic_picked": "Teardrop Locket"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 10,
+            "current_hp": 49,
+            "max_hp": 80,
+            "current_gold": 193,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "rest_site",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [
+              {
+                "rest_site_choice": "REST"
+              }
+            ],
+            "damage_taken": 0,
+            "current_hp": 39,
+            "max_hp": 80,
+            "current_gold": 69,
+            "hp_healed": 14,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "shop",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [
+                  "Sozu",
+                  "Thread and Needle",
+                  "Darkstone Periapt"
+                ],
+                "relic_picked": "Darkstone Periapt"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 49,
+            "max_hp": 80,
+            "current_gold": 23,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": [
+              "Clothesline"
+            ]
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "map_point_type": "boss",
+        "encounter": "Hexaghost",
+        "encounter_id": "Hexaghost",
+        "turns": 6,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Strike",
+                  "Shrug It Off",
+                  "Defend"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 19,
+            "current_hp": 58,
+            "max_hp": 80,
+            "current_gold": 276,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "treasure",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [],
+                "relic_picked": "Cracked Core"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 47,
+            "max_hp": 80,
+            "current_gold": 165,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "rest_site",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [
+              {
+                "rest_site_choice": "DIG"
+              }
+            ],
+            "damage_taken": 0,
+            "current_hp": 39,
+            "max_hp": 80,
+            "current_gold": 161,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "3 Sentries",
+        "encounter_id": "3 Sentries",
+        "turns": 8,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Reaper",
+                  "Flex",
+                  "Sword Boomerang"
+                ],
+                "card_picked": "Sword Boomerang"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 28,
+            "current_hp": 32,
+            "max_hp": 80,
+            "current_gold": 155,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "shop",
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Demon Form",
+                  "Iron Wave",
+                  "Twin Strike"
+                ],
+                "card_picked": "Demon Form"
+              }
+            ],
+            "relic_choices": [
+              {
+                "relics_offered": [
+                  "Runic Pyramid",
+                  "Happy Flower",
+                  "Regal Pillow"
+                ],
+                "relic_picked": "Runic Pyramid"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 75,
+            "max_hp": 80,
+            "current_gold": 66,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": [
+              "Demon Form"
+            ]
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Orb Walker",
+        "encounter_id": "Orb Walker",
+        "turns": 4,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Double Tap",
+                  "Thunderclap",
+                  "Barricade"
+                ],
+                "card_picked": "Thunderclap"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 14,
+            "current_hp": 64,
+            "max_hp": 80,
+            "current_gold": 111,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Orb Walker",
+        "encounter_id": "Orb Walker",
+        "turns": 8,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "True Grit",
+                  "Shrug It Off",
+                  "Cleave"
+                ],
+                "card_picked": "Shrug It Off"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 29,
+            "current_hp": 79,
+            "max_hp": 80,
+            "current_gold": 122,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      }
+    ]
+  ]
+}

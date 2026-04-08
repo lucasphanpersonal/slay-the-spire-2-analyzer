@@ -1,0 +1,712 @@
+{
+  "players": [
+    {
+      "character": "CHARACTER.THE_DEFECT"
+    }
+  ],
+  "win": true,
+  "ascension": 5,
+  "seed": "SEED00017",
+  "acts": 3,
+  "run_time": 6501,
+  "was_abandoned": false,
+  "game_mode": "NORMAL",
+  "killed_by_encounter": null,
+  "killed_by_event": null,
+  "map_point_history": [
+    [
+      {
+        "map_point_type": "elite",
+        "encounter": "Giant Head",
+        "encounter_id": "Giant Head",
+        "turns": 6,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Compile Driver",
+                  "Strike",
+                  "Steam Barrier"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 53,
+            "current_hp": 44,
+            "max_hp": 80,
+            "current_gold": 159,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "rest_site",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [
+              {
+                "rest_site_choice": "LIFT"
+              }
+            ],
+            "damage_taken": 0,
+            "current_hp": 35,
+            "max_hp": 80,
+            "current_gold": 76,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Exordium Thugs",
+        "encounter_id": "Exordium Thugs",
+        "turns": 4,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Ball Lightning",
+                  "Cold Snap",
+                  "White Noise"
+                ],
+                "card_picked": "White Noise"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 19,
+            "current_hp": 40,
+            "max_hp": 80,
+            "current_gold": 273,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "treasure",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [],
+                "relic_picked": "Singing Bowl"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 34,
+            "max_hp": 80,
+            "current_gold": 108,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Slavers",
+        "encounter_id": "Slavers",
+        "turns": 6,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Charge Battery",
+                  "Overclock",
+                  "Recycle"
+                ],
+                "card_picked": "Overclock"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 31,
+            "current_hp": 47,
+            "max_hp": 80,
+            "current_gold": 132,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "shop",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [
+                  "Potion Belt",
+                  "Empty Cage",
+                  "Tingsha"
+                ],
+                "relic_picked": null
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 74,
+            "max_hp": 80,
+            "current_gold": 43,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Red Slaver",
+        "encounter_id": "Red Slaver",
+        "turns": 7,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Dualcast",
+                  "Defragment",
+                  "Tempest"
+                ],
+                "card_picked": "Tempest"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 23,
+            "current_hp": 72,
+            "max_hp": 80,
+            "current_gold": 281,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Automaton",
+        "encounter_id": "Automaton",
+        "turns": 2,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 21,
+            "current_hp": 73,
+            "max_hp": 80,
+            "current_gold": 245,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "boss",
+        "encounter": "Hexaghost",
+        "encounter_id": "Hexaghost",
+        "turns": 5,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 25,
+            "current_hp": 53,
+            "max_hp": 80,
+            "current_gold": 275,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Spiker",
+        "encounter_id": "Spiker",
+        "turns": 3,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "FTL",
+                  "Force Field",
+                  "Strike"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 1,
+            "current_hp": 37,
+            "max_hp": 80,
+            "current_gold": 287,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "map_point_type": "rest_site",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [
+              {
+                "rest_site_choice": "SMITH"
+              }
+            ],
+            "damage_taken": 0,
+            "current_hp": 62,
+            "max_hp": 80,
+            "current_gold": 102,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "elite",
+        "encounter": "Reptomancer",
+        "encounter_id": "Reptomancer",
+        "turns": 3,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Fission",
+                  "Claw",
+                  "Defend"
+                ],
+                "card_picked": "Fission"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 31,
+            "current_hp": 53,
+            "max_hp": 80,
+            "current_gold": 189,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Maw",
+        "encounter_id": "Maw",
+        "turns": 3,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Sweeping Beam",
+                  "Glacier",
+                  "Darkness"
+                ],
+                "card_picked": "Sweeping Beam"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 18,
+            "current_hp": 71,
+            "max_hp": 80,
+            "current_gold": 63,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "3 Byrds",
+        "encounter_id": "3 Byrds",
+        "turns": 7,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Loop",
+                  "Static Discharge",
+                  "Hyperbeam"
+                ],
+                "card_picked": "Static Discharge"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 1,
+            "current_hp": 72,
+            "max_hp": 80,
+            "current_gold": 274,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Orb Walker",
+        "encounter_id": "Orb Walker",
+        "turns": 8,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 13,
+            "current_hp": 35,
+            "max_hp": 80,
+            "current_gold": 279,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "ancient",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [
+                  "White Beast Statue",
+                  "Lantern",
+                  "Cursed Key"
+                ],
+                "relic_picked": "Lantern"
+              }
+            ],
+            "ancient_choice": [
+              {
+                "relic": "White Beast Statue",
+                "picked": false
+              },
+              {
+                "relic": "Lantern",
+                "picked": true
+              },
+              {
+                "relic": "Cursed Key",
+                "picked": false
+              }
+            ],
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 65,
+            "max_hp": 80,
+            "current_gold": 250,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Automaton",
+        "encounter_id": "Automaton",
+        "turns": 8,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Core Surge",
+                  "Chaos",
+                  "Go For The Eyes"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 4,
+            "current_hp": 63,
+            "max_hp": 80,
+            "current_gold": 277,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "treasure",
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [
+              {
+                "relics_offered": [],
+                "relic_picked": "Incense Burner"
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 35,
+            "max_hp": 80,
+            "current_gold": 129,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "boss",
+        "encounter": "The Heart",
+        "encounter_id": "The Heart",
+        "turns": 3,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Bullseye",
+                  "Equilibrium",
+                  "Sweeping Beam"
+                ],
+                "card_picked": "Bullseye"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 53,
+            "current_hp": 71,
+            "max_hp": 80,
+            "current_gold": 224,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "shop",
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Tempest",
+                  "Hyperbeam",
+                  "Double Energy"
+                ],
+                "card_picked": null
+              }
+            ],
+            "relic_choices": [
+              {
+                "relics_offered": [
+                  "Bag of Marbles",
+                  "Blood Vial",
+                  "Violet Lotus"
+                ],
+                "relic_picked": null
+              }
+            ],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 0,
+            "current_hp": 74,
+            "max_hp": 80,
+            "current_gold": 51,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "3 Louse",
+        "encounter_id": "3 Louse",
+        "turns": 3,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Go For The Eyes",
+                  "Sweeping Beam",
+                  "Ball Lightning"
+                ],
+                "card_picked": "Go For The Eyes"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 24,
+            "current_hp": 52,
+            "max_hp": 80,
+            "current_gold": 296,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "map_point_type": "monster",
+        "encounter": "3 Darklings",
+        "encounter_id": "3 Darklings",
+        "turns": 6,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 17,
+            "current_hp": 63,
+            "max_hp": 80,
+            "current_gold": 66,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Automaton",
+        "encounter_id": "Automaton",
+        "turns": 7,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Turbo",
+                  "Leap",
+                  "Core Surge"
+                ],
+                "card_picked": "Leap"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 22,
+            "current_hp": 63,
+            "max_hp": 80,
+            "current_gold": 182,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "boss",
+        "encounter": "The Heart",
+        "encounter_id": "The Heart",
+        "turns": 4,
+        "player_stats": [
+          {
+            "card_choices": [
+              {
+                "cards_offered": [
+                  "Dualcast",
+                  "Glacier",
+                  "Recycle"
+                ],
+                "card_picked": "Glacier"
+              }
+            ],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 9,
+            "current_hp": 61,
+            "max_hp": 80,
+            "current_gold": 166,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      },
+      {
+        "map_point_type": "monster",
+        "encounter": "Reptomancer",
+        "encounter_id": "Reptomancer",
+        "turns": 8,
+        "player_stats": [
+          {
+            "card_choices": [],
+            "relic_choices": [],
+            "ancient_choice": null,
+            "rest_site_choices": [],
+            "damage_taken": 7,
+            "current_hp": 79,
+            "max_hp": 80,
+            "current_gold": 280,
+            "hp_healed": 0,
+            "upgraded_cards": [],
+            "cards_removed": []
+          }
+        ]
+      }
+    ]
+  ]
+}

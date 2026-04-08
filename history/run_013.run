@@ -1,0 +1,17 @@
+{
+  "players": [
+    {
+      "character": "CHARACTER.IRONCLAD"
+    }
+  ],
+  "win": false,
+  "ascension": 0,
+  "seed": "SEED00013",
+  "acts": 3,
+  "run_time": 4256,
+  "was_abandoned": true,
+  "game_mode": "NORMAL",
+  "killed_by_encounter": null,
+  "killed_by_event": null,
+  "map_point_history": []
+}
