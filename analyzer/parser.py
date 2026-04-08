@@ -302,6 +302,9 @@ def extract_potion_events(run: Dict[str, Any]) -> List[Dict[str, Any]]:
 
     return result
 
+
+# ── Ancient data ─────────────────────────────────────────────────────────────
+
 def extract_ancients(run: Dict[str, Any]) -> List[Dict[str, Any]]:
     """Return ancient visit events with the ancient name and relic choices.
 
