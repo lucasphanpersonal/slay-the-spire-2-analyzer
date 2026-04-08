@@ -81,6 +81,13 @@
     .hp-bar-fill { height: 100%; background: var(--sts-green); border-radius: 4px; }
     .hp-bar-fill.low { background: var(--sts-red); }
     .hp-bar-fill.mid { background: var(--sts-gold); }
+    .card-pill { display: inline-block; background: rgba(30,60,90,0.45); border: 1px solid #2a4a6a;
+                  border-radius: 4px; padding: 1px 6px; font-size: 0.75rem; margin: 1px; }
+    .card-pill.enchanted { background: rgba(80,40,120,0.55); border-color: #7a40c0; }
+    .enchant-badge { display: inline-block; background: rgba(140,60,200,0.7); border-radius: 3px;
+                      padding: 0 4px; font-size: 0.68rem; margin-left: 3px; color: #e8d0ff; }
+    .deck-expand-btn { cursor: pointer; color: var(--sts-gold); text-decoration: underline dotted; border: none; background: none; padding: 0; font-size: inherit; }
+    .deck-detail-row td { padding: 0.5rem 1rem 0.75rem 1rem !important; background: rgba(0,0,0,0.18); }
   </style>
 </head>
 <body>
@@ -654,30 +661,63 @@ async function loadRuns() {
 }
 
 function renderRuns(data) {
-  document.getElementById('runs-tbody').innerHTML = data.length
-    ? data.map(r => {
-        const hpPct = r.max_hp ? r.hp / r.max_hp : 0;
-        const hpClass = hpPct < 0.3 ? 'low' : hpPct < 0.6 ? 'mid' : '';
-        const relicsHtml = (r.relics || []).slice(0, 6).map(rel =>
-          `<span class="relic-pill">${esc(rel)}</span>`
-        ).join('') + ((r.relics || []).length > 6 ? `<span class="relic-pill">+${r.relics.length - 6}</span>` : '');
-        return `<tr>
-          <td><strong>${r.character.replace(/_/g,' ')}</strong></td>
-          <td>${r.win ? '<span class="badge badge-win">WIN</span>' : '<span class="badge badge-loss">LOSS</span>'}</td>
-          <td>${r.ascension}</td>
-          <td>${r.acts_reached}</td>
-          <td>
-            ${r.hp != null ? `${r.hp}/${r.max_hp}` : '—'}
-            ${r.hp != null && r.max_hp ? `<div class="hp-bar"><div class="hp-bar-fill ${hpClass}" style="width:${Math.round(hpPct*100)}%"></div></div>` : ''}
-          </td>
-          <td>${r.gold ?? '—'}</td>
-          <td>${r.deck_size}</td>
-          <td>${r.total_damage}</td>
-          <td>${relicsHtml || '<span style="color:var(--sts-muted)">—</span>'}</td>
-          <td>${r.killed_by ? esc(r.killed_by) : (r.win ? '🏆' : '—')}</td>
-        </tr>`;
-      }).join('')
-    : '<tr><td colspan="10" class="empty-state">No runs match the current filters</td></tr>';
+  const tbody = document.getElementById('runs-tbody');
+  if (!data.length) {
+    tbody.innerHTML = '<tr><td colspan="10" class="empty-state">No runs match the current filters</td></tr>';
+    return;
+  }
+  const rows = [];
+  data.forEach((r, idx) => {
+    const hpPct = r.max_hp ? r.hp / r.max_hp : 0;
+    const hpClass = hpPct < 0.3 ? 'low' : hpPct < 0.6 ? 'mid' : '';
+    const relicsHtml = (r.relics || []).slice(0, 6).map(rel =>
+      `<span class="relic-pill">${esc(rel)}</span>`
+    ).join('') + ((r.relics || []).length > 6 ? `<span class="relic-pill">+${r.relics.length - 6}</span>` : '');
+    const enchantedCount = (r.deck || []).filter(c => c.enchantment).length;
+    const deckLabel = enchantedCount > 0
+      ? `${r.deck_size} <span style="color:var(--sts-purple);font-size:0.8em">(✦${enchantedCount})</span>`
+      : String(r.deck_size);
+    rows.push(`<tr data-run-idx="${idx}">
+      <td><strong>${r.character.replace(/_/g,' ')}</strong></td>
+      <td>${r.win ? '<span class="badge badge-win">WIN</span>' : '<span class="badge badge-loss">LOSS</span>'}</td>
+      <td>${r.ascension}</td>
+      <td>${r.acts_reached}</td>
+      <td>
+        ${r.hp != null ? `${r.hp}/${r.max_hp}` : '—'}
+        ${r.hp != null && r.max_hp ? `<div class="hp-bar"><div class="hp-bar-fill ${hpClass}" style="width:${Math.round(hpPct*100)}%"></div></div>` : ''}
+      </td>
+      <td>${r.gold ?? '—'}</td>
+      <td><button class="deck-expand-btn" data-run-idx="${idx}">${deckLabel}</button></td>
+      <td>${r.total_damage}</td>
+      <td>${relicsHtml || '<span style="color:var(--sts-muted)">—</span>'}</td>
+      <td>${r.killed_by ? esc(r.killed_by) : (r.win ? '🏆' : '—')}</td>
+    </tr>`);
+    // Pre-render the hidden deck detail row
+    const deckHtml = (r.deck || []).map(c => {
+      const upg = c.upgrade > 0 ? `<sup style="color:var(--sts-gold)">+${c.upgrade}</sup>` : '';
+      if (c.enchantment) {
+        const enchAmt = c.enchant_amount > 1 ? ` x${c.enchant_amount}` : '';
+        return `<span class="card-pill enchanted">${esc(c.id)}${upg}<span class="enchant-badge">✦ ${esc(c.enchantment)}${esc(enchAmt)}</span></span>`;
+      }
+      return `<span class="card-pill">${esc(c.id)}${upg}</span>`;
+    }).join('') || '<span style="color:var(--sts-muted)">—</span>';
+    rows.push(`<tr class="deck-detail-row" data-deck-for="${idx}" style="display:none">
+      <td colspan="10">${deckHtml}</td>
+    </tr>`);
+  });
+  tbody.innerHTML = rows.join('');
+
+  tbody.querySelectorAll('.deck-expand-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const idx = btn.dataset.runIdx;
+      const detailRow = tbody.querySelector(`tr[data-deck-for="${idx}"]`);
+      if (detailRow) {
+        const hidden = detailRow.style.display === 'none';
+        detailRow.style.display = hidden ? '' : 'none';
+      }
+    });
+  });
 }
 
 // ────────────────────────────────────────────────────────────────────────────
