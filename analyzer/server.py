@@ -16,6 +16,7 @@ from .stats import (
     compute_overview,
     compute_relics,
     compute_rest_sites,
+    compute_run_detail,
     compute_runs_list,
     filter_runs,
     get_ancients,
@@ -115,5 +116,13 @@ def create_app(history_path: str) -> Flask:
     def api_runs():
         runs = filter_runs(_load(), **_filters())
         return jsonify(compute_runs_list(runs))
+
+    @app.route("/api/run/<path:filename>")
+    def api_run_detail(filename: str):
+        all_runs = _load()
+        for run in all_runs:
+            if run.get("_filename") == filename:
+                return jsonify(compute_run_detail(run))
+        return jsonify({"error": "Run not found"}), 404
 
     return app
