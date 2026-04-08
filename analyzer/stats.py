@@ -193,12 +193,11 @@ def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
         for _, stats, _ in iter_nodes(r)
     )
 
-    # Total cards picked
+    # Total cards picked (explicit picks only; relic-added cards tracked separately)
     total_cards_picked = sum(
-        1
+        len(ev.get("picked", []))
         for r in runs
         for ev in extract_card_choices(r)
-        if ev.get("picked")
     )
 
     # Fastest win time
@@ -255,9 +254,10 @@ def compute_cards(
     output even if it never appeared in any run (those entries have all-zero
     counts and null rates).
     """
-    # run-level sets: offered_runs[card], picked_runs[card], win_runs[card]
+    # run-level sets: offered_runs[card], picked_runs[card], added_runs[card], win_runs[card]
     offered_runs: Dict[str, Set[str]] = defaultdict(set)
     picked_runs: Dict[str, Set[str]] = defaultdict(set)
+    added_runs: Dict[str, Set[str]] = defaultdict(set)
     win_runs: Dict[str, Set[str]] = defaultdict(set)
 
     # upgrade tracking from final decks: list of upgrade levels per card
@@ -270,18 +270,23 @@ def compute_cards(
             for card in event["offered"]:
                 if card:
                     offered_runs[card].add(run_id)
-            picked = event.get("picked")
-            if picked:
-                picked_runs[picked].add(run_id)
-                if run_win:
-                    win_runs[picked].add(run_id)
+            for picked in event.get("picked", []):
+                if picked:
+                    picked_runs[picked].add(run_id)
+                    if run_win:
+                        win_runs[picked].add(run_id)
+            for added in event.get("added", []):
+                if added:
+                    added_runs[added].add(run_id)
+                    if run_win:
+                        win_runs[added].add(run_id)
 
         for deck_card in extract_deck_cards(run):
             card = deck_card["card"]
             deck_upgrade_levels[card].append(deck_card["upgrade_level"])
 
     # All cards that have any run data
-    all_cards: Set[str] = set(offered_runs.keys())
+    all_cards: Set[str] = set(offered_runs.keys()) | set(added_runs.keys())
 
     # Seed with known cards so unseen ones still appear as zero-value rows
     known_cards_set: Set[str] = set(known_cards) if known_cards else set()
@@ -291,6 +296,7 @@ def compute_cards(
     for card in all_cards:
         offered_set = offered_runs.get(card, set())
         picked_set = picked_runs.get(card, set())
+        added_set = added_runs.get(card, set())
         # Always include cards from the known list (e.g. from card_data.json) even
         # when they have 0 picked_runs.  The min_picked threshold still applies
         # to cards that only appear in run data (not in the known list).
@@ -298,7 +304,9 @@ def compute_cards(
             continue
         won_set = win_runs.get(card, set())
         pick_rate = len(picked_set) / len(offered_set) if offered_set else 0.0
-        win_rate = len(won_set) / len(picked_set) if picked_set else None
+        # Win rate covers all runs where the card was acquired (picked or relic-added).
+        acquired_set = picked_set | added_set
+        win_rate = len(won_set) / len(acquired_set) if acquired_set else None
 
         upgrade_levels = deck_upgrade_levels.get(card, [])
         avg_upgrade = round(sum(upgrade_levels) / len(upgrade_levels), 4) if upgrade_levels else None
@@ -309,6 +317,7 @@ def compute_cards(
                 "card": card,
                 "offered_runs": len(offered_set),
                 "picked_runs": len(picked_set),
+                "added_runs": len(added_set),
                 "pick_rate": round(pick_rate, 4),
                 "win_rate": round(win_rate, 4) if win_rate is not None else None,
                 "avg_upgrade_level": avg_upgrade,
