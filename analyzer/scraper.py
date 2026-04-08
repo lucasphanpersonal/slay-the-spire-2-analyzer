@@ -453,6 +453,184 @@ def _fetch_potion_image_from_untapped(potion_id: str) -> Optional[str]:
     return _fetch_image_from_untapped_page(f"{UNTAPPED_POTIONS_PATH}/{slug}", slug)
 
 
+# ── untapped.gg relic/potion page metadata extraction ────────────────────────
+
+
+class _RelicPotionMetaParser(HTMLParser):
+    """SAX-style HTML parser that extracts relic/potion metadata from untapped.gg pages.
+
+    Collects ``<dt>/<dd>`` label/value pairs from the ``ItemDetailGrid``
+    definition list and maps them to ``pool`` and ``rarity`` fields.
+    """
+
+    _LABEL_MAP: Dict[str, str] = {
+        "pool":      "pool",
+        "character": "pool",
+        "class":     "pool",
+        "rarity":    "rarity",
+        "tier":      "rarity",
+    }
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.result: Dict[str, Any] = {
+            "pool":   None,
+            "rarity": None,
+        }
+        self._in_dt: bool = False
+        self._in_dd: bool = False
+        self._current_label: str = ""
+        self._current_value: str = ""
+
+    def handle_starttag(self, tag: str, attrs: list) -> None:
+        tag = tag.lower()
+        if tag == "dt":
+            self._in_dt = True
+            self._current_label = ""
+        elif tag == "dd":
+            self._in_dd = True
+            self._current_value = ""
+
+    def handle_endtag(self, tag: str) -> None:
+        tag = tag.lower()
+        if tag == "dt":
+            self._in_dt = False
+        elif tag == "dd":
+            self._in_dd = False
+            label = self._current_label.strip().lower()
+            value = self._current_value.strip()
+            field = self._LABEL_MAP.get(label)
+            if field and self.result.get(field) is None and value:
+                self.result[field] = value
+
+    def handle_data(self, data: str) -> None:
+        if self._in_dt:
+            self._current_label += data
+        elif self._in_dd:
+            self._current_value += data
+
+
+_ITEM_METADATA_CANDIDATES: Dict[str, frozenset] = {
+    "pool":   frozenset({"pool", "character", "class", "characterclass", "playerclass", "char"}),
+    "rarity": frozenset({"rarity", "tier"}),
+}
+
+
+def _walk_for_item_fields(obj: Any, result: Dict[str, Any], depth: int = 0) -> None:
+    """Recursively walk a JSON object tree and fill in relic/potion *result* metadata fields."""
+    if depth > 20:
+        return
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            key_norm = re.sub(r"[_\-\s]", "", key.lower())
+            for field, candidates in _ITEM_METADATA_CANDIDATES.items():
+                if result[field] is None and key_norm in candidates:
+                    if isinstance(value, str) and value.strip():
+                        result[field] = value.strip()
+            if isinstance(value, (dict, list)):
+                _walk_for_item_fields(value, result, depth + 1)
+    elif isinstance(obj, list):
+        for item in obj:
+            _walk_for_item_fields(item, result, depth + 1)
+
+
+def _fetch_item_page_data(page_path: str, slug: str) -> Dict[str, Any]:
+    """Fetch an untapped.gg relic or potion page and extract image URL + metadata.
+
+    Returns a dict with ``image_url``, ``pool``, and ``rarity``.
+    Missing fields are ``None``.
+    """
+    result: Dict[str, Any] = {
+        "image_url": None,
+        "pool":      None,
+        "rarity":    None,
+    }
+
+    page_url = f"{UNTAPPED_BASE}{page_path}"
+    html_bytes = _get(page_url)
+    if not html_bytes:
+        return result
+
+    try:
+        html = html_bytes.decode("utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        return result
+
+    # 1. Open Graph og:image
+    og_match = re.search(
+        r'<meta[^>]+(?:'
+        r'property=["\']og:image["\'][^>]+content=["\'](https?://[^"\']+)["\']'
+        r'|content=["\'](https?://[^"\']+)["\'][^>]+property=["\']og:image["\']'
+        r')',
+        html,
+        re.IGNORECASE,
+    )
+    if og_match:
+        result["image_url"] = og_match.group(1) or og_match.group(2)
+
+    # 2. __NEXT_DATA__ JSON blob — images + metadata
+    next_match = re.search(
+        r'<script[^>]+id=["\']__NEXT_DATA__["\'][^>]*>(.*?)</script>',
+        html,
+        re.DOTALL | re.IGNORECASE,
+    )
+    if next_match:
+        try:
+            next_data = json.loads(next_match.group(1))
+            next_json_str = json.dumps(next_data)
+
+            if not result["image_url"]:
+                img_matches = re.findall(
+                    r'https?://[^\s"\'<>]+(?:\.png|\.jpg|\.jpeg|\.webp)',
+                    next_json_str,
+                    re.IGNORECASE,
+                )
+                for url in img_matches:
+                    if slug in url.lower():
+                        result["image_url"] = url
+                        break
+
+            _walk_for_item_fields(next_data, result)
+        except Exception:  # noqa: BLE001
+            pass
+
+    # 3. Server-rendered HTML <dt>/<dd> metadata
+    parser = _RelicPotionMetaParser()
+    try:
+        parser.feed(html)
+    except Exception:  # noqa: BLE001
+        pass
+    for field in ("pool", "rarity"):
+        if result[field] is None and parser.result.get(field) is not None:
+            result[field] = parser.result[field]
+
+    # 4. Fallback: any <img src="..."> containing the slug
+    if not result["image_url"]:
+        img_matches = re.findall(
+            r'<img[^>]+src=["\'](https?://[^"\']+)["\']',
+            html,
+            re.IGNORECASE,
+        )
+        for src in img_matches:
+            if slug in src.lower():
+                result["image_url"] = src
+                break
+
+    return result
+
+
+def _fetch_relic_page_data(relic_id: str) -> Dict[str, Any]:
+    """Fetch the untapped.gg relic page for *relic_id* and extract image URL + metadata."""
+    slug = relic_id_to_slug(relic_id)
+    return _fetch_item_page_data(f"{UNTAPPED_RELICS_PATH}/{slug}", slug)
+
+
+def _fetch_potion_page_data(potion_id: str) -> Dict[str, Any]:
+    """Fetch the untapped.gg potion page for *potion_id* and extract image URL + metadata."""
+    slug = potion_id_to_slug(potion_id)
+    return _fetch_item_page_data(f"{UNTAPPED_POTIONS_PATH}/{slug}", slug)
+
+
 # ── Wiki image resolution ─────────────────────────────────────────────────────
 
 def _resolve_image_url_via_api(file_title: str) -> Optional[str]:
@@ -834,6 +1012,166 @@ def scrape_potion_images(
     )
 
 
+def scrape_relic_data(
+    relic_ids: List[str],
+    output_dir: str,
+    *,
+    skip_existing: bool = True,
+    verbose: bool = True,
+) -> Dict[str, Dict[str, Any]]:
+    """Download relic images and scrape metadata (Pool, Rarity) for *relic_ids*.
+
+    Saves into *output_dir*:
+
+    * ``{relic_id_lower}.png`` — relic art
+    * ``relic_data.json``      — metadata for all scraped relics
+
+    Returns the full relic data dict keyed by relic ID.
+    """
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    data_file = out / "relic_data.json"
+
+    relic_data: Dict[str, Dict[str, Any]] = {}
+    if data_file.exists():
+        try:
+            with open(data_file, encoding="utf-8") as f:
+                relic_data = json.load(f)
+        except Exception:  # noqa: BLE001
+            relic_data = {}
+
+    total = len(relic_ids)
+
+    for i, relic_id in enumerate(sorted(relic_ids), 1):
+        filename = relic_id.lower() + ".png"
+        dest = out / filename
+        image_exists = dest.exists()
+        has_meta = relic_id in relic_data
+
+        if skip_existing and image_exists and has_meta:
+            if verbose:
+                print(f"  [{i:>3}/{total}] {relic_id:<40} skip (all cached)")
+            continue
+
+        if verbose:
+            print(f"  [{i:>3}/{total}] {relic_id:<40} ", end="", flush=True)
+
+        page_data = _fetch_relic_page_data(relic_id)
+        time.sleep(REQUEST_DELAY)
+
+        if not page_data["image_url"]:
+            for file_title in _candidate_wiki_file_titles(relic_id):
+                wiki_url = _resolve_image_url_via_api(file_title)
+                if wiki_url:
+                    page_data["image_url"] = wiki_url
+                    break
+                time.sleep(REQUEST_DELAY)
+
+        downloaded = False
+        if page_data["image_url"] and not (skip_existing and image_exists):
+            img_bytes = _get(page_data["image_url"])
+            if img_bytes:
+                dest.write_bytes(img_bytes)
+                downloaded = True
+                time.sleep(REQUEST_DELAY)
+
+        relic_data[relic_id] = {
+            "pool":      page_data["pool"],
+            "rarity":    page_data["rarity"],
+            "has_image": dest.exists(),
+        }
+
+        if verbose:
+            print("✓" if downloaded else "metadata only")
+
+    with open(data_file, "w", encoding="utf-8") as f:
+        json.dump(relic_data, f, indent=2, ensure_ascii=False)
+    if verbose:
+        print(f"\nSaved relic data → {data_file}")
+
+    return relic_data
+
+
+def scrape_potion_data(
+    potion_ids: List[str],
+    output_dir: str,
+    *,
+    skip_existing: bool = True,
+    verbose: bool = True,
+) -> Dict[str, Dict[str, Any]]:
+    """Download potion images and scrape metadata (Pool, Rarity) for *potion_ids*.
+
+    Saves into *output_dir*:
+
+    * ``{potion_id_lower}.png`` — potion art
+    * ``potion_data.json``      — metadata for all scraped potions
+
+    Returns the full potion data dict keyed by potion ID.
+    """
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    data_file = out / "potion_data.json"
+
+    potion_data: Dict[str, Dict[str, Any]] = {}
+    if data_file.exists():
+        try:
+            with open(data_file, encoding="utf-8") as f:
+                potion_data = json.load(f)
+        except Exception:  # noqa: BLE001
+            potion_data = {}
+
+    total = len(potion_ids)
+
+    for i, potion_id in enumerate(sorted(potion_ids), 1):
+        filename = potion_id.lower() + ".png"
+        dest = out / filename
+        image_exists = dest.exists()
+        has_meta = potion_id in potion_data
+
+        if skip_existing and image_exists and has_meta:
+            if verbose:
+                print(f"  [{i:>3}/{total}] {potion_id:<40} skip (all cached)")
+            continue
+
+        if verbose:
+            print(f"  [{i:>3}/{total}] {potion_id:<40} ", end="", flush=True)
+
+        page_data = _fetch_potion_page_data(potion_id)
+        time.sleep(REQUEST_DELAY)
+
+        if not page_data["image_url"]:
+            for file_title in _candidate_wiki_file_titles(potion_id):
+                wiki_url = _resolve_image_url_via_api(file_title)
+                if wiki_url:
+                    page_data["image_url"] = wiki_url
+                    break
+                time.sleep(REQUEST_DELAY)
+
+        downloaded = False
+        if page_data["image_url"] and not (skip_existing and image_exists):
+            img_bytes = _get(page_data["image_url"])
+            if img_bytes:
+                dest.write_bytes(img_bytes)
+                downloaded = True
+                time.sleep(REQUEST_DELAY)
+
+        potion_data[potion_id] = {
+            "pool":      page_data["pool"],
+            "rarity":    page_data["rarity"],
+            "has_image": dest.exists(),
+        }
+
+        if verbose:
+            print("✓" if downloaded else "metadata only")
+
+    with open(data_file, "w", encoding="utf-8") as f:
+        json.dump(potion_data, f, indent=2, ensure_ascii=False)
+    if verbose:
+        print(f"\nSaved potion data → {data_file}")
+
+    return potion_data
+
+
 # ── Card/Relic/Potion ID discovery ────────────────────────────────────────────
 
 def _slug_to_card_id(slug: str) -> str:
@@ -1035,13 +1373,31 @@ def run_scrape(history_path: str, static_dir: str) -> None:
     print("Discovering relic IDs from run files…")
     relic_ids = collect_relic_ids_from_runs(history_path)
     print(f"Found {len(relic_ids)} unique relic IDs.\n")
-    print("Fetching relic images from sts2.untapped.gg (with wiki fallback)…")
-    dl_relics = scrape_relic_images(relic_ids, relic_output, verbose=True)
-    print(f"\nRelics: downloaded {len(dl_relics)}/{len(relic_ids)} images → {relic_output}\n")
+    print("Fetching relic data from sts2.untapped.gg (images + metadata)…")
+    relic_data = scrape_relic_data(relic_ids, relic_output, verbose=True)
+    has_relic_image = has_relic_meta = 0
+    for v in relic_data.values():
+        if v.get("has_image"):
+            has_relic_image += 1
+        if v.get("pool") or v.get("rarity"):
+            has_relic_meta += 1
+    print(
+        f"\nRelics: {has_relic_image}/{len(relic_ids)} images, "
+        f"{has_relic_meta}/{len(relic_ids)} with metadata  →  {relic_output}\n"
+    )
 
     print("Discovering potion IDs from run files…")
     potion_ids = collect_potion_ids_from_runs(history_path)
     print(f"Found {len(potion_ids)} unique potion IDs.\n")
-    print("Fetching potion images from sts2.untapped.gg (with wiki fallback)…")
-    dl_potions = scrape_potion_images(potion_ids, potion_output, verbose=True)
-    print(f"\nPotions: downloaded {len(dl_potions)}/{len(potion_ids)} images → {potion_output}\n")
+    print("Fetching potion data from sts2.untapped.gg (images + metadata)…")
+    potion_data = scrape_potion_data(potion_ids, potion_output, verbose=True)
+    has_potion_image = has_potion_meta = 0
+    for v in potion_data.values():
+        if v.get("has_image"):
+            has_potion_image += 1
+        if v.get("pool") or v.get("rarity"):
+            has_potion_meta += 1
+    print(
+        f"\nPotions: {has_potion_image}/{len(potion_ids)} images, "
+        f"{has_potion_meta}/{len(potion_ids)} with metadata  →  {potion_output}\n"
+    )
