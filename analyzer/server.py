@@ -22,6 +22,7 @@ from .stats import (
     compute_rest_sites,
     compute_run_detail,
     compute_runs_list,
+    compute_shop_stats,
     filter_runs,
     get_ancients,
     get_ascensions,
@@ -161,6 +162,11 @@ def create_app(history_path: str) -> Flask:
     def api_events():
         runs = filter_runs(_load(), **_filters())
         return jsonify(compute_events(runs))
+
+    @app.route("/api/shops")
+    def api_shops():
+        runs = filter_runs(_load(), **_filters())
+        return jsonify(compute_shop_stats(runs))
 
     @app.route("/api/runs")
     def api_runs():

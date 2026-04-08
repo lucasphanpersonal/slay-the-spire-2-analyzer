@@ -15,6 +15,7 @@ from .parser import (
     extract_potion_events,
     extract_relic_events,
     extract_rest_sites,
+    extract_shop_events,
     get_character,
     get_run_id,
     is_abandoned_first_floor,
@@ -825,3 +826,147 @@ def compute_potions(
 
     results.sort(key=lambda x: x["offered_runs"], reverse=True)
     return results
+
+
+# ── Shop stats ────────────────────────────────────────────────────────────────
+
+def compute_shop_stats(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Compute statistics about shop purchases and card removals.
+
+    Returns:
+        ``{
+            "overview": {
+                "total_shop_visits": int,
+                "runs_with_removal": int,
+                "pct_runs_with_removal": float,
+                "avg_removals_per_run": float,
+            },
+            "card_removals": [{"card": str, "removed_runs": int, "total_removals": int, "win_rate": float|None}, ...],
+            "cards_purchased": [{"card": str, "is_colorless": bool, "purchased_runs": int, "win_rate": float|None}, ...],
+            "relics_purchased": [{"relic": str, "purchased_runs": int, "win_rate": float|None}, ...],
+            "potions_purchased": [{"potion": str, "purchased_runs": int, "win_rate": float|None}, ...],
+        }``
+    """
+    # Per-card removal tracking
+    removal_runs: Dict[str, Set[str]] = defaultdict(set)
+    removal_counts: Dict[str, int] = defaultdict(int)
+    removal_win: Dict[str, Set[str]] = defaultdict(set)
+
+    # Per-card purchase tracking
+    card_purchase_runs: Dict[str, Set[str]] = defaultdict(set)
+    card_is_colorless: Dict[str, bool] = {}
+    card_purchase_win: Dict[str, Set[str]] = defaultdict(set)
+
+    # Per-relic purchase tracking
+    relic_purchase_runs: Dict[str, Set[str]] = defaultdict(set)
+    relic_purchase_win: Dict[str, Set[str]] = defaultdict(set)
+
+    # Per-potion purchase tracking
+    potion_purchase_runs: Dict[str, Set[str]] = defaultdict(set)
+    potion_purchase_win: Dict[str, Set[str]] = defaultdict(set)
+
+    total_shop_visits = 0
+    runs_with_removal: Set[str] = set()
+    total_removals_by_run: Dict[str, int] = defaultdict(int)
+
+    for run in runs:
+        run_id = get_run_id(run)
+        run_win = run.get("win", False)
+
+        for shop in extract_shop_events(run):
+            total_shop_visits += 1
+
+            for entry in shop["cards_purchased"]:
+                card = entry["card"]
+                card_purchase_runs[card].add(run_id)
+                card_is_colorless[card] = entry["is_colorless"]
+                if run_win:
+                    card_purchase_win[card].add(run_id)
+
+            for relic in shop["relics_purchased"]:
+                relic_purchase_runs[relic].add(run_id)
+                if run_win:
+                    relic_purchase_win[relic].add(run_id)
+
+            for potion in shop["potions_purchased"]:
+                potion_purchase_runs[potion].add(run_id)
+                if run_win:
+                    potion_purchase_win[potion].add(run_id)
+
+            for card in shop["cards_removed"]:
+                removal_runs[card].add(run_id)
+                removal_counts[card] += 1
+                total_removals_by_run[run_id] += 1
+                if run_win:
+                    removal_win[card].add(run_id)
+                runs_with_removal.add(run_id)
+
+    total_runs = len(runs)
+    runs_with_removal_count = len(runs_with_removal)
+    pct_removal = runs_with_removal_count / total_runs if total_runs else 0.0
+    avg_removals = (
+        sum(total_removals_by_run.values()) / total_runs if total_runs else 0.0
+    )
+
+    # Build card_removals list
+    card_removals: List[Dict[str, Any]] = []
+    for card, run_set in removal_runs.items():
+        won_set = removal_win.get(card, set())
+        win_rate = len(won_set) / len(run_set) if run_set else None
+        card_removals.append({
+            "card": card,
+            "removed_runs": len(run_set),
+            "total_removals": removal_counts[card],
+            "win_rate": round(win_rate, 4) if win_rate is not None else None,
+        })
+    card_removals.sort(key=lambda x: x["removed_runs"], reverse=True)
+
+    # Build cards_purchased list
+    cards_purchased: List[Dict[str, Any]] = []
+    for card, run_set in card_purchase_runs.items():
+        won_set = card_purchase_win.get(card, set())
+        win_rate = len(won_set) / len(run_set) if run_set else None
+        cards_purchased.append({
+            "card": card,
+            "is_colorless": card_is_colorless.get(card, False),
+            "purchased_runs": len(run_set),
+            "win_rate": round(win_rate, 4) if win_rate is not None else None,
+        })
+    cards_purchased.sort(key=lambda x: x["purchased_runs"], reverse=True)
+
+    # Build relics_purchased list
+    relics_purchased: List[Dict[str, Any]] = []
+    for relic, run_set in relic_purchase_runs.items():
+        won_set = relic_purchase_win.get(relic, set())
+        win_rate = len(won_set) / len(run_set) if run_set else None
+        relics_purchased.append({
+            "relic": relic,
+            "purchased_runs": len(run_set),
+            "win_rate": round(win_rate, 4) if win_rate is not None else None,
+        })
+    relics_purchased.sort(key=lambda x: x["purchased_runs"], reverse=True)
+
+    # Build potions_purchased list
+    potions_purchased: List[Dict[str, Any]] = []
+    for potion, run_set in potion_purchase_runs.items():
+        won_set = potion_purchase_win.get(potion, set())
+        win_rate = len(won_set) / len(run_set) if run_set else None
+        potions_purchased.append({
+            "potion": potion,
+            "purchased_runs": len(run_set),
+            "win_rate": round(win_rate, 4) if win_rate is not None else None,
+        })
+    potions_purchased.sort(key=lambda x: x["purchased_runs"], reverse=True)
+
+    return {
+        "overview": {
+            "total_shop_visits": total_shop_visits,
+            "runs_with_removal": runs_with_removal_count,
+            "pct_runs_with_removal": round(pct_removal, 4),
+            "avg_removals_per_run": round(avg_removals, 2),
+        },
+        "card_removals": card_removals,
+        "cards_purchased": cards_purchased,
+        "relics_purchased": relics_purchased,
+        "potions_purchased": potions_purchased,
+    }
