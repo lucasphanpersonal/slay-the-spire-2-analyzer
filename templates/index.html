@@ -1326,6 +1326,7 @@ async function loadRuns() {
   try {
     const data = await apiFetch('runs');
     currentRunsData = data;
+    populateRunsFilterDropdowns(data);
     const filtered = applyRunsFilter(data);
     updateRunsFilterCount(filtered.length, data.length);
     renderRuns(filtered);
@@ -1351,7 +1352,7 @@ function renderRuns(data) {
     const deckLabel = enchantedCount > 0
       ? `${r.deck_size} <span class="enchant-count">(✦${enchantedCount})</span>`
       : String(r.deck_size);
-    rows.push(`<tr data-run-idx="${idx}">
+    rows.push(`<tr data-run-idx="${idx}" data-run-filename="${esc(r.filename || '')}">
       <td><strong>${r.character.replace(/_/g,' ')}</strong></td>
       <td>${r.win ? '<span class="badge badge-win">WIN</span>' : '<span class="badge badge-loss">LOSS</span>'}</td>
       <td>${r.ascension}</td>
@@ -1389,10 +1390,9 @@ function renderRuns(data) {
   // Make run rows open detail modal on click
   tbody.querySelectorAll('tr[data-run-idx]').forEach(row => {
     row.addEventListener('click', () => {
-      const idx = parseInt(row.dataset.runIdx, 10);
-      const run = !isNaN(idx) ? currentRunsData[idx] : null;
-      if (run && run.filename) {
-        openRunDetail(run.filename);
+      const filename = row.dataset.runFilename;
+      if (filename) {
+        openRunDetail(filename);
       }
     });
   });
@@ -1976,13 +1976,13 @@ document.getElementById('runs-filter-max-damage').addEventListener('input', e =>
 document.getElementById('runs-filter-min-gold').addEventListener('input', e => {
   state.runsFilter.minGold = e.target.value; _runsFilterRerender();
 });
-document.getElementById('runs-filter-killed-by').addEventListener('input', e => {
+document.getElementById('runs-filter-killed-by').addEventListener('change', e => {
   state.runsFilter.killedBy = e.target.value; _runsFilterRerender();
 });
-document.getElementById('runs-filter-has-relic').addEventListener('input', e => {
+document.getElementById('runs-filter-has-relic').addEventListener('change', e => {
   state.runsFilter.hasRelic = e.target.value; _runsFilterRerender();
 });
-document.getElementById('runs-filter-has-card').addEventListener('input', e => {
+document.getElementById('runs-filter-has-card').addEventListener('change', e => {
   state.runsFilter.hasCard = e.target.value; _runsFilterRerender();
 });
 
