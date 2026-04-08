@@ -541,6 +541,68 @@ def scrape_card_data(
 
 # ── Card ID discovery ─────────────────────────────────────────────────────────
 
+def _slug_to_card_id(slug: str) -> str:
+    """Convert an untapped.gg card slug back to a card ID.
+
+    Examples:
+        bash          → BASH
+        all-for-one   → ALL_FOR_ONE
+        setup-strike  → SETUP_STRIKE
+    """
+    return slug.upper().replace("-", "_")
+
+
+def fetch_all_card_ids_from_untapped() -> List[str]:
+    """Fetch the full list of card IDs from sts2.untapped.gg/en/cards.
+
+    Parses card slug links (``/en/cards/<slug>``) from the page HTML and the
+    embedded ``__NEXT_DATA__`` JSON blob, then converts each slug to a card ID.
+
+    Returns a sorted list of unique card IDs, or an empty list on failure.
+    """
+    url = f"{UNTAPPED_BASE}{UNTAPPED_CARDS_PATH}"
+    html_bytes = _get(url)
+    if not html_bytes:
+        return []
+
+    try:
+        html = html_bytes.decode("utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        return []
+
+    slugs: Set[str] = set()
+
+    # 1. Extract slugs from <a href="/en/cards/{slug}"> links in the HTML.
+    #    The slug portion must contain at least one letter to avoid bare
+    #    pagination or locale segments.
+    for slug in re.findall(
+        r'href=["\'](?:/[a-z]{2})?/cards/([A-Za-z][A-Za-z0-9\-]*)["\']',
+        html,
+    ):
+        slugs.add(slug.lower())
+
+    # 2. Also mine the __NEXT_DATA__ blob for any card slug paths we may have
+    #    missed (e.g. in pre-fetched route props or server-side JSON payloads).
+    next_match = re.search(
+        r'<script[^>]+id=["\']__NEXT_DATA__["\'][^>]*>(.*?)</script>',
+        html,
+        re.DOTALL | re.IGNORECASE,
+    )
+    if next_match:
+        try:
+            next_json_str = next_match.group(1)
+            # Pull every "/en/cards/<slug>" occurrence from the raw JSON text.
+            for slug in re.findall(
+                r'/cards/([A-Za-z][A-Za-z0-9\-]*)',
+                next_json_str,
+            ):
+                slugs.add(slug.lower())
+        except Exception:  # noqa: BLE001
+            pass
+
+    return sorted(_slug_to_card_id(s) for s in slugs)
+
+
 def collect_card_ids_from_runs(history_path: str) -> List[str]:
     """Return all unique card IDs found in *.run files under *history_path*."""
     from .parser import load_run_files, _strip_prefix
@@ -578,9 +640,21 @@ def run_scrape(history_path: str, output_dir: str) -> None:
     print(f"   History path : {history_path}")
     print(f"   Output dir   : {output_dir}\n")
 
+    # Primary: fetch the full card catalogue directly from untapped.gg
+    print("Fetching full card list from sts2.untapped.gg/en/cards…")
+    site_ids = fetch_all_card_ids_from_untapped()
+    if site_ids:
+        print(f"Found {len(site_ids)} card IDs from site.")
+    else:
+        print("  ⚠  Could not fetch card list from site; falling back to run history.")
+
+    # Secondary: cards seen in local run history (union ensures none are missed)
     print("Discovering card IDs from run files…")
-    card_ids = collect_card_ids_from_runs(history_path)
-    print(f"Found {len(card_ids)} unique card IDs.\n")
+    run_ids = collect_card_ids_from_runs(history_path)
+    print(f"Found {len(run_ids)} unique card IDs from run history.")
+
+    card_ids = sorted(set(site_ids) | set(run_ids))
+    print(f"Total unique card IDs to scrape: {len(card_ids)}\n")
 
     print("Fetching card data from sts2.untapped.gg (images + metadata)…")
     card_data = scrape_card_data(card_ids, output_dir, verbose=True)
