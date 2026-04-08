@@ -228,6 +228,7 @@
           <th class="sort-icon" data-col="count">Times Faced</th>
           <th class="sort-icon" data-col="avg_damage">Avg Damage Taken</th>
           <th class="sort-icon" data-col="avg_turns">Avg Turns</th>
+          <th class="sort-icon" data-col="death_rate">Death Rate</th>
         </tr></thead>
         <tbody id="encounters-tbody"></tbody>
       </table>
@@ -597,8 +598,9 @@ function renderEncounters(data) {
         <td>${r.count}</td>
         <td>${r.avg_damage}</td>
         <td>${r.avg_turns ?? '—'}</td>
+        <td>${pct(r.death_rate)}</td>
       </tr>`).join('')
-    : '<tr><td colspan="5" class="empty-state">No encounter data</td></tr>';
+    : '<tr><td colspan="6" class="empty-state">No encounter data</td></tr>';
 }
 
 // ────────────────────────────────────────────────────────────────────────────

@@ -271,22 +271,31 @@ def compute_relics(runs: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]
 # ── Encounters ────────────────────────────────────────────────────────────────
 
 def compute_encounters(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Compute avg damage taken and encounter count per named encounter."""
+    """Compute avg damage taken, encounter count, and death rate per named encounter."""
     enc_damage: Dict[str, List[int]] = defaultdict(list)
     enc_turns: Dict[str, List[int]] = defaultdict(list)
     enc_type: Dict[str, str] = {}
+    enc_deaths: Dict[str, int] = defaultdict(int)
+    enc_runs_faced: Dict[str, Set[str]] = defaultdict(set)
 
     for run in runs:
+        run_id = get_run_id(run)
+        killed_by = run_killed_by(run)
         for enc in extract_encounters(run):
             name = enc["name"]
             enc_damage[name].append(enc["damage_taken"])
             enc_type[name] = enc["type"]
             if enc["turns"] is not None:
                 enc_turns[name].append(enc["turns"])
+            enc_runs_faced[name].add(run_id)
+        if killed_by:
+            enc_deaths[killed_by] += 1
 
     results: List[Dict[str, Any]] = []
     for name, damages in enc_damage.items():
         turns = enc_turns.get(name, [])
+        runs_faced = len(enc_runs_faced.get(name, set()))
+        deaths = enc_deaths.get(name, 0)
         results.append(
             {
                 "name": name,
@@ -294,6 +303,8 @@ def compute_encounters(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                 "count": len(damages),
                 "avg_damage": round(sum(damages) / len(damages), 1),
                 "avg_turns": round(sum(turns) / len(turns), 1) if turns else None,
+                "deaths": deaths,
+                "death_rate": round(deaths / runs_faced, 4) if runs_faced else 0.0,
             }
         )
     results.sort(key=lambda x: x["count"], reverse=True)
