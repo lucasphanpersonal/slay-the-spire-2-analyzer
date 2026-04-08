@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional, Set
 from .parser import (
     CHOICE_SOURCES,
     extract_card_choices,
+    extract_deck_cards,
     extract_encounters,
     extract_relic_events,
     extract_rest_sites,
@@ -145,15 +146,21 @@ def compute_cards(
     runs: List[Dict[str, Any]],
     min_offered: int = 1,
 ) -> List[Dict[str, Any]]:
-    """Compute per-card pick-rate and win-rate.
+    """Compute per-card pick-rate, win-rate, and upgrade statistics.
 
     Win rate and pick rate are tracked **per run** (not per offering) to avoid
     inflating stats when a card is offered multiple times in one run.
+
+    Upgrade stats (avg_upgrade_level, pct_upgraded) are derived from the
+    final deck state across all runs where the card appears.
     """
     # run-level sets: offered_runs[card], picked_runs[card], win_runs[card]
     offered_runs: Dict[str, Set[str]] = defaultdict(set)
     picked_runs: Dict[str, Set[str]] = defaultdict(set)
     win_runs: Dict[str, Set[str]] = defaultdict(set)
+
+    # upgrade tracking from final decks: list of upgrade levels per card
+    deck_upgrade_levels: Dict[str, List[int]] = defaultdict(list)
 
     for run in runs:
         run_id = get_run_id(run)
@@ -168,6 +175,10 @@ def compute_cards(
                 if run_win:
                     win_runs[picked].add(run_id)
 
+        for deck_card in extract_deck_cards(run):
+            card = deck_card["card"]
+            deck_upgrade_levels[card].append(deck_card["upgrade_level"])
+
     results: List[Dict[str, Any]] = []
     for card, offered_set in offered_runs.items():
         if len(offered_set) < min_offered:
@@ -176,6 +187,11 @@ def compute_cards(
         won_set = win_runs.get(card, set())
         pick_rate = len(picked_set) / len(offered_set) if offered_set else 0.0
         win_rate = len(won_set) / len(picked_set) if picked_set else None
+
+        upgrade_levels = deck_upgrade_levels.get(card, [])
+        avg_upgrade = round(sum(upgrade_levels) / len(upgrade_levels), 2) if upgrade_levels else None
+        pct_upgraded = round(sum(1 for u in upgrade_levels if u > 0) / len(upgrade_levels), 4) if upgrade_levels else None
+
         results.append(
             {
                 "card": card,
@@ -183,6 +199,8 @@ def compute_cards(
                 "picked_runs": len(picked_set),
                 "pick_rate": round(pick_rate, 4),
                 "win_rate": round(win_rate, 4) if win_rate is not None else None,
+                "avg_upgrade_level": avg_upgrade,
+                "pct_upgraded": pct_upgraded,
             }
         )
 

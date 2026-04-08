@@ -316,6 +316,27 @@ def run_deck_size(run: Dict[str, Any]) -> int:
     return 0
 
 
+def extract_deck_cards(run: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Return final deck cards with their upgrade levels.
+
+    Returns a list of dicts:
+        ``{"card": str, "upgrade_level": int}``
+    """
+    players = run.get("players", [])
+    if not players:
+        return []
+    deck = players[0].get("deck") or []
+    result: List[Dict[str, Any]] = []
+    for card in deck:
+        card_id = _strip_prefix(card.get("id", "")) if isinstance(card, dict) else ""
+        if card_id:
+            result.append({
+                "card": card_id,
+                "upgrade_level": card.get("current_upgrade_level", 0) or 0,
+            })
+    return result
+
+
 def run_acts_reached(run: Dict[str, Any]) -> int:
     return len(run.get("map_point_history", []))
 
