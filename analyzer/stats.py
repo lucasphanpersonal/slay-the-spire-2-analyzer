@@ -206,10 +206,12 @@ def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
     fastest_win_s: Optional[float] = min(win_times) if win_times else None
 
     # Close-call wins: won with ≤5 HP remaining
-    close_call_wins = sum(
-        1 for r in runs
-        if r.get("win") and (run_final_hp(r) is not None) and run_final_hp(r) <= 5
-    )
+    close_call_wins = 0
+    for r in runs:
+        if r.get("win"):
+            final_hp = run_final_hp(r)
+            if final_hp is not None and final_hp <= 5:
+                close_call_wins += 1
 
     return {
         "total_runs": total,
