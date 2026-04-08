@@ -86,9 +86,7 @@ Output example:
 Drop your `.run` files into the `history/` folder (subdirectories are supported).
 
 Your run files are typically located at:
-- **Windows:** `%APPDATA%\SlayTheSpire2\saves\<profile>\run_history\`
-- **macOS:** `~/Library/Application Support/SlayTheSpire2/saves/<profile>/run_history/`
-- **Linux:** `~/.local/share/SlayTheSpire2/saves/<profile>/run_history/`
+- **Windows:** `C:\Users\lucas\AppData\Roaming\SlayTheSpire2\steam\76561198000002844\profile1\saves\history`
 
 ## Expected `.run` file schema
 
