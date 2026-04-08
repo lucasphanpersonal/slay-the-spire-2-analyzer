@@ -420,6 +420,55 @@
 
   <!-- RUNS TAB -->
   <div id="tab-runs" class="tab-pane" style="display:none">
+    <!-- Runs-specific filter panel -->
+    <div id="runs-filter-bar" class="mb-3 p-3 rounded" style="background:var(--sts-surface);border:1px solid var(--sts-border)">
+      <div class="d-flex flex-wrap gap-3 align-items-end">
+        <div>
+          <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Result</label>
+          <select id="runs-filter-result" class="form-select form-select-sm" style="width:110px">
+            <option value="">All</option>
+            <option value="win">Win</option>
+            <option value="loss">Loss</option>
+          </select>
+        </div>
+        <div>
+          <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Min Acts</label>
+          <input type="number" id="runs-filter-min-acts" class="form-control form-control-sm" placeholder="—" min="0" style="width:80px" />
+        </div>
+        <div>
+          <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Max Acts</label>
+          <input type="number" id="runs-filter-max-acts" class="form-control form-control-sm" placeholder="—" min="0" style="width:80px" />
+        </div>
+        <div>
+          <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Min HP %</label>
+          <input type="number" id="runs-filter-min-hp-pct" class="form-control form-control-sm" placeholder="—" min="0" max="100" style="width:80px" />
+        </div>
+        <div>
+          <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Max Dmg</label>
+          <input type="number" id="runs-filter-max-damage" class="form-control form-control-sm" placeholder="—" min="0" style="width:90px" />
+        </div>
+        <div>
+          <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Min Gold</label>
+          <input type="number" id="runs-filter-min-gold" class="form-control form-control-sm" placeholder="—" min="0" style="width:90px" />
+        </div>
+        <div>
+          <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Killed By</label>
+          <input type="text" id="runs-filter-killed-by" class="form-control form-control-sm" placeholder="partial match…" style="width:150px" />
+        </div>
+        <div>
+          <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Has Relic</label>
+          <input type="text" id="runs-filter-has-relic" class="form-control form-control-sm" placeholder="partial match…" style="width:150px" />
+        </div>
+        <div>
+          <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Has Card</label>
+          <input type="text" id="runs-filter-has-card" class="form-control form-control-sm" placeholder="partial match…" style="width:150px" />
+        </div>
+        <div class="d-flex gap-2 align-items-end">
+          <button id="runs-filter-clear" class="btn btn-sm" style="background:var(--sts-border);color:var(--sts-text);border:none" onclick="clearRunsFilter()">Clear filters</button>
+          <span id="runs-filter-count" style="color:var(--sts-muted);font-size:.85rem;white-space:nowrap"></span>
+        </div>
+      </div>
+    </div>
     <div id="runs-loading" class="loading">Loading…</div>
     <div id="runs-content" style="display:none">
       <table class="table table-sm" id="runs-table">
@@ -553,6 +602,18 @@ const state = {
   cache: {},
   // sort state per table
   sort: {},
+  // runs-tab local filters
+  runsFilter: {
+    result: '',       // '' | 'win' | 'loss'
+    minActs: '',
+    maxActs: '',
+    minHpPct: '',
+    maxDamage: '',
+    minGold: '',
+    killedBy: '',
+    hasRelic: '',
+    hasCard: '',
+  },
 };
 let actsChart = null, killsChart = null, restChart = null;
 
@@ -1157,13 +1218,87 @@ function renderEvents(data) {
 // RUNS
 // ────────────────────────────────────────────────────────────────────────────
 let currentRunsData = [];
+
+// Apply the runs-tab local filters to a full data array and return the subset.
+function applyRunsFilter(data) {
+  const f = state.runsFilter;
+  const killedBy = f.killedBy.trim().toLowerCase();
+  const hasRelic = f.hasRelic.trim().toLowerCase();
+  const hasCard  = f.hasCard.trim().toLowerCase();
+  const minActs    = f.minActs    !== '' ? parseInt(f.minActs, 10)    : null;
+  const maxActs    = f.maxActs    !== '' ? parseInt(f.maxActs, 10)    : null;
+  const minHpPct   = f.minHpPct   !== '' ? parseFloat(f.minHpPct)    : null;
+  const maxDamage  = f.maxDamage  !== '' ? parseInt(f.maxDamage, 10)  : null;
+  const minGold    = f.minGold    !== '' ? parseInt(f.minGold, 10)    : null;
+
+  return data.filter(r => {
+    if (f.result === 'win'  && !r.win)  return false;
+    if (f.result === 'loss' && r.win)   return false;
+    if (minActs  !== null && r.acts_reached < minActs)   return false;
+    if (maxActs  !== null && r.acts_reached > maxActs)   return false;
+    if (minHpPct !== null) {
+      const hpPct = (r.max_hp && r.hp != null) ? (r.hp / r.max_hp * 100) : 0;
+      if (hpPct < minHpPct) return false;
+    }
+    if (maxDamage !== null && r.total_damage > maxDamage) return false;
+    if (minGold   !== null && (r.gold ?? 0) < minGold)    return false;
+    if (killedBy) {
+      const kb = (r.killed_by || '').toLowerCase();
+      if (!kb.includes(killedBy)) return false;
+    }
+    if (hasRelic) {
+      const found = (r.relics || []).some(rel => rel.toLowerCase().includes(hasRelic));
+      if (!found) return false;
+    }
+    if (hasCard) {
+      const found = (r.deck || []).some(c => (c.id || '').toLowerCase().includes(hasCard));
+      if (!found) return false;
+    }
+    return true;
+  });
+}
+
+// Update the "X of Y runs" badge next to the clear button.
+function updateRunsFilterCount(filtered, total) {
+  const el = document.getElementById('runs-filter-count');
+  if (!el) return;
+  const active = isRunsFilterActive();
+  el.textContent = active ? `${filtered} of ${total} runs` : '';
+}
+
+function isRunsFilterActive() {
+  const f = state.runsFilter;
+  return f.result !== '' || f.minActs !== '' || f.maxActs !== '' ||
+    f.minHpPct !== '' || f.maxDamage !== '' || f.minGold !== '' ||
+    f.killedBy.trim() !== '' || f.hasRelic.trim() !== '' || f.hasCard.trim() !== '';
+}
+
+function clearRunsFilter() {
+  state.runsFilter = { result: '', minActs: '', maxActs: '', minHpPct: '',
+    maxDamage: '', minGold: '', killedBy: '', hasRelic: '', hasCard: '' };
+  // Reset UI controls
+  document.getElementById('runs-filter-result').value    = '';
+  document.getElementById('runs-filter-min-acts').value  = '';
+  document.getElementById('runs-filter-max-acts').value  = '';
+  document.getElementById('runs-filter-min-hp-pct').value= '';
+  document.getElementById('runs-filter-max-damage').value= '';
+  document.getElementById('runs-filter-min-gold').value  = '';
+  document.getElementById('runs-filter-killed-by').value = '';
+  document.getElementById('runs-filter-has-relic').value = '';
+  document.getElementById('runs-filter-has-card').value  = '';
+  const filtered = applyRunsFilter(currentRunsData);
+  updateRunsFilterCount(filtered.length, currentRunsData.length);
+  renderRuns(filtered);
+}
 async function loadRuns() {
   showLoading('runs-loading'); hideContent('runs-content');
   try {
     const data = await apiFetch('runs');
     currentRunsData = data;
-    renderRuns(data);
-    initSort('runs-table', data, d => { currentRunsData = d; renderRuns(d); });
+    const filtered = applyRunsFilter(data);
+    updateRunsFilterCount(filtered.length, data.length);
+    renderRuns(filtered);
+    initSort('runs-table', filtered, d => renderRuns(d));
     showContent('runs-content');
   } catch(e) { showError('Failed to load runs: ' + e.message); }
   hideLoading('runs-loading');
@@ -1780,6 +1915,44 @@ document.querySelectorAll('#relic-subtabs .nav-link').forEach(link => {
     link.style.cssText = '';
     renderRelicSubtab(state.relicSubtab);
   });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// Runs-tab local filter wiring
+// ────────────────────────────────────────────────────────────────────────────
+function _runsFilterRerender() {
+  const filtered = applyRunsFilter(currentRunsData);
+  updateRunsFilterCount(filtered.length, currentRunsData.length);
+  renderRuns(filtered);
+  initSort('runs-table', filtered, d => renderRuns(d));
+}
+
+document.getElementById('runs-filter-result').addEventListener('change', e => {
+  state.runsFilter.result = e.target.value; _runsFilterRerender();
+});
+document.getElementById('runs-filter-min-acts').addEventListener('input', e => {
+  state.runsFilter.minActs = e.target.value; _runsFilterRerender();
+});
+document.getElementById('runs-filter-max-acts').addEventListener('input', e => {
+  state.runsFilter.maxActs = e.target.value; _runsFilterRerender();
+});
+document.getElementById('runs-filter-min-hp-pct').addEventListener('input', e => {
+  state.runsFilter.minHpPct = e.target.value; _runsFilterRerender();
+});
+document.getElementById('runs-filter-max-damage').addEventListener('input', e => {
+  state.runsFilter.maxDamage = e.target.value; _runsFilterRerender();
+});
+document.getElementById('runs-filter-min-gold').addEventListener('input', e => {
+  state.runsFilter.minGold = e.target.value; _runsFilterRerender();
+});
+document.getElementById('runs-filter-killed-by').addEventListener('input', e => {
+  state.runsFilter.killedBy = e.target.value; _runsFilterRerender();
+});
+document.getElementById('runs-filter-has-relic').addEventListener('input', e => {
+  state.runsFilter.hasRelic = e.target.value; _runsFilterRerender();
+});
+document.getElementById('runs-filter-has-card').addEventListener('input', e => {
+  state.runsFilter.hasCard = e.target.value; _runsFilterRerender();
 });
 
 // ────────────────────────────────────────────────────────────────────────────
