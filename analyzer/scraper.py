@@ -6,6 +6,7 @@ import json
 import os
 import re
 import time
+from html.parser import HTMLParser
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -153,6 +154,145 @@ def _extract_from_next_data(
     _walk_for_card_fields(next_data, result)
 
 
+class _CardMetaParser(HTMLParser):
+    """SAX-style HTML parser that extracts card metadata from untapped.gg pages.
+
+    Collects:
+    * ``<dt>/<dd>`` label/value pairs from the ``ItemDetailGrid`` definition list
+      (character, card type, cost, rarity).
+    * Inner text of any ``<div>`` whose ``class`` contains ``description`` (card
+      description text).
+    * Inner text of any ``<div>`` whose ``class`` contains ``upgradeDetails``
+      (upgraded description text).
+
+    All content is accumulated via ``feed(html)`` and the extracted values are
+    available in ``self.result`` afterwards.
+    """
+
+    # Map normalised <dt> label text → result field name
+    _LABEL_MAP: Dict[str, str] = {
+        "character": "character",
+        "class": "character",
+        "type": "card_type",
+        "card type": "card_type",
+        "cost": "cost",
+        "energy": "cost",
+        "rarity": "rarity",
+        "tier": "rarity",
+    }
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.result: Dict[str, Any] = {
+            "character": None,
+            "card_type": None,
+            "cost": None,
+            "rarity": None,
+            "description": None,
+            "description_upgraded": None,
+        }
+        # Track current <dt>/<dd> collection state
+        self._in_dt: bool = False
+        self._in_dd: bool = False
+        self._current_label: str = ""
+        self._current_value: str = ""
+        # Track description/upgradeDetails <div> depth-counting
+        self._desc_div_depth: int = 0          # >0 while inside description div
+        self._upg_div_depth: int = 0           # >0 while inside upgradeDetails div
+        self._desc_text: List[str] = []
+        self._upg_text: List[str] = []
+
+    # ── HTML event handlers ───────────────────────────────────────────────────
+
+    def handle_starttag(self, tag: str, attrs: list) -> None:
+        tag = tag.lower()
+        attr_dict = dict(attrs)
+        css_class = attr_dict.get("class", "") or ""
+
+        if tag == "dt":
+            self._in_dt = True
+            self._current_label = ""
+        elif tag == "dd":
+            self._in_dd = True
+            self._current_value = ""
+        elif tag == "div":
+            if self._desc_div_depth > 0:
+                self._desc_div_depth += 1
+            elif "description" in css_class and self.result.get("description") is None:
+                self._desc_div_depth = 1
+                self._desc_text = []
+
+            if self._upg_div_depth > 0:
+                self._upg_div_depth += 1
+            elif "upgradeDetails" in css_class and self.result.get("description_upgraded") is None:
+                self._upg_div_depth = 1
+                self._upg_text = []
+
+    def handle_endtag(self, tag: str) -> None:
+        tag = tag.lower()
+        if tag == "dt":
+            self._in_dt = False
+        elif tag == "dd":
+            self._in_dd = False
+            label = self._current_label.strip().lower()
+            value = self._current_value.strip()
+            field = self._LABEL_MAP.get(label)
+            if field and self.result.get(field) is None and value:
+                if field == "cost":
+                    try:
+                        self.result[field] = int(value)
+                    except ValueError:
+                        self.result[field] = value
+                else:
+                    self.result[field] = value
+        elif tag == "div":
+            if self._desc_div_depth > 0:
+                self._desc_div_depth -= 1
+                if self._desc_div_depth == 0:
+                    text = " ".join(self._desc_text).strip()
+                    if text:
+                        self.result["description"] = text
+            if self._upg_div_depth > 0:
+                self._upg_div_depth -= 1
+                if self._upg_div_depth == 0:
+                    text = " ".join(self._upg_text).strip()
+                    if text:
+                        self.result["description_upgraded"] = text
+
+    def handle_data(self, data: str) -> None:
+        if self._in_dt:
+            self._current_label += data
+        elif self._in_dd:
+            self._current_value += data
+        if self._desc_div_depth > 0:
+            self._desc_text.append(data)
+        if self._upg_div_depth > 0:
+            self._upg_text.append(data)
+
+
+def _parse_html_metadata(html: str, result: Dict[str, Any]) -> None:
+    """Extract card metadata directly from server-rendered HTML.
+
+    Reads ``<dt>/<dd>`` label/value pairs found inside ``ItemDetailGrid``
+    definition lists and maps them to the *result* dict.  Also reads the card
+    description from the dedicated description ``<div>`` and the upgraded
+    description from the ``upgradeDetails`` ``<div>``.
+
+    Only fills in fields that are still ``None`` in *result* (does not overwrite
+    values already extracted from, e.g., ``__NEXT_DATA__``).
+    """
+    parser = _CardMetaParser()
+    try:
+        parser.feed(html)
+    except Exception:  # noqa: BLE001
+        pass
+
+    parsed = parser.result
+    for field in ("character", "card_type", "cost", "rarity", "description", "description_upgraded"):
+        if result.get(field) is None and parsed.get(field) is not None:
+            result[field] = parsed[field]
+
+
 def _fetch_card_page_data(card_id: str) -> Dict[str, Any]:
     """Fetch the untapped.gg card page for *card_id* and extract all available data.
 
@@ -209,7 +349,10 @@ def _fetch_card_page_data(card_id: str) -> Dict[str, Any]:
         except Exception:  # noqa: BLE001
             pass
 
-    # 3. Fallback: any <img src="..."> whose URL contains the card slug
+    # 3. Server-rendered HTML <dt>/<dd> metadata (ItemDetailGrid + description divs)
+    _parse_html_metadata(html, result)
+
+    # 4. Fallback: any <img src="..."> whose URL contains the card slug
     if not result["image_url"]:
         img_matches = re.findall(
             r'<img[^>]+src=["\'](https?://[^"\']+)["\']',
