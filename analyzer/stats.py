@@ -31,6 +31,7 @@ def filter_runs(
     runs: List[Dict[str, Any]],
     *,
     character: Optional[str] = None,
+    ascension: Optional[int] = None,
     exclude_multiplayer: bool = True,
     exclude_abandoned: bool = True,
 ) -> List[Dict[str, Any]]:
@@ -42,6 +43,8 @@ def filter_runs(
         All loaded run dicts.
     character:
         If provided, keep only runs matching this character (e.g. "IRONCLAD").
+    ascension:
+        If provided, keep only runs at exactly this ascension level.
     exclude_multiplayer:
         When True, discard runs with ``players.length > 1``.
     exclude_abandoned:
@@ -58,6 +61,8 @@ def filter_runs(
             continue
         if character and get_character(run) != character:
             continue
+        if ascension is not None and run.get("ascension", 0) != ascension:
+            continue
 
         # Dedup by seed
         rid = get_run_id(run)
@@ -73,6 +78,12 @@ def get_characters(runs: List[Dict[str, Any]]) -> List[str]:
     """Return sorted unique character names present in *runs*."""
     chars = {get_character(r) for r in runs}
     return sorted(chars)
+
+
+def get_ascensions(runs: List[Dict[str, Any]]) -> List[int]:
+    """Return sorted unique ascension levels present in *runs*."""
+    levels = {r.get("ascension", 0) for r in runs}
+    return sorted(levels)
 
 
 # ── Overview ──────────────────────────────────────────────────────────────────
