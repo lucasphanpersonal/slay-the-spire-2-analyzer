@@ -85,6 +85,14 @@
     .card-art-placeholder { width: 48px; height: 48px; background: var(--sts-border); border-radius: 4px;
                              display: inline-flex; align-items: center; justify-content: center;
                              font-size: 1.3rem; color: var(--sts-muted); }
+    .relic-art { width: 40px; height: 40px; object-fit: contain; border-radius: 4px; }
+    .relic-art-placeholder { width: 40px; height: 40px; background: var(--sts-border); border-radius: 4px;
+                              display: inline-flex; align-items: center; justify-content: center;
+                              font-size: 1.1rem; color: var(--sts-muted); }
+    .potion-art { width: 36px; height: 36px; object-fit: contain; border-radius: 4px; }
+    .potion-art-placeholder { width: 36px; height: 36px; background: var(--sts-border); border-radius: 4px;
+                               display: inline-flex; align-items: center; justify-content: center;
+                               font-size: 1rem; color: var(--sts-muted); }
     .upgrade-badge { display: inline-block; background: rgba(74,140,191,0.25); border: 1px solid var(--sts-blue);
                      border-radius: 3px; padding: 0 5px; font-size: 0.72rem; color: var(--sts-blue); font-weight: 600; }
     .card-pill { display: inline-block; background: rgba(30,60,90,0.45); border: 1px solid #2a4a6a;
@@ -135,6 +143,7 @@
       <li class="nav-item"><a class="nav-link active" data-tab="overview"  href="#">Overview</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="cards"     href="#">Cards</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="relics"    href="#">Relics</a></li>
+      <li class="nav-item"><a class="nav-link"        data-tab="potions"   href="#">Potions</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="encounters"href="#">Encounters</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="ancients"  href="#">Ancients</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="rest"      href="#">Rest Sites</a></li>
@@ -237,6 +246,7 @@
     <div id="relics-choice-content" style="display:none">
       <table class="table table-sm" id="choice-relics-table">
         <thead><tr>
+          <th style="width:50px">Art</th>
           <th class="sort-icon" data-col="relic">Relic</th>
           <th class="sort-icon" data-col="source">Source</th>
           <th class="sort-icon" data-col="offered_runs">Offered (runs)</th>
@@ -250,12 +260,33 @@
     <div id="relics-forced-content" style="display:none">
       <table class="table table-sm" id="forced-relics-table">
         <thead><tr>
+          <th style="width:50px">Art</th>
           <th class="sort-icon" data-col="relic">Relic</th>
           <th class="sort-icon" data-col="source">Source</th>
           <th class="sort-icon" data-col="acquired_runs">Acquired (runs)</th>
           <th class="sort-icon" data-col="win_rate">Win Rate (with relic)</th>
         </tr></thead>
         <tbody id="forced-relics-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- POTIONS TAB -->
+  <div id="tab-potions" class="tab-pane" style="display:none">
+    <div id="potions-loading" class="loading">Loading…</div>
+    <div id="potions-content" style="display:none">
+      <table class="table table-sm" id="potions-table">
+        <thead><tr>
+          <th style="width:46px">Art</th>
+          <th class="sort-icon" data-col="potion">Potion</th>
+          <th class="sort-icon" data-col="offered_runs">Offered (runs)</th>
+          <th class="sort-icon" data-col="picked_runs">Picked (runs)</th>
+          <th class="sort-icon" data-col="used_runs">Used (runs)</th>
+          <th class="sort-icon" data-col="pick_rate">Pick Rate</th>
+          <th class="sort-icon" data-col="use_rate">Use Rate (when picked)</th>
+          <th class="sort-icon" data-col="win_rate">Win Rate (when picked)</th>
+        </tr></thead>
+        <tbody id="potions-tbody"></tbody>
       </table>
     </div>
   </div>
@@ -623,6 +654,34 @@ function cardArtFallback(img) {
   img.replaceWith(span);
 }
 
+function relicArtHtml(relicId) {
+  const filename = relicId.toLowerCase() + '.png';
+  const url = `/static/relic_images/${filename}`;
+  return `<img src="${esc(url)}" class="relic-art" alt="${esc(relicId)}" data-relic-id="${esc(relicId)}" onerror="relicArtFallback(this)" />`;
+}
+
+function relicArtFallback(img) {
+  const span = document.createElement('span');
+  span.className = 'relic-art-placeholder';
+  span.title = img.dataset.relicId || '';
+  span.textContent = '🔮';
+  img.replaceWith(span);
+}
+
+function potionArtHtml(potionId) {
+  const filename = potionId.toLowerCase() + '.png';
+  const url = `/static/potion_images/${filename}`;
+  return `<img src="${esc(url)}" class="potion-art" alt="${esc(potionId)}" data-potion-id="${esc(potionId)}" onerror="potionArtFallback(this)" />`;
+}
+
+function potionArtFallback(img) {
+  const span = document.createElement('span');
+  span.className = 'potion-art-placeholder';
+  span.title = img.dataset.potionId || '';
+  span.textContent = '🧪';
+  img.replaceWith(span);
+}
+
 function renderCardsTable(data) {
   const search = document.getElementById('card-search').value.toLowerCase();
   const filtered = search ? data.filter(r => r.card.toLowerCase().includes(search)) : data;
@@ -680,6 +739,7 @@ function renderRelicSubtab(tab) {
 function renderChoiceRelics(data) {
   document.getElementById('choice-relics-tbody').innerHTML = data.length
     ? data.map(r => `<tr>
+        <td>${relicArtHtml(r.relic)}</td>
         <td>${esc(r.relic)}</td>
         <td>${sourceBadge(r.source)}</td>
         <td>${r.offered_runs}</td>
@@ -687,18 +747,48 @@ function renderChoiceRelics(data) {
         <td>${pct(r.pick_rate)}</td>
         <td>${pct(r.win_rate)}</td>
       </tr>`).join('')
-    : '<tr><td colspan="6" class="empty-state">No choice relic data</td></tr>';
+    : '<tr><td colspan="7" class="empty-state">No choice relic data</td></tr>';
 }
 
 function renderForcedRelics(data) {
   document.getElementById('forced-relics-tbody').innerHTML = data.length
     ? data.map(r => `<tr>
+        <td>${relicArtHtml(r.relic)}</td>
         <td>${esc(r.relic)}</td>
         <td>${sourceBadge(r.source)}</td>
         <td>${r.acquired_runs}</td>
         <td>${pct(r.win_rate)}</td>
       </tr>`).join('')
-    : '<tr><td colspan="4" class="empty-state">No forced relic data</td></tr>';
+    : '<tr><td colspan="5" class="empty-state">No forced relic data</td></tr>';
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// POTIONS
+// ────────────────────────────────────────────────────────────────────────────
+async function loadPotions() {
+  showLoading('potions-loading'); hideContent('potions-content');
+  try {
+    const data = await apiFetch('potions');
+    renderPotions(data);
+    initSort('potions-table', data, renderPotions);
+    showContent('potions-content');
+  } catch(e) { showError('Failed to load potions: ' + e.message); }
+  hideLoading('potions-loading');
+}
+
+function renderPotions(data) {
+  document.getElementById('potions-tbody').innerHTML = data.length
+    ? data.map(r => `<tr>
+        <td>${potionArtHtml(r.potion)}</td>
+        <td>${esc(r.potion)}</td>
+        <td>${r.offered_runs}</td>
+        <td>${r.picked_runs}</td>
+        <td>${r.used_runs}</td>
+        <td>${pct(r.pick_rate)}</td>
+        <td>${pct(r.use_rate)}</td>
+        <td>${pct(r.win_rate)}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="8" class="empty-state">No potion data</td></tr>';
 }
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -1214,7 +1304,7 @@ function switchTab(tab) {
   document.querySelectorAll('#main-tabs .nav-link').forEach(l => {
     l.classList.toggle('active', l.dataset.tab === tab);
   });
-  ['overview','cards','relics','encounters','ancients','rest','runs'].forEach(t => {
+  ['overview','cards','relics','potions','encounters','ancients','rest','runs'].forEach(t => {
     document.getElementById(`tab-${t}`).style.display = t === tab ? '' : 'none';
   });
   loadCurrentTab();
@@ -1225,6 +1315,7 @@ function loadCurrentTab() {
   if (t === 'overview')    loadOverview();
   if (t === 'cards')       loadCards();
   if (t === 'relics')      loadRelics();
+  if (t === 'potions')     loadPotions();
   if (t === 'encounters')  loadEncounters();
   if (t === 'ancients')    loadAncients();
   if (t === 'rest')        loadRestSites();

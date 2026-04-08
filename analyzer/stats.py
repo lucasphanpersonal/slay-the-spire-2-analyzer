@@ -11,6 +11,7 @@ from .parser import (
     extract_card_choices,
     extract_deck_cards,
     extract_encounters,
+    extract_potion_events,
     extract_relic_events,
     extract_rest_sites,
     get_character,
@@ -584,3 +585,63 @@ def compute_diagnostic(all_runs: List[Dict[str, Any]]) -> Dict[str, Any]:
         "characters": dict(sorted(char_counts.items())),
         "schema_anomalies": anomalies,
     }
+
+
+# ── Potions ───────────────────────────────────────────────────────────────────
+
+def compute_potions(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Compute per-potion pick rate, usage rate, and win rate.
+
+    For each potion:
+    - ``offered_runs``: runs in which the potion was offered at least once.
+    - ``picked_runs``: runs in which the potion was picked at least once.
+    - ``used_runs``: runs in which the potion was used at least once.
+    - ``pick_rate``: picked_runs / offered_runs.
+    - ``use_rate``: used_runs / picked_runs.
+    - ``win_rate``: win rate across runs where the potion was picked.
+    """
+    offered_runs: Dict[str, Set[str]] = defaultdict(set)
+    picked_runs: Dict[str, Set[str]] = defaultdict(set)
+    used_runs: Dict[str, Set[str]] = defaultdict(set)
+    win_runs: Dict[str, Set[str]] = defaultdict(set)
+
+    for run in runs:
+        run_id = get_run_id(run)
+        run_win = run.get("win", False)
+        for event in extract_potion_events(run):
+            potion = event["potion"]
+            if event["event"] == "picked":
+                offered_runs[potion].add(run_id)
+                if event["was_picked"]:
+                    picked_runs[potion].add(run_id)
+                    if run_win:
+                        win_runs[potion].add(run_id)
+            elif event["event"] == "used":
+                used_runs[potion].add(run_id)
+
+    # Collect all potion IDs seen in either offered or used
+    all_potions = set(offered_runs.keys()) | set(used_runs.keys())
+
+    results: List[Dict[str, Any]] = []
+    for potion in all_potions:
+        off_set = offered_runs.get(potion, set())
+        pick_set = picked_runs.get(potion, set())
+        use_set = used_runs.get(potion, set())
+        won_set = win_runs.get(potion, set())
+
+        pick_rate = len(pick_set) / len(off_set) if off_set else None
+        use_rate = len(use_set) / len(pick_set) if pick_set else None
+        win_rate = len(won_set) / len(pick_set) if pick_set else None
+
+        results.append({
+            "potion": potion,
+            "offered_runs": len(off_set),
+            "picked_runs": len(pick_set),
+            "used_runs": len(use_set),
+            "pick_rate": round(pick_rate, 4) if pick_rate is not None else None,
+            "use_rate": round(use_rate, 4) if use_rate is not None else None,
+            "win_rate": round(win_rate, 4) if win_rate is not None else None,
+        })
+
+    results.sort(key=lambda x: x["offered_runs"], reverse=True)
+    return results

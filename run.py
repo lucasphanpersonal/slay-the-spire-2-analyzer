@@ -6,7 +6,7 @@ Usage:
     python run.py --port 8080              # custom port
     python run.py --history /path/to/runs  # custom history folder
     python run.py --diagnostic             # print diagnostic summary and exit
-    python run.py --scrape-images          # download card art images from wiki and exit
+    python run.py --scrape-images          # download card, relic, and potion art images and exit
 """
 
 import argparse
@@ -39,7 +39,7 @@ def main() -> None:
     parser.add_argument(
         "--scrape-images",
         action="store_true",
-        help="Download card art images from the wiki into static/card_images/ and exit",
+        help="Download card, relic, and potion art images into static/ subdirectories and exit",
     )
     args = parser.parse_args()
 
@@ -50,9 +50,9 @@ def main() -> None:
         run_diagnostic(history_path)
     elif args.scrape_images:
         root = os.path.dirname(os.path.abspath(__file__))
-        output_dir = os.path.join(root, "static", "card_images")
+        static_dir = os.path.join(root, "static")
         from analyzer.scraper import run_scrape
-        run_scrape(history_path, output_dir)
+        run_scrape(history_path, static_dir)
     else:
         from analyzer.server import create_app
         app = create_app(history_path)

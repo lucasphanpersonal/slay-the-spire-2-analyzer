@@ -1,4 +1,4 @@
-"""analyzer/scraper.py — Scrape and cache card art images from sts2.untapped.gg (with wiki fallback)."""
+"""analyzer/scraper.py — Scrape and cache card, relic, and potion art images from sts2.untapped.gg (with wiki fallback)."""
 
 from __future__ import annotations
 
@@ -12,15 +12,17 @@ import urllib.request
 from pathlib import Path
 from typing import Dict, List, Optional, Set
 
-# Primary source: sts2.untapped.gg card pages
+# Primary source: sts2.untapped.gg card/relic/potion pages
 UNTAPPED_BASE = "https://sts2.untapped.gg"
 UNTAPPED_CARDS_PATH = "/en/cards"
+UNTAPPED_RELICS_PATH = "/en/relics"
+UNTAPPED_POTIONS_PATH = "/en/potions"
 
 # Fallback: STS2 wiki
 WIKI_API = "https://slaythespire.wiki.gg/api.php"
 WIKI_BASE = "https://slaythespire.wiki.gg"
 
-# Namespace prefix used for STS2 card pages on the wiki
+# Namespace prefix used for STS2 pages on the wiki
 STS2_NAMESPACE = "Slay_the_Spire_2"
 
 # Delay between requests (seconds)
@@ -61,6 +63,16 @@ def card_id_to_slug(card_id: str) -> str:
     return card_id.lower().replace("_", "-")
 
 
+def relic_id_to_slug(relic_id: str) -> str:
+    """Convert a relic ID to an untapped.gg URL slug (same convention as cards)."""
+    return relic_id.lower().replace("_", "-")
+
+
+def potion_id_to_slug(potion_id: str) -> str:
+    """Convert a potion ID to an untapped.gg URL slug (same convention as cards)."""
+    return potion_id.lower().replace("_", "-")
+
+
 # ── HTTP helpers ──────────────────────────────────────────────────────────────
 
 def _get(url: str, timeout: int = 10) -> Optional[bytes]:
@@ -97,7 +109,20 @@ def _fetch_image_from_untapped(card_id: str) -> Optional[str]:
     Returns the absolute image URL, or None if not found.
     """
     slug = card_id_to_slug(card_id)
-    page_url = f"{UNTAPPED_BASE}{UNTAPPED_CARDS_PATH}/{slug}"
+    return _fetch_image_from_untapped_page(f"{UNTAPPED_CARDS_PATH}/{slug}", slug)
+
+
+def _fetch_image_from_untapped_page(page_path: str, slug: str) -> Optional[str]:
+    """Generic helper: fetch an untapped.gg page and extract the primary image URL.
+
+    Tries, in order:
+    1. The ``og:image`` Open Graph meta tag (present in SSR HTML for SEO).
+    2. Embedded ``__NEXT_DATA__`` JSON (Next.js server-side props).
+    3. Any ``<img>`` src whose URL contains the slug.
+
+    Returns the absolute image URL, or None if not found.
+    """
+    page_url = f"{UNTAPPED_BASE}{page_path}"
     html_bytes = _get(page_url)
     if not html_bytes:
         return None
@@ -107,8 +132,7 @@ def _fetch_image_from_untapped(card_id: str) -> Optional[str]:
     except Exception:  # noqa: BLE001
         return None
 
-    # 1. Open Graph og:image (most reliable — server-rendered for SEO)
-    # Handle both attribute orders: property first or content first
+    # 1. Open Graph og:image
     og_match = re.search(
         r'<meta[^>]+(?:'
         r'property=["\']og:image["\'][^>]+content=["\'](https?://[^"\']+)["\']'
@@ -129,7 +153,6 @@ def _fetch_image_from_untapped(card_id: str) -> Optional[str]:
     if next_match:
         try:
             next_data = json.loads(next_match.group(1))
-            # Walk the whole JSON looking for image URLs containing the slug
             next_json_str = json.dumps(next_data)
             img_matches = re.findall(r'https?://[^\s"\'<>]+(?:\.png|\.jpg|\.jpeg|\.webp|\.gif)', next_json_str, re.IGNORECASE)
             for url in img_matches:
@@ -138,7 +161,7 @@ def _fetch_image_from_untapped(card_id: str) -> Optional[str]:
         except Exception:  # noqa: BLE001
             pass
 
-    # 3. Any <img src="..."> whose URL contains the card slug
+    # 3. Any <img src="..."> whose URL contains the slug
     img_matches = re.findall(
         r'<img[^>]+src=["\'](https?://[^"\']+)["\']',
         html,
@@ -149,6 +172,18 @@ def _fetch_image_from_untapped(card_id: str) -> Optional[str]:
             return src
 
     return None
+
+
+def _fetch_relic_image_from_untapped(relic_id: str) -> Optional[str]:
+    """Fetch the untapped.gg relic page for *relic_id* and extract the relic image URL."""
+    slug = relic_id_to_slug(relic_id)
+    return _fetch_image_from_untapped_page(f"{UNTAPPED_RELICS_PATH}/{slug}", slug)
+
+
+def _fetch_potion_image_from_untapped(potion_id: str) -> Optional[str]:
+    """Fetch the untapped.gg potion page for *potion_id* and extract the potion image URL."""
+    slug = potion_id_to_slug(potion_id)
+    return _fetch_image_from_untapped_page(f"{UNTAPPED_POTIONS_PATH}/{slug}", slug)
 
 
 # ── Wiki image resolution ─────────────────────────────────────────────────────
@@ -278,52 +313,89 @@ def fetch_card_image_url(card_id: str) -> Optional[str]:
     return None
 
 
+def _candidate_wiki_file_titles(item_id: str) -> List[str]:
+    """Return candidate MediaWiki ``File:`` titles for a relic or potion *item_id*.
+
+    Generates filename guesses from the display name (title-cased words).
+    """
+    display = " ".join(p.title() for p in item_id.split("_"))
+    display_underscored = display.replace(" ", "_")
+    return [
+        f"File:{display_underscored}.png",
+        f"File:{display_underscored}.jpg",
+    ]
+
+
+def fetch_relic_image_url(relic_id: str) -> Optional[str]:
+    """Try to resolve a relic image URL for *relic_id*.
+
+    First tries sts2.untapped.gg, then falls back to the STS2 wiki.
+    """
+    url = _fetch_relic_image_from_untapped(relic_id)
+    if url:
+        return url
+    time.sleep(REQUEST_DELAY)
+
+    for file_title in _candidate_wiki_file_titles(relic_id):
+        url = _resolve_image_url_via_api(file_title)
+        if url:
+            return url
+        time.sleep(REQUEST_DELAY)
+    return None
+
+
+def fetch_potion_image_url(potion_id: str) -> Optional[str]:
+    """Try to resolve a potion image URL for *potion_id*.
+
+    First tries sts2.untapped.gg, then falls back to the STS2 wiki.
+    """
+    url = _fetch_potion_image_from_untapped(potion_id)
+    if url:
+        return url
+    time.sleep(REQUEST_DELAY)
+
+    for file_title in _candidate_wiki_file_titles(potion_id):
+        url = _resolve_image_url_via_api(file_title)
+        if url:
+            return url
+        time.sleep(REQUEST_DELAY)
+    return None
+
+
 # ── Batch scrape ──────────────────────────────────────────────────────────────
 
-def scrape_card_images(
-    card_ids: List[str],
+def _scrape_images_generic(
+    item_ids: List[str],
     output_dir: str,
+    fetch_url_fn,
     *,
     skip_existing: bool = True,
     verbose: bool = True,
 ) -> Dict[str, str]:
-    """Download card images for *card_ids* into *output_dir*.
+    """Download images for *item_ids* into *output_dir* using *fetch_url_fn*.
 
-    Parameters
-    ----------
-    card_ids:
-        List of normalized card IDs (e.g. ``["BASH", "SETUP_STRIKE", ...]``).
-    output_dir:
-        Directory to save PNG images into.
-    skip_existing:
-        If True, skip cards whose image file already exists.
-    verbose:
-        Print progress.
-
-    Returns
-    -------
-    Mapping of ``card_id → local filename`` for successfully downloaded images.
+    Returns a mapping of ``item_id → local filename`` for successfully downloaded images.
     """
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
 
     results: Dict[str, str] = {}
-    total = len(card_ids)
+    total = len(item_ids)
 
-    for i, card_id in enumerate(sorted(card_ids), 1):
-        filename = card_id_to_filename(card_id)
+    for i, item_id in enumerate(sorted(item_ids), 1):
+        filename = item_id.lower() + ".png"
         dest = out / filename
 
         if skip_existing and dest.exists():
-            results[card_id] = filename
+            results[item_id] = filename
             if verbose:
-                print(f"  [{i:>3}/{total}] {card_id:<40} skip (exists)")
+                print(f"  [{i:>3}/{total}] {item_id:<40} skip (exists)")
             continue
 
         if verbose:
-            print(f"  [{i:>3}/{total}] {card_id:<40} ", end="", flush=True)
+            print(f"  [{i:>3}/{total}] {item_id:<40} ", end="", flush=True)
 
-        image_url = fetch_card_image_url(card_id)
+        image_url = fetch_url_fn(item_id)
         if not image_url:
             if verbose:
                 print("not found")
@@ -336,7 +408,7 @@ def scrape_card_images(
             continue
 
         dest.write_bytes(image_data)
-        results[card_id] = filename
+        results[item_id] = filename
         if verbose:
             print(f"✓  ({len(image_data) // 1024} KB)")
 
@@ -345,7 +417,49 @@ def scrape_card_images(
     return results
 
 
-# ── Card ID discovery ─────────────────────────────────────────────────────────
+def scrape_card_images(
+    card_ids: List[str],
+    output_dir: str,
+    *,
+    skip_existing: bool = True,
+    verbose: bool = True,
+) -> Dict[str, str]:
+    """Download card images for *card_ids* into *output_dir*."""
+    return _scrape_images_generic(
+        card_ids, output_dir, fetch_card_image_url,
+        skip_existing=skip_existing, verbose=verbose,
+    )
+
+
+def scrape_relic_images(
+    relic_ids: List[str],
+    output_dir: str,
+    *,
+    skip_existing: bool = True,
+    verbose: bool = True,
+) -> Dict[str, str]:
+    """Download relic images for *relic_ids* into *output_dir*."""
+    return _scrape_images_generic(
+        relic_ids, output_dir, fetch_relic_image_url,
+        skip_existing=skip_existing, verbose=verbose,
+    )
+
+
+def scrape_potion_images(
+    potion_ids: List[str],
+    output_dir: str,
+    *,
+    skip_existing: bool = True,
+    verbose: bool = True,
+) -> Dict[str, str]:
+    """Download potion images for *potion_ids* into *output_dir*."""
+    return _scrape_images_generic(
+        potion_ids, output_dir, fetch_potion_image_url,
+        skip_existing=skip_existing, verbose=verbose,
+    )
+
+
+# ── Card/Relic/Potion ID discovery ────────────────────────────────────────────
 
 def collect_card_ids_from_runs(history_path: str) -> List[str]:
     """Return all unique card IDs found in *.run files under *history_path*."""
@@ -376,19 +490,99 @@ def collect_card_ids_from_runs(history_path: str) -> List[str]:
     return sorted(card_ids)
 
 
+def collect_relic_ids_from_runs(history_path: str) -> List[str]:
+    """Return all unique relic IDs found in *.run files under *history_path*."""
+    from .parser import load_run_files, _strip_prefix
+
+    runs = load_run_files(history_path)
+    relic_ids: set[str] = set()
+
+    for run in runs:
+        players = run.get("players", [])
+        if not players:
+            continue
+        for r in players[0].get("relics") or []:
+            rid = _strip_prefix(r.get("id", "")) if isinstance(r, dict) else _strip_prefix(str(r))
+            if rid:
+                relic_ids.add(rid)
+
+        for act in run.get("map_point_history", []):
+            for node in act:
+                ps_list = node.get("player_stats", [])
+                ps = ps_list[0] if ps_list else {}
+                for entry in ps.get("relic_choices", []):
+                    rid = _strip_prefix(entry.get("choice", ""))
+                    if rid:
+                        relic_ids.add(rid)
+                for opt in ps.get("ancient_choice", []):
+                    rid = opt.get("TextKey", "")
+                    if rid:
+                        relic_ids.add(rid)
+
+    return sorted(relic_ids)
+
+
+def collect_potion_ids_from_runs(history_path: str) -> List[str]:
+    """Return all unique potion IDs found in *.run files under *history_path*."""
+    from .parser import load_run_files, _strip_prefix
+
+    runs = load_run_files(history_path)
+    potion_ids: set[str] = set()
+
+    for run in runs:
+        players = run.get("players", [])
+        if not players:
+            continue
+        for p in players[0].get("potions") or []:
+            pid = _strip_prefix(p.get("id", "")) if isinstance(p, dict) else _strip_prefix(str(p))
+            if pid:
+                potion_ids.add(pid)
+
+        for act in run.get("map_point_history", []):
+            for node in act:
+                ps_list = node.get("player_stats", [])
+                ps = ps_list[0] if ps_list else {}
+                for entry in ps.get("potion_choices", []):
+                    pid = _strip_prefix(entry.get("choice", ""))
+                    if pid:
+                        potion_ids.add(pid)
+                for pid_raw in ps.get("potion_used", []):
+                    pid = _strip_prefix(pid_raw) if isinstance(pid_raw, str) else ""
+                    if pid:
+                        potion_ids.add(pid)
+
+    return sorted(potion_ids)
+
+
 # ── CLI entry point ───────────────────────────────────────────────────────────
 
-def run_scrape(history_path: str, output_dir: str) -> None:
-    """CLI entry: discover cards, download images, report results."""
-    print(f"\n⚔  STS2 Card Image Scraper")
+def run_scrape(history_path: str, static_dir: str) -> None:
+    """CLI entry: discover cards/relics/potions, download images, report results."""
+    print(f"\n⚔  STS2 Image Scraper")
     print(f"   History path : {history_path}")
-    print(f"   Output dir   : {output_dir}\n")
+    print(f"   Static dir   : {static_dir}\n")
+
+    card_output = os.path.join(static_dir, "card_images")
+    relic_output = os.path.join(static_dir, "relic_images")
+    potion_output = os.path.join(static_dir, "potion_images")
 
     print("Discovering card IDs from run files…")
     card_ids = collect_card_ids_from_runs(history_path)
     print(f"Found {len(card_ids)} unique card IDs.\n")
+    print("Fetching card images from sts2.untapped.gg (with wiki fallback)…")
+    dl_cards = scrape_card_images(card_ids, card_output, verbose=True)
+    print(f"\nCards: downloaded {len(dl_cards)}/{len(card_ids)} images → {card_output}\n")
 
-    print("Fetching images from sts2.untapped.gg (with wiki fallback)…")
-    downloaded = scrape_card_images(card_ids, output_dir, verbose=True)
+    print("Discovering relic IDs from run files…")
+    relic_ids = collect_relic_ids_from_runs(history_path)
+    print(f"Found {len(relic_ids)} unique relic IDs.\n")
+    print("Fetching relic images from sts2.untapped.gg (with wiki fallback)…")
+    dl_relics = scrape_relic_images(relic_ids, relic_output, verbose=True)
+    print(f"\nRelics: downloaded {len(dl_relics)}/{len(relic_ids)} images → {relic_output}\n")
 
-    print(f"\nDone. Downloaded {len(downloaded)}/{len(card_ids)} images → {output_dir}")
+    print("Discovering potion IDs from run files…")
+    potion_ids = collect_potion_ids_from_runs(history_path)
+    print(f"Found {len(potion_ids)} unique potion IDs.\n")
+    print("Fetching potion images from sts2.untapped.gg (with wiki fallback)…")
+    dl_potions = scrape_potion_images(potion_ids, potion_output, verbose=True)
+    print(f"\nPotions: downloaded {len(dl_potions)}/{len(potion_ids)} images → {potion_output}\n")
