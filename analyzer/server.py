@@ -9,6 +9,7 @@ from flask import Flask, jsonify, render_template, request
 
 from .parser import load_run_files
 from .stats import (
+    compute_ancients,
     compute_cards,
     compute_diagnostic,
     compute_encounters,
@@ -17,6 +18,7 @@ from .stats import (
     compute_rest_sites,
     compute_runs_list,
     filter_runs,
+    get_ancients,
     get_ascensions,
     get_characters,
 )
@@ -45,6 +47,7 @@ def create_app(history_path: str) -> Flask:
         return {
             "character": request.args.get("character") or None,
             "ascension": ascension,
+            "ancient": request.args.get("ancient") or None,
             "exclude_multiplayer": _bool(request.args.get("exclude_multiplayer"), True),
             "exclude_abandoned": _bool(request.args.get("exclude_abandoned"), True),
         }
@@ -71,6 +74,16 @@ def create_app(history_path: str) -> Flask:
     def api_ascensions():
         all_runs = _load()
         return jsonify(get_ascensions(all_runs))
+
+    @app.route("/api/ancients")
+    def api_ancients():
+        all_runs = _load()
+        return jsonify(get_ancients(all_runs))
+
+    @app.route("/api/ancient_stats")
+    def api_ancient_stats():
+        runs = filter_runs(_load(), **_filters())
+        return jsonify(compute_ancients(runs))
 
     @app.route("/api/overview")
     def api_overview():
