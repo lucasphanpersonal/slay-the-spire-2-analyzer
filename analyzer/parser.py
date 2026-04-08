@@ -145,8 +145,6 @@ def extract_card_choices(run: Dict[str, Any]) -> List[Dict[str, Any]]:
     result: List[Dict[str, Any]] = []
     for node_type, stats, _node in iter_nodes(run):
         choices = stats.get("card_choices", [])
-        if not choices:
-            continue
         offered: List[str] = []
         picked: List[str] = []
         added: List[str] = []
@@ -160,7 +158,17 @@ def extract_card_choices(run: Dict[str, Any]) -> List[Dict[str, Any]]:
             elif card_id and node_type == "ancient" and card_id in deck_ids:
                 # Relic-granted card: not explicitly chosen but ends up in deck.
                 added.append(card_id)
-        if offered:
+        # At ancient nodes, relics can grant cards directly (e.g. JEWELRY_BOX →
+        # APOTHEOSIS).  These appear in ``cards_gained`` rather than
+        # ``card_choices``, so they must be collected separately.
+        if node_type == "ancient":
+            already_tracked = set(picked) | set(added)
+            for gained_entry in stats.get("cards_gained", []):
+                g_id = _strip_prefix(gained_entry.get("id", ""))
+                if g_id and g_id not in already_tracked:
+                    added.append(g_id)
+                    already_tracked.add(g_id)
+        if offered or added:
             result.append({"offered": offered, "picked": picked, "added": added})
     return result
 
