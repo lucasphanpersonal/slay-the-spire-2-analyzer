@@ -264,8 +264,8 @@
     <div class="mb-3 d-flex align-items-center gap-3">
       <input type="text" id="card-search" class="form-control" placeholder="Filter cards…" style="max-width:300px" />
       <div class="d-flex align-items-center gap-2">
-        <label class="fw-semibold" for="cards-min-offered" style="color:var(--sts-muted);white-space:nowrap;font-size:.85rem">Min offered runs</label>
-        <input type="number" id="cards-min-offered" class="form-control form-control-sm" value="1" min="1" style="width:70px" title="Hide cards offered in fewer than this many runs" />
+        <label class="fw-semibold" for="cards-min-picked" style="color:var(--sts-muted);white-space:nowrap;font-size:.85rem">Min picked runs</label>
+        <input type="number" id="cards-min-picked" class="form-control form-control-sm" value="1" min="1" style="width:70px" title="Hide cards picked in fewer than this many runs" />
       </div>
     </div>
     <div id="cards-loading" class="loading">Loading…</div>
@@ -844,7 +844,7 @@ let allCards = [];
 async function loadCards() {
   showLoading('cards-loading'); hideContent('cards-content');
   try {
-    allCards = await apiFetch('cards', { min_samples: parseInt(document.getElementById('cards-min-offered').value) || 1 });
+    allCards = await apiFetch('cards', { min_picked: parseInt(document.getElementById('cards-min-picked').value) || 1 });
     renderCardsTable(allCards);
     initSort('cards-table', allCards, renderCardsTable);
     showContent('cards-content');
@@ -1892,7 +1892,7 @@ document.getElementById('filter-abandoned').addEventListener('change', e => {
   state.excludeAbandoned = e.target.checked; invalidateCache(); loadCurrentTab();
 });
 
-document.getElementById('cards-min-offered').addEventListener('change', () => {
+document.getElementById('cards-min-picked').addEventListener('change', () => {
   invalidateCache();
   loadCards();
 });
