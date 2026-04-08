@@ -275,7 +275,7 @@
           <th style="width:60px">Art</th>
           <th class="sort-icon" data-col="card">Card</th>
           <th class="sort-icon" data-col="offered_runs">Offered (runs)</th>
-          <th class="sort-icon" data-col="picked_runs">Picked (runs)</th>
+          <th class="sort-icon" data-col="picked_runs">Picked / Added (runs)</th>
           <th class="sort-icon" data-col="pick_rate">Pick Rate</th>
           <th class="sort-icon" data-col="win_rate">Win Rate (when picked)</th>
           <th class="sort-icon" data-col="avg_upgrade_level">Avg Upgrade</th>
@@ -929,11 +929,20 @@ function renderCardsTable(data) {
         const pctUpg = r.pct_upgraded != null
           ? pct(r.pct_upgraded)
           : '<span style="color:var(--sts-muted)">—</span>';
+        const addedRuns = r.added_runs || 0;
+        let pickedCell;
+        if (r.picked_runs > 0 && addedRuns > 0) {
+          pickedCell = `${r.picked_runs} picked, <span style="color:var(--sts-gold)" title="Added to deck by ancient relic">${addedRuns} added</span>`;
+        } else if (r.picked_runs === 0 && addedRuns > 0) {
+          pickedCell = `<span style="color:var(--sts-gold)" title="Added to deck by ancient relic">${addedRuns} added</span>`;
+        } else {
+          pickedCell = r.picked_runs;
+        }
         return `<tr>
           <td>${cardArtHtml(r.card)}</td>
           <td><span onclick="openCardDetail('${jsStr(r.card)}')" style="cursor:pointer;text-decoration:underline dotted">${esc(r.card)}</span></td>
           <td>${r.offered_runs}</td>
-          <td>${r.picked_runs}</td>
+          <td>${pickedCell}</td>
           <td>${pct(r.pick_rate)}</td>
           <td>${pct(r.win_rate)}</td>
           <td>${avgUpg}</td>

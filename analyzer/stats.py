@@ -180,9 +180,10 @@ def compute_cards(
     output even if it never appeared in any run (those entries have all-zero
     counts and null rates).
     """
-    # run-level sets: offered_runs[card], picked_runs[card], win_runs[card]
+    # run-level sets: offered_runs[card], picked_runs[card], added_runs[card], win_runs[card]
     offered_runs: Dict[str, Set[str]] = defaultdict(set)
     picked_runs: Dict[str, Set[str]] = defaultdict(set)
+    added_runs: Dict[str, Set[str]] = defaultdict(set)
     win_runs: Dict[str, Set[str]] = defaultdict(set)
 
     # upgrade tracking from final decks: list of upgrade levels per card
@@ -200,13 +201,16 @@ def compute_cards(
                     picked_runs[picked].add(run_id)
                     if run_win:
                         win_runs[picked].add(run_id)
+            for added in event.get("added", []):
+                if added:
+                    added_runs[added].add(run_id)
 
         for deck_card in extract_deck_cards(run):
             card = deck_card["card"]
             deck_upgrade_levels[card].append(deck_card["upgrade_level"])
 
     # All cards that have any run data
-    all_cards: Set[str] = set(offered_runs.keys())
+    all_cards: Set[str] = set(offered_runs.keys()) | set(added_runs.keys())
 
     # Seed with known cards so unseen ones still appear as zero-value rows
     known_cards_set: Set[str] = set(known_cards) if known_cards else set()
@@ -221,6 +225,7 @@ def compute_cards(
         if len(offered_set) < min_offered and card not in known_cards_set:
             continue
         picked_set = picked_runs.get(card, set())
+        added_set = added_runs.get(card, set())
         won_set = win_runs.get(card, set())
         pick_rate = len(picked_set) / len(offered_set) if offered_set else 0.0
         win_rate = len(won_set) / len(picked_set) if picked_set else None
@@ -234,6 +239,7 @@ def compute_cards(
                 "card": card,
                 "offered_runs": len(offered_set),
                 "picked_runs": len(picked_set),
+                "added_runs": len(added_set),
                 "pick_rate": round(pick_rate, 4),
                 "win_rate": round(win_rate, 4) if win_rate is not None else None,
                 "avg_upgrade_level": avg_upgrade,

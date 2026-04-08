@@ -125,15 +125,19 @@ def extract_card_choices(run: Dict[str, Any]) -> List[Dict[str, Any]]:
     are what the player chose (ancient nodes can yield multiple picks).
 
     At ancient nodes, cards with ``was_picked=False`` that appear in the
-    player's final deck are also treated as picked — these are cards granted
-    by a relic effect (e.g. GLASS_EYE, HEFTY_TABLET) rather than a direct
-    player selection.
+    player's final deck are tracked separately as ``"added"`` — these are
+    cards granted by a relic effect (e.g. GLASS_EYE, HEFTY_TABLET) rather
+    than a direct player selection.
 
-    Returns events of the form:
-        ``{"offered": ["SETUP_STRIKE", "TREMBLE", ...], "picked": [str, ...]}``
-    where ``"picked"`` is a (possibly empty) list of card IDs.
+    Returns events of the form::
+
+        {
+            "offered": ["SETUP_STRIKE", "TREMBLE", ...],
+            "picked": [str, ...],   # explicitly chosen (was_picked=True)
+            "added":  [str, ...],   # relic-granted at ancient, in final deck
+        }
     """
-    # Pre-compute final deck card IDs for cross-referencing relic-granted picks.
+    # Pre-compute final deck card IDs for cross-referencing relic-granted cards.
     deck_ids: frozenset[str] = frozenset(
         c["card"] for c in extract_deck_cards(run)
     )
@@ -145,6 +149,7 @@ def extract_card_choices(run: Dict[str, Any]) -> List[Dict[str, Any]]:
             continue
         offered: List[str] = []
         picked: List[str] = []
+        added: List[str] = []
         for entry in choices:
             card = entry.get("card", {})
             card_id = _strip_prefix(card.get("id", "")) if isinstance(card, dict) else ""
@@ -154,9 +159,9 @@ def extract_card_choices(run: Dict[str, Any]) -> List[Dict[str, Any]]:
                 picked.append(card_id)
             elif card_id and node_type == "ancient" and card_id in deck_ids:
                 # Relic-granted card: not explicitly chosen but ends up in deck.
-                picked.append(card_id)
+                added.append(card_id)
         if offered:
-            result.append({"offered": offered, "picked": picked})
+            result.append({"offered": offered, "picked": picked, "added": added})
     return result
 
 
