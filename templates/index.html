@@ -1772,10 +1772,11 @@ function renderDetailCards(d) {
     return;
   }
   const html = choices.map((c, i) => {
+    const pickedSet = new Set(c.picked || []);
     const offeredHtml = (c.offered || []).map(card =>
-      cardIdPillHtml(card, card === c.picked)
+      cardIdPillHtml(card, pickedSet.has(card))
     ).join('');
-    const skipped = !c.picked;
+    const skipped = pickedSet.size === 0;
     return `<div class="choice-event">
       <span style="color:var(--sts-muted);font-size:0.75rem">Choice ${i+1}</span>
       ${skipped ? '<span class="badge badge-forced ms-2">skipped</span>' : ''}
