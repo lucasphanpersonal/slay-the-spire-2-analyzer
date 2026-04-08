@@ -88,6 +88,8 @@
                       padding: 0 4px; font-size: 0.68rem; margin-left: 3px; color: #e8d0ff; }
     .deck-expand-btn { cursor: pointer; color: var(--sts-gold); text-decoration: underline dotted; border: none; background: none; padding: 0; font-size: inherit; }
     .deck-detail-row td { padding: 0.5rem 1rem 0.75rem 1rem !important; background: rgba(0,0,0,0.18); }
+    .enchant-count { color: var(--sts-purple); font-size: 0.8em; }
+    .card-upgrade { color: var(--sts-gold); }
   </style>
 </head>
 <body>
@@ -675,7 +677,7 @@ function renderRuns(data) {
     ).join('') + ((r.relics || []).length > 6 ? `<span class="relic-pill">+${r.relics.length - 6}</span>` : '');
     const enchantedCount = (r.deck || []).filter(c => c.enchantment).length;
     const deckLabel = enchantedCount > 0
-      ? `${r.deck_size} <span style="color:var(--sts-purple);font-size:0.8em">(✦${enchantedCount})</span>`
+      ? `${r.deck_size} <span class="enchant-count">(✦${enchantedCount})</span>`
       : String(r.deck_size);
     rows.push(`<tr data-run-idx="${idx}">
       <td><strong>${r.character.replace(/_/g,' ')}</strong></td>
@@ -694,7 +696,7 @@ function renderRuns(data) {
     </tr>`);
     // Pre-render the hidden deck detail row
     const deckHtml = (r.deck || []).map(c => {
-      const upg = c.upgrade > 0 ? `<sup style="color:var(--sts-gold)">+${c.upgrade}</sup>` : '';
+      const upg = c.upgrade > 0 ? `<sup class="card-upgrade">+${c.upgrade}</sup>` : '';
       if (c.enchantment) {
         const enchAmt = c.enchant_amount > 1 ? ` x${c.enchant_amount}` : '';
         return `<span class="card-pill enchanted">${esc(c.id)}${upg}<span class="enchant-badge">✦ ${esc(c.enchantment)}${esc(enchAmt)}</span></span>`;
