@@ -269,6 +269,40 @@ def extract_rest_sites(run: Dict[str, Any]) -> List[Dict[str, Any]]:
     return result
 
 
+# ── Potion data ───────────────────────────────────────────────────────────────
+
+def extract_potion_events(run: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Return all potion acquisition and usage events from the run.
+
+    Each entry has:
+        ``{"potion": str, "event": "picked"|"used", "source": str}``
+    where ``potion`` is the stripped potion ID (e.g. ``"FIRE_POTION"``).
+    """
+    result: List[Dict[str, Any]] = []
+
+    for node_type, stats, _node in iter_nodes(run):
+        for entry in stats.get("potion_choices", []):
+            pid = _strip_prefix(entry.get("choice", ""))
+            if pid:
+                result.append({
+                    "potion": pid,
+                    "event": "picked",
+                    "source": node_type,
+                    "was_picked": bool(entry.get("was_picked", False)),
+                })
+        for pid_raw in stats.get("potion_used", []):
+            pid = _strip_prefix(pid_raw) if isinstance(pid_raw, str) else ""
+            if pid:
+                result.append({
+                    "potion": pid,
+                    "event": "used",
+                    "source": node_type,
+                    "was_picked": True,
+                })
+
+    return result
+
+
 # ── Ancient data ─────────────────────────────────────────────────────────────
 
 def extract_ancients(run: Dict[str, Any]) -> List[Dict[str, Any]]:
