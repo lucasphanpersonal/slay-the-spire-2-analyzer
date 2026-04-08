@@ -278,6 +278,7 @@
           <th class="sort-icon" data-col="card">Card</th>
           <th class="sort-icon" data-col="offered_runs">Offered (runs)</th>
           <th class="sort-icon" data-col="picked_runs">Picked (runs)</th>
+          <th class="sort-icon" data-col="skipped_runs">Skipped (runs)</th>
           <th class="sort-icon" data-col="pick_rate">Pick Rate</th>
           <th class="sort-icon" data-col="win_rate">Win Rate (when picked)</th>
           <th class="sort-icon" data-col="avg_upgrade_level">Avg Upgrade</th>
@@ -789,6 +790,8 @@ function renderOverview(d) {
       <div class="stat-value">💰 ${(d.total_gold_earned || 0).toLocaleString()}</div><div class="stat-label">Total Gold Earned</div></div></div>
     <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
       <div class="stat-value">🃏 ${(d.total_cards_picked || 0).toLocaleString()}</div><div class="stat-label">Cards Picked</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value" style="color:var(--sts-muted)">⏭️ ${(d.total_skipped_rewards || 0).toLocaleString()}</div><div class="stat-label">Card Rewards Skipped</div></div></div>
     ${d.fastest_win_s ? `<div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
       <div class="stat-value">⚡ ${fmtTime(d.fastest_win_s)}</div><div class="stat-label">Fastest Win</div></div></div>` : ''}
     ${d.close_call_wins > 0 ? `<div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
@@ -962,13 +965,14 @@ function renderCardsTable(data) {
           <td><span onclick="openCardDetail('${jsStr(r.card)}')" style="cursor:pointer;text-decoration:underline dotted">${esc(r.card)}</span></td>
           <td>${r.offered_runs}</td>
           <td>${r.picked_runs}</td>
+          <td>${r.skipped_runs || 0}</td>
           <td>${pct(r.pick_rate)}</td>
           <td>${pct(r.win_rate)}</td>
           <td>${avgUpg}</td>
           <td>${pctUpg}</td>
         </tr>`;
       }).join('')
-    : '<tr><td colspan="8" class="empty-state">No data</td></tr>';
+    : '<tr><td colspan="9" class="empty-state">No data</td></tr>';
 }
 
 // ────────────────────────────────────────────────────────────────────────────

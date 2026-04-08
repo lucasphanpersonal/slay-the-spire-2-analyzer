@@ -130,6 +130,7 @@ def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
             "total_hp_healed": 0,
             "total_gold_earned": 0,
             "total_cards_picked": 0,
+            "total_skipped_rewards": 0,
             "fastest_win_s": None,
             "close_call_wins": 0,
         }
@@ -201,6 +202,14 @@ def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
         if ev.get("picked")
     )
 
+    # Total card rewards skipped (player declined to pick any card)
+    total_skipped_rewards = sum(
+        1
+        for r in runs
+        for ev in extract_card_choices(r)
+        if not ev.get("picked")
+    )
+
     # Fastest win time
     win_times = [r.get("run_time") for r in runs if r.get("win") and r.get("run_time")]
     fastest_win_s: Optional[float] = min(win_times) if win_times else None
@@ -231,6 +240,7 @@ def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
         "total_hp_healed": total_hp_healed,
         "total_gold_earned": total_gold_earned,
         "total_cards_picked": total_cards_picked,
+        "total_skipped_rewards": total_skipped_rewards,
         "fastest_win_s": fastest_win_s,
         "close_call_wins": close_call_wins,
     }
@@ -255,10 +265,11 @@ def compute_cards(
     output even if it never appeared in any run (those entries have all-zero
     counts and null rates).
     """
-    # run-level sets: offered_runs[card], picked_runs[card], win_runs[card]
+    # run-level sets: offered_runs[card], picked_runs[card], win_runs[card], skipped_runs[card]
     offered_runs: Dict[str, Set[str]] = defaultdict(set)
     picked_runs: Dict[str, Set[str]] = defaultdict(set)
     win_runs: Dict[str, Set[str]] = defaultdict(set)
+    skipped_runs: Dict[str, Set[str]] = defaultdict(set)
 
     # upgrade tracking from final decks: list of upgrade levels per card
     deck_upgrade_levels: Dict[str, List[int]] = defaultdict(list)
@@ -275,6 +286,11 @@ def compute_cards(
                 picked_runs[picked].add(run_id)
                 if run_win:
                     win_runs[picked].add(run_id)
+            else:
+                # Player skipped this reward — mark all offered cards as skipped
+                for card in event["offered"]:
+                    if card:
+                        skipped_runs[card].add(run_id)
 
         for deck_card in extract_deck_cards(run):
             card = deck_card["card"]
@@ -309,6 +325,7 @@ def compute_cards(
                 "card": card,
                 "offered_runs": len(offered_set),
                 "picked_runs": len(picked_set),
+                "skipped_runs": len(skipped_runs.get(card, set())),
                 "pick_rate": round(pick_rate, 4),
                 "win_rate": round(win_rate, 4) if win_rate is not None else None,
                 "avg_upgrade_level": avg_upgrade,
