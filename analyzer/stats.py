@@ -240,7 +240,7 @@ def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
 
 def compute_cards(
     runs: List[Dict[str, Any]],
-    min_offered: int = 1,
+    min_picked: int = 1,
     known_cards: Optional[List[str]] = None,
 ) -> List[Dict[str, Any]]:
     """Compute per-card pick-rate, win-rate, and upgrade statistics.
@@ -290,12 +290,12 @@ def compute_cards(
     results: List[Dict[str, Any]] = []
     for card in all_cards:
         offered_set = offered_runs.get(card, set())
-        # Always include cards from the known list (e.g. from card_data.json) even
-        # when they have 0 offered_runs.  The min_offered threshold still applies
-        # to cards that only appear in run data (not in the known list).
-        if len(offered_set) < min_offered and card not in known_cards_set:
-            continue
         picked_set = picked_runs.get(card, set())
+        # Always include cards from the known list (e.g. from card_data.json) even
+        # when they have 0 picked_runs.  The min_picked threshold still applies
+        # to cards that only appear in run data (not in the known list).
+        if len(picked_set) < min_picked and card not in known_cards_set:
+            continue
         won_set = win_runs.get(card, set())
         pick_rate = len(picked_set) / len(offered_set) if offered_set else 0.0
         win_rate = len(won_set) / len(picked_set) if picked_set else None
