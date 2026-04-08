@@ -1,4 +1,4 @@
-"""analyzer/scraper.py — Scrape and cache card art images from sts2.untapped.gg (with wiki fallback)."""
+"""analyzer/scraper.py — Scrape and cache card art images and metadata from sts2.untapped.gg (with wiki fallback)."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
-from typing import Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set
 
 # Primary source: sts2.untapped.gg card pages
 UNTAPPED_BASE = "https://sts2.untapped.gg"
@@ -84,31 +84,107 @@ def _get_json(url: str, timeout: int = 10) -> Optional[dict]:
         return None
 
 
-# ── untapped.gg image resolution ─────────────────────────────────────────────
+# ── untapped.gg card page data extraction ────────────────────────────────────
 
-def _fetch_image_from_untapped(card_id: str) -> Optional[str]:
-    """Fetch the untapped.gg card page for *card_id* and extract the card image URL.
+# Known field name sets for each metadata attribute.
+# Keys are normalized (lowercase, no separators).
+_METADATA_CANDIDATES: Dict[str, frozenset] = {
+    "character":          frozenset({"character", "class", "characterclass", "playerclass", "char"}),
+    "card_type":          frozenset({"type", "cardtype", "card_type"}),
+    "cost":               frozenset({"cost", "energy", "energycost", "manacost"}),
+    "rarity":             frozenset({"rarity", "tier", "cardtier"}),
+    "description":        frozenset({"description", "desc", "text", "basedescription", "cardtext", "body"}),
+    "description_upgraded": frozenset({
+        "upgradeddescription", "upgradedtext", "upgradeddesc",
+        "upgradecardtext", "upgradetext", "upgradedbody",
+    }),
+}
 
-    Tries, in order:
-    1. The ``og:image`` Open Graph meta tag (present in SSR HTML for SEO).
-    2. Embedded ``__NEXT_DATA__`` JSON (Next.js server-side props).
-    3. Any ``<img>`` src whose URL contains the card slug.
 
-    Returns the absolute image URL, or None if not found.
+def _walk_for_card_fields(obj: Any, result: Dict[str, Any], depth: int = 0) -> None:
+    """Recursively walk a JSON object tree and fill in *result* metadata fields."""
+    if depth > 20:
+        return
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            key_norm = re.sub(r"[_\-\s]", "", key.lower())
+            for field, candidates in _METADATA_CANDIDATES.items():
+                if result[field] is None and key_norm in candidates:
+                    if field == "cost" and isinstance(value, (int, float)):
+                        result[field] = int(value)
+                    elif field != "cost" and isinstance(value, str) and value.strip():
+                        result[field] = value.strip()
+            if isinstance(value, (dict, list)):
+                _walk_for_card_fields(value, result, depth + 1)
+    elif isinstance(obj, list):
+        for item in obj:
+            _walk_for_card_fields(item, result, depth + 1)
+
+
+def _extract_from_next_data(
+    next_data: Any,
+    result: Dict[str, Any],
+    slug: str,
+) -> None:
+    """Pull image URLs and metadata from a parsed ``__NEXT_DATA__`` blob."""
+    json_str = json.dumps(next_data)
+
+    # Collect all image-like URLs that contain the card slug
+    img_urls = re.findall(
+        r'https?://[^\s"\'<>]+(?:\.png|\.jpg|\.jpeg|\.webp)',
+        json_str,
+        re.IGNORECASE,
+    )
+    slug_imgs = [u for u in img_urls if slug in u.lower()]
+
+    # Normal image fallback (og:image may already be set)
+    if not result["image_url"] and slug_imgs:
+        result["image_url"] = slug_imgs[0]
+
+    # Upgraded image: prefer URLs hinting at upgrade, then take a distinct second URL
+    if not result["upgraded_image_url"]:
+        upgrade_hints = [u for u in slug_imgs if any(x in u.lower() for x in ("upgrade", "upgraded", "+1"))]
+        if upgrade_hints:
+            result["upgraded_image_url"] = upgrade_hints[0]
+        elif len(slug_imgs) >= 2 and slug_imgs[1] != slug_imgs[0]:
+            result["upgraded_image_url"] = slug_imgs[1]
+
+    # Metadata from JSON tree
+    _walk_for_card_fields(next_data, result)
+
+
+def _fetch_card_page_data(card_id: str) -> Dict[str, Any]:
+    """Fetch the untapped.gg card page for *card_id* and extract all available data.
+
+    Returns a dict with:
+    ``image_url``, ``upgraded_image_url``, ``character``, ``card_type``,
+    ``cost``, ``rarity``, ``description``, ``description_upgraded``.
+
+    Missing fields are ``None``.
     """
+    result: Dict[str, Any] = {
+        "image_url": None,
+        "upgraded_image_url": None,
+        "character": None,
+        "card_type": None,
+        "cost": None,
+        "rarity": None,
+        "description": None,
+        "description_upgraded": None,
+    }
+
     slug = card_id_to_slug(card_id)
     page_url = f"{UNTAPPED_BASE}{UNTAPPED_CARDS_PATH}/{slug}"
     html_bytes = _get(page_url)
     if not html_bytes:
-        return None
+        return result
 
     try:
         html = html_bytes.decode("utf-8", errors="replace")
     except Exception:  # noqa: BLE001
-        return None
+        return result
 
     # 1. Open Graph og:image (most reliable — server-rendered for SEO)
-    # Handle both attribute orders: property first or content first
     og_match = re.search(
         r'<meta[^>]+(?:'
         r'property=["\']og:image["\'][^>]+content=["\'](https?://[^"\']+)["\']'
@@ -118,9 +194,9 @@ def _fetch_image_from_untapped(card_id: str) -> Optional[str]:
         re.IGNORECASE,
     )
     if og_match:
-        return og_match.group(1) or og_match.group(2)
+        result["image_url"] = og_match.group(1) or og_match.group(2)
 
-    # 2. Next.js __NEXT_DATA__ JSON blob
+    # 2. Next.js __NEXT_DATA__ JSON blob — images + metadata
     next_match = re.search(
         r'<script[^>]+id=["\']__NEXT_DATA__["\'][^>]*>(.*?)</script>',
         html,
@@ -129,26 +205,23 @@ def _fetch_image_from_untapped(card_id: str) -> Optional[str]:
     if next_match:
         try:
             next_data = json.loads(next_match.group(1))
-            # Walk the whole JSON looking for image URLs containing the slug
-            next_json_str = json.dumps(next_data)
-            img_matches = re.findall(r'https?://[^\s"\'<>]+(?:\.png|\.jpg|\.jpeg|\.webp|\.gif)', next_json_str, re.IGNORECASE)
-            for url in img_matches:
-                if slug in url.lower():
-                    return url
+            _extract_from_next_data(next_data, result, slug)
         except Exception:  # noqa: BLE001
             pass
 
-    # 3. Any <img src="..."> whose URL contains the card slug
-    img_matches = re.findall(
-        r'<img[^>]+src=["\'](https?://[^"\']+)["\']',
-        html,
-        re.IGNORECASE,
-    )
-    for src in img_matches:
-        if slug in src.lower():
-            return src
+    # 3. Fallback: any <img src="..."> whose URL contains the card slug
+    if not result["image_url"]:
+        img_matches = re.findall(
+            r'<img[^>]+src=["\'](https?://[^"\']+)["\']',
+            html,
+            re.IGNORECASE,
+        )
+        for src in img_matches:
+            if slug in src.lower():
+                result["image_url"] = src
+                break
 
-    return None
+    return result
 
 
 # ── Wiki image resolution ─────────────────────────────────────────────────────
@@ -264,9 +337,9 @@ def fetch_card_image_url(card_id: str) -> Optional[str]:
     Returns the direct image URL (e.g., a CDN URL), or None if not found.
     """
     # Primary: untapped.gg card page
-    url = _fetch_image_from_untapped(card_id)
-    if url:
-        return url
+    page_data = _fetch_card_page_data(card_id)
+    if page_data["image_url"]:
+        return page_data["image_url"]
     time.sleep(REQUEST_DELAY)
 
     # Fallback: wiki
@@ -345,6 +418,127 @@ def scrape_card_images(
     return results
 
 
+def scrape_card_data(
+    card_ids: List[str],
+    output_dir: str,
+    *,
+    skip_existing: bool = True,
+    verbose: bool = True,
+) -> Dict[str, Dict[str, Any]]:
+    """Download card images (normal + upgraded) and scrape metadata for *card_ids*.
+
+    Saves into *output_dir*:
+
+    * ``{card_id_lower}.png``          — normal card art
+    * ``{card_id_lower}_upgraded.png`` — upgraded card art (when available)
+    * ``card_data.json``               — metadata for all scraped cards
+
+    Parameters
+    ----------
+    card_ids:
+        List of normalized card IDs.
+    output_dir:
+        Directory to save images and ``card_data.json`` into.
+    skip_existing:
+        When True, skip cards where both images and metadata are already cached.
+    verbose:
+        Print progress.
+
+    Returns
+    -------
+    The full card data dict keyed by card ID.
+    """
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    data_file = out / "card_data.json"
+
+    # Load existing card_data.json to allow incremental runs
+    card_data: Dict[str, Dict[str, Any]] = {}
+    if data_file.exists():
+        try:
+            with open(data_file, encoding="utf-8") as f:
+                card_data = json.load(f)
+        except Exception:  # noqa: BLE001
+            card_data = {}
+
+    total = len(card_ids)
+
+    for i, card_id in enumerate(sorted(card_ids), 1):
+        normal_filename = card_id_to_filename(card_id)
+        upgraded_filename = card_id.lower() + "_upgraded.png"
+        normal_dest = out / normal_filename
+        upgraded_dest = out / upgraded_filename
+
+        normal_exists = normal_dest.exists()
+        upgraded_exists = upgraded_dest.exists()
+        has_meta = card_id in card_data
+
+        if skip_existing and normal_exists and upgraded_exists and has_meta:
+            if verbose:
+                print(f"  [{i:>3}/{total}] {card_id:<40} skip (all cached)")
+            continue
+
+        if verbose:
+            print(f"  [{i:>3}/{total}] {card_id:<40} ", end="", flush=True)
+
+        # ── Fetch page data from untapped.gg ──────────────────────────────
+        page_data = _fetch_card_page_data(card_id)
+        time.sleep(REQUEST_DELAY)
+
+        # Fallback to wiki for normal image if untapped.gg didn't return one
+        if not page_data["image_url"]:
+            for file_title in _candidate_file_titles(card_id):
+                wiki_url = _resolve_image_url_via_api(file_title)
+                if wiki_url:
+                    page_data["image_url"] = wiki_url
+                    break
+                time.sleep(REQUEST_DELAY)
+
+        downloaded: List[str] = []
+
+        # ── Download normal image ─────────────────────────────────────────
+        if page_data["image_url"] and not (skip_existing and normal_exists):
+            img_bytes = _get(page_data["image_url"])
+            if img_bytes:
+                normal_dest.write_bytes(img_bytes)
+                downloaded.append("art")
+                time.sleep(REQUEST_DELAY)
+
+        # ── Download upgraded image ───────────────────────────────────────
+        if page_data["upgraded_image_url"] and not (skip_existing and upgraded_exists):
+            img_bytes = _get(page_data["upgraded_image_url"])
+            if img_bytes:
+                upgraded_dest.write_bytes(img_bytes)
+                downloaded.append("art+")
+                time.sleep(REQUEST_DELAY)
+
+        # ── Store metadata ────────────────────────────────────────────────
+        card_data[card_id] = {
+            "character":            page_data["character"],
+            "card_type":            page_data["card_type"],
+            "cost":                 page_data["cost"],
+            "rarity":               page_data["rarity"],
+            "description":          page_data["description"],
+            "description_upgraded": page_data["description_upgraded"],
+            "has_image":            normal_dest.exists(),
+            "has_upgraded_image":   upgraded_dest.exists(),
+        }
+
+        if verbose:
+            if downloaded:
+                print(f"✓  ({', '.join(downloaded)})")
+            else:
+                print("metadata only")
+
+    # Persist card_data.json after every run so partial results are saved
+    with open(data_file, "w", encoding="utf-8") as f:
+        json.dump(card_data, f, indent=2, ensure_ascii=False)
+    if verbose:
+        print(f"\nSaved card data → {data_file}")
+
+    return card_data
+
+
 # ── Card ID discovery ─────────────────────────────────────────────────────────
 
 def collect_card_ids_from_runs(history_path: str) -> List[str]:
@@ -379,7 +573,7 @@ def collect_card_ids_from_runs(history_path: str) -> List[str]:
 # ── CLI entry point ───────────────────────────────────────────────────────────
 
 def run_scrape(history_path: str, output_dir: str) -> None:
-    """CLI entry: discover cards, download images, report results."""
+    """CLI entry: discover cards, download images + metadata, report results."""
     print(f"\n⚔  STS2 Card Image Scraper")
     print(f"   History path : {history_path}")
     print(f"   Output dir   : {output_dir}\n")
@@ -388,7 +582,15 @@ def run_scrape(history_path: str, output_dir: str) -> None:
     card_ids = collect_card_ids_from_runs(history_path)
     print(f"Found {len(card_ids)} unique card IDs.\n")
 
-    print("Fetching images from sts2.untapped.gg (with wiki fallback)…")
-    downloaded = scrape_card_images(card_ids, output_dir, verbose=True)
+    print("Fetching card data from sts2.untapped.gg (images + metadata)…")
+    card_data = scrape_card_data(card_ids, output_dir, verbose=True)
 
-    print(f"\nDone. Downloaded {len(downloaded)}/{len(card_ids)} images → {output_dir}")
+    has_image = sum(1 for v in card_data.values() if v.get("has_image"))
+    has_upgraded = sum(1 for v in card_data.values() if v.get("has_upgraded_image"))
+    has_meta = sum(1 for v in card_data.values() if v.get("character") or v.get("description"))
+    total = len(card_ids)
+    print(
+        f"\nDone.  {has_image}/{total} normal images, "
+        f"{has_upgraded}/{total} upgraded images, "
+        f"{has_meta}/{total} with metadata  →  {output_dir}"
+    )
