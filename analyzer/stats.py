@@ -166,6 +166,7 @@ def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
 def compute_cards(
     runs: List[Dict[str, Any]],
     min_offered: int = 1,
+    known_cards: Optional[List[str]] = None,
 ) -> List[Dict[str, Any]]:
     """Compute per-card pick-rate, win-rate, and upgrade statistics.
 
@@ -174,6 +175,10 @@ def compute_cards(
 
     Upgrade stats (avg_upgrade_level, pct_upgraded) are derived from the
     final deck state across all runs where the card appears.
+
+    If *known_cards* is provided, every card in that list is included in the
+    output even if it never appeared in any run (those entries have all-zero
+    counts and null rates).
     """
     # run-level sets: offered_runs[card], picked_runs[card], win_runs[card]
     offered_runs: Dict[str, Set[str]] = defaultdict(set)
@@ -200,9 +205,20 @@ def compute_cards(
             card = deck_card["card"]
             deck_upgrade_levels[card].append(deck_card["upgrade_level"])
 
+    # All cards that have any run data
+    all_cards: Set[str] = set(offered_runs.keys())
+
+    # Seed with known cards so unseen ones still appear as zero-value rows
+    known_cards_set: Set[str] = set(known_cards) if known_cards else set()
+    all_cards.update(known_cards_set)
+
     results: List[Dict[str, Any]] = []
-    for card, offered_set in offered_runs.items():
-        if len(offered_set) < min_offered:
+    for card in all_cards:
+        offered_set = offered_runs.get(card, set())
+        # Always include cards from the known list (e.g. from card_data.json) even
+        # when they have 0 offered_runs.  The min_offered threshold still applies
+        # to cards that only appear in run data (not in the known list).
+        if len(offered_set) < min_offered and card not in known_cards_set:
             continue
         picked_set = picked_runs.get(card, set())
         won_set = win_runs.get(card, set())
@@ -231,11 +247,19 @@ def compute_cards(
 
 # ── Relics ────────────────────────────────────────────────────────────────────
 
-def compute_relics(runs: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
+def compute_relics(
+    runs: List[Dict[str, Any]],
+    known_relics: Optional[List[str]] = None,
+) -> Dict[str, List[Dict[str, Any]]]:
     """Compute per-relic stats, split into 'choice' and 'forced' categories.
 
     Choice relics (shop / ancient): pick rate is meaningful.
     Forced relics (treasure / elite / etc.): only track win-rate-with-relic.
+
+    If *known_relics* is provided, every relic in that list is included in the
+    output.  Relics that never appeared in any run are added to the forced list
+    with all-zero counts (since their source category is unknown, the forced
+    list—which tracks acquisition rather than offers—is the appropriate home).
     """
     # For choice relics: offered/picked per run
     choice_offered: Dict[str, Set[str]] = defaultdict(set)
@@ -302,6 +326,20 @@ def compute_relics(runs: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]
             }
         )
     forced_list.sort(key=lambda x: x["acquired_runs"], reverse=True)
+
+    # Add zero-value entries for known relics not seen in any run data
+    if known_relics:
+        seen_relics: Set[str] = set(choice_offered.keys()) | set(forced_acquired.keys())
+        for relic in known_relics:
+            if relic not in seen_relics:
+                forced_list.append(
+                    {
+                        "relic": relic,
+                        "source": [],
+                        "acquired_runs": 0,
+                        "win_rate": None,
+                    }
+                )
 
     return {"choice": choice_list, "forced": forced_list}
 
@@ -648,7 +686,10 @@ def compute_diagnostic(all_runs: List[Dict[str, Any]]) -> Dict[str, Any]:
 
 # ── Potions ───────────────────────────────────────────────────────────────────
 
-def compute_potions(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def compute_potions(
+    runs: List[Dict[str, Any]],
+    known_potions: Optional[List[str]] = None,
+) -> List[Dict[str, Any]]:
     """Compute per-potion pick rate, usage rate, and win rate.
 
     For each potion:
@@ -658,6 +699,9 @@ def compute_potions(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     - ``pick_rate``: picked_runs / offered_runs.
     - ``use_rate``: used_runs / picked_runs.
     - ``win_rate``: win rate across runs where the potion was picked.
+
+    If *known_potions* is provided, every potion in that list is included in
+    the output even if it never appeared in any run (those entries show zeros).
     """
     offered_runs: Dict[str, Set[str]] = defaultdict(set)
     picked_runs: Dict[str, Set[str]] = defaultdict(set)
@@ -678,8 +722,10 @@ def compute_potions(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             elif event["event"] == "used":
                 used_runs[potion].add(run_id)
 
-    # Collect all potion IDs seen in either offered or used
-    all_potions = set(offered_runs.keys()) | set(used_runs.keys())
+    # Collect all potion IDs seen in run data plus any provided known IDs
+    all_potions: Set[str] = set(offered_runs.keys()) | set(used_runs.keys())
+    if known_potions:
+        all_potions.update(known_potions)
 
     results: List[Dict[str, Any]] = []
     for potion in all_potions:
