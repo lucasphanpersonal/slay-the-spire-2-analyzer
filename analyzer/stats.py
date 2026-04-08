@@ -195,11 +195,11 @@ def compute_cards(
             for card in event["offered"]:
                 if card:
                     offered_runs[card].add(run_id)
-            picked = event.get("picked")
-            if picked:
-                picked_runs[picked].add(run_id)
-                if run_win:
-                    win_runs[picked].add(run_id)
+            for picked in event.get("picked", []):
+                if picked:
+                    picked_runs[picked].add(run_id)
+                    if run_win:
+                        win_runs[picked].add(run_id)
 
         for deck_card in extract_deck_cards(run):
             card = deck_card["card"]
