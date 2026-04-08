@@ -133,9 +133,9 @@ def create_app(history_path: str) -> Flask:
 
     @app.route("/api/cards")
     def api_cards():
-        min_offered = int(request.args.get("min_samples", 1))
+        min_picked = int(request.args.get("min_picked", 1))
         runs = filter_runs(_load(), **_filters())
-        return jsonify(compute_cards(runs, min_offered=min_offered, known_cards=_known_cards()))
+        return jsonify(compute_cards(runs, min_picked=min_picked, known_cards=_known_cards()))
 
     @app.route("/api/relics")
     def api_relics():

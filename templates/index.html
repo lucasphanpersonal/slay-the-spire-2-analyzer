@@ -233,10 +233,6 @@
     <input class="form-check-input" type="checkbox" id="filter-abandoned" checked />
     <label class="form-check-label" for="filter-abandoned">Exclude abandoned (floor 1)</label>
   </div>
-  <div class="d-flex align-items-center gap-2 ms-auto">
-    <label class="fw-semibold" style="color:var(--sts-muted);white-space:nowrap;font-size:.85rem">Min samples</label>
-    <input type="number" id="filter-min-samples" class="form-control form-control-sm" value="1" min="1" style="width:70px" />
-  </div>
 </div>
 
 <!-- Toast container -->
@@ -250,6 +246,8 @@
     <div id="overview-loading" class="loading">Loading…</div>
     <div id="overview-content" style="display:none">
       <div class="row g-3 mb-4" id="overview-stat-cards"></div>
+      <h6 class="text-uppercase mb-2" style="color:var(--sts-purple);letter-spacing:.08em;font-size:.8rem">✨ Lifetime Stats</h6>
+      <div class="row g-3 mb-4" id="overview-fun-stats"></div>
       <div class="row g-3">
         <div class="col-lg-6">
           <div class="card"><div class="card-header">Acts Reached Distribution</div>
@@ -265,8 +263,12 @@
 
   <!-- CARDS TAB -->
   <div id="tab-cards" class="tab-pane" style="display:none">
-    <div class="mb-3">
+    <div class="mb-3 d-flex align-items-center gap-3">
       <input type="text" id="card-search" class="form-control" placeholder="Filter cards…" style="max-width:300px" />
+      <div class="d-flex align-items-center gap-2">
+        <label class="fw-semibold" for="cards-min-picked" style="color:var(--sts-muted);white-space:nowrap;font-size:.85rem">Min picked runs</label>
+        <input type="number" id="cards-min-picked" class="form-control form-control-sm" value="1" min="1" style="width:70px" title="Hide cards picked in fewer than this many runs" />
+      </div>
     </div>
     <div id="cards-loading" class="loading">Loading…</div>
     <div id="cards-content" style="display:none">
@@ -453,15 +455,21 @@
         </div>
         <div>
           <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Killed By</label>
-          <input type="text" id="runs-filter-killed-by" class="form-control form-control-sm" placeholder="partial match…" style="width:150px" />
+          <select id="runs-filter-killed-by" class="form-select form-select-sm" style="width:160px">
+            <option value="">All</option>
+          </select>
         </div>
         <div>
           <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Has Relic</label>
-          <input type="text" id="runs-filter-has-relic" class="form-control form-control-sm" placeholder="partial match…" style="width:150px" />
+          <select id="runs-filter-has-relic" class="form-select form-select-sm" style="width:160px">
+            <option value="">All</option>
+          </select>
         </div>
         <div>
           <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Has Card</label>
-          <input type="text" id="runs-filter-has-card" class="form-control form-control-sm" placeholder="partial match…" style="width:150px" />
+          <select id="runs-filter-has-card" class="form-select form-select-sm" style="width:160px">
+            <option value="">All</option>
+          </select>
         </div>
         <div class="d-flex gap-2 align-items-end">
           <button id="runs-filter-clear" class="btn btn-sm" style="background:var(--sts-border);color:var(--sts-text);border:none" onclick="clearRunsFilter()">Clear filters</button>
@@ -596,7 +604,6 @@ const state = {
   ancient: '',
   excludeMultiplayer: true,
   excludeAbandoned: true,
-  minSamples: 1,
   relicSubtab: 'choice',
   // cached data
   cache: {},
@@ -627,7 +634,6 @@ function queryParams(extra = {}) {
     ancient: state.ancient,
     exclude_multiplayer: state.excludeMultiplayer,
     exclude_abandoned: state.excludeAbandoned,
-    min_samples: state.minSamples,
     ...extra,
   });
   return p.toString();
@@ -767,6 +773,28 @@ function renderOverview(d) {
       <div class="stat-value">${fmtTime(d.avg_run_time_s)}</div><div class="stat-label">Avg Run Time</div></div></div>
   `;
 
+  const streakColor = d.longest_win_streak >= 5 ? 'var(--sts-green)' : d.longest_win_streak >= 3 ? 'var(--sts-gold)' : 'var(--sts-text)';
+  document.getElementById('overview-fun-stats').innerHTML = `
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value" style="color:${streakColor}">🏆 ${d.longest_win_streak}</div><div class="stat-label">Longest Win Streak</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value">⚔️ ${(d.total_encounters || 0).toLocaleString()}</div><div class="stat-label">Total Battles</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value">💀 ${(d.total_boss_kills || 0).toLocaleString()}</div><div class="stat-label">Boss Kills</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value" style="color:var(--sts-red)">🩸 ${(d.total_damage_taken || 0).toLocaleString()}</div><div class="stat-label">Lifetime Dmg Taken</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value" style="color:var(--sts-green)">❤️ ${(d.total_hp_healed || 0).toLocaleString()}</div><div class="stat-label">Lifetime HP Healed</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value">💰 ${(d.total_gold_earned || 0).toLocaleString()}</div><div class="stat-label">Total Gold Earned</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value">🃏 ${(d.total_cards_picked || 0).toLocaleString()}</div><div class="stat-label">Cards Picked</div></div></div>
+    ${d.fastest_win_s ? `<div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value">⚡ ${fmtTime(d.fastest_win_s)}</div><div class="stat-label">Fastest Win</div></div></div>` : ''}
+    ${d.close_call_wins > 0 ? `<div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value" style="color:var(--sts-red)">🫀 ${d.close_call_wins}</div><div class="stat-label">Close Calls (≤5 HP)</div></div></div>` : ''}
+  `;
+
   // Acts chart
   const actLabels = Object.keys(d.acts_reached).map(a => `Act ${a}`);
   const actValues = Object.values(d.acts_reached);
@@ -846,7 +874,7 @@ let allCards = [];
 async function loadCards() {
   showLoading('cards-loading'); hideContent('cards-content');
   try {
-    allCards = await apiFetch('cards', { min_samples: state.minSamples });
+    allCards = await apiFetch('cards', { min_picked: parseInt(document.getElementById('cards-min-picked').value) || 1 });
     renderCardsTable(allCards);
     initSort('cards-table', allCards, renderCardsTable);
     showContent('cards-content');
@@ -1231,9 +1259,9 @@ let currentRunsData = [];
 // Apply the runs-tab local filters to a full data array and return the subset.
 function applyRunsFilter(data) {
   const f = state.runsFilter;
-  const killedBy = f.killedBy.trim().toLowerCase();
-  const hasRelic = f.hasRelic.trim().toLowerCase();
-  const hasCard  = f.hasCard.trim().toLowerCase();
+  const killedBy = f.killedBy.trim();
+  const hasRelic = f.hasRelic.trim();
+  const hasCard  = f.hasCard.trim();
   const minActs    = f.minActs    !== '' ? parseInt(f.minActs, 10)    : null;
   const maxActs    = f.maxActs    !== '' ? parseInt(f.maxActs, 10)    : null;
   const minHpPct   = f.minHpPct   !== '' ? parseFloat(f.minHpPct)    : null;
@@ -1252,16 +1280,13 @@ function applyRunsFilter(data) {
     if (maxDamage !== null && r.total_damage > maxDamage) return false;
     if (minGold   !== null && (r.gold ?? 0) < minGold)    return false;
     if (killedBy) {
-      const kb = (r.killed_by || '').toLowerCase();
-      if (!kb.includes(killedBy)) return false;
+      if ((r.killed_by || '') !== killedBy) return false;
     }
     if (hasRelic) {
-      const found = (r.relics || []).some(rel => rel.toLowerCase().includes(hasRelic));
-      if (!found) return false;
+      if (!(r.relics || []).includes(hasRelic)) return false;
     }
     if (hasCard) {
-      const found = (r.deck || []).some(c => (c.id || '').toLowerCase().includes(hasCard));
-      if (!found) return false;
+      if (!(r.deck || []).some(c => (c.id || '') === hasCard)) return false;
     }
     return true;
   });
@@ -1299,11 +1324,40 @@ function clearRunsFilter() {
   updateRunsFilterCount(filtered.length, currentRunsData.length);
   renderRuns(filtered);
 }
+function populateRunsFilterDropdowns(data) {
+  const killedBySet = new Set();
+  const relicSet = new Set();
+  const cardSet = new Set();
+  data.forEach(r => {
+    if (r.killed_by) killedBySet.add(r.killed_by);
+    (r.relics || []).forEach(rel => relicSet.add(rel));
+    (r.deck || []).forEach(c => { if (c.id) cardSet.add(c.id); });
+  });
+
+  function fillSelect(id, values, labelFn) {
+    const sel = document.getElementById(id);
+    const current = sel.value;
+    while (sel.options.length > 1) sel.remove(1);
+    [...values].sort().forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = labelFn(v);
+      sel.appendChild(opt);
+    });
+    sel.value = current;
+  }
+
+  fillSelect('runs-filter-killed-by', killedBySet, v => v);
+  fillSelect('runs-filter-has-relic', relicSet, v => cardDisplayName(v));
+  fillSelect('runs-filter-has-card', cardSet, v => cardDisplayName(v));
+}
+
 async function loadRuns() {
   showLoading('runs-loading'); hideContent('runs-content');
   try {
     const data = await apiFetch('runs');
     currentRunsData = data;
+    populateRunsFilterDropdowns(data);
     const filtered = applyRunsFilter(data);
     updateRunsFilterCount(filtered.length, data.length);
     renderRuns(filtered);
@@ -1329,7 +1383,7 @@ function renderRuns(data) {
     const deckLabel = enchantedCount > 0
       ? `${r.deck_size} <span class="enchant-count">(✦${enchantedCount})</span>`
       : String(r.deck_size);
-    rows.push(`<tr data-run-idx="${idx}">
+    rows.push(`<tr data-run-idx="${idx}" data-run-filename="${esc(r.filename || '')}">
       <td><strong>${r.character.replace(/_/g,' ')}</strong></td>
       <td>${r.win ? '<span class="badge badge-win">WIN</span>' : '<span class="badge badge-loss">LOSS</span>'}</td>
       <td>${r.ascension}</td>
@@ -1367,10 +1421,9 @@ function renderRuns(data) {
   // Make run rows open detail modal on click
   tbody.querySelectorAll('tr[data-run-idx]').forEach(row => {
     row.addEventListener('click', () => {
-      const idx = parseInt(row.dataset.runIdx, 10);
-      const run = !isNaN(idx) ? currentRunsData[idx] : null;
-      if (run && run.filename) {
-        openRunDetail(run.filename);
+      const filename = row.dataset.runFilename;
+      if (filename) {
+        openRunDetail(filename);
       }
     });
   });
@@ -1903,9 +1956,9 @@ document.getElementById('filter-abandoned').addEventListener('change', e => {
   state.excludeAbandoned = e.target.checked; invalidateCache(); loadCurrentTab();
 });
 
-document.getElementById('filter-min-samples').addEventListener('change', e => {
-  state.minSamples = parseInt(e.target.value) || 1; invalidateCache();
-  if (state.tab === 'cards') loadCards();
+document.getElementById('cards-min-picked').addEventListener('change', () => {
+  invalidateCache();
+  loadCards();
 });
 
 document.getElementById('card-search').addEventListener('input', () => {
@@ -1954,13 +2007,13 @@ document.getElementById('runs-filter-max-damage').addEventListener('input', e =>
 document.getElementById('runs-filter-min-gold').addEventListener('input', e => {
   state.runsFilter.minGold = e.target.value; _runsFilterRerender();
 });
-document.getElementById('runs-filter-killed-by').addEventListener('input', e => {
+document.getElementById('runs-filter-killed-by').addEventListener('change', e => {
   state.runsFilter.killedBy = e.target.value; _runsFilterRerender();
 });
-document.getElementById('runs-filter-has-relic').addEventListener('input', e => {
+document.getElementById('runs-filter-has-relic').addEventListener('change', e => {
   state.runsFilter.hasRelic = e.target.value; _runsFilterRerender();
 });
-document.getElementById('runs-filter-has-card').addEventListener('input', e => {
+document.getElementById('runs-filter-has-card').addEventListener('change', e => {
   state.runsFilter.hasCard = e.target.value; _runsFilterRerender();
 });
 
