@@ -71,7 +71,7 @@ def create_app(history_path: str) -> Flask:
                 os.path.getmtime(os.path.join(dp, f))
                 for dp, _dirs, files in os.walk(path)
                 for f in files
-                if f.endswith(".run") and not f.endswith(".run.backup")
+                if f.endswith(".run")
             ]
             return max(mtimes) if mtimes else 0.0
         except OSError:
