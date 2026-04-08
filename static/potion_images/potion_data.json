@@ -1,0 +1,317 @@
+{
+  "ASHWATER": {
+    "rarity": "Uncommon",
+    "description": "Exhaust  any number of cards in your  Hand .",
+    "has_image": true
+  },
+  "ATTACK_POTION": {
+    "rarity": "Common",
+    "description": "Choose  1  of  3  random Attack cards to add into your  Hand . It's free to play this turn.",
+    "has_image": true
+  },
+  "BEETLE_JUICE": {
+    "rarity": "Rare",
+    "description": "Enemy's attacks deal  30%  less damage for the next  4  turns.",
+    "has_image": true
+  },
+  "BLESSING_OF_THE_FORGE": {
+    "rarity": "Uncommon",
+    "description": "Upgrade  all cards in your  Hand  for the rest of combat.",
+    "has_image": true
+  },
+  "BLOCK_POTION": {
+    "rarity": "Common",
+    "description": "Gain  12   Block .",
+    "has_image": true
+  },
+  "BLOOD_POTION": {
+    "rarity": "Common",
+    "description": "Heal for  20%  of your Max HP.",
+    "has_image": true
+  },
+  "BONE_BREW": {
+    "rarity": "Uncommon",
+    "description": "Summon   15 .",
+    "has_image": true
+  },
+  "BOTTLED_POTENTIAL": {
+    "rarity": "Rare",
+    "description": "Shuffle ALL your cards into your  Draw Pile . Draw  5  cards.",
+    "has_image": true
+  },
+  "CLARITY": {
+    "rarity": "Uncommon",
+    "description": "Draw  1  card. At the start of your next  3  turns, draw  1  additional card.",
+    "has_image": true
+  },
+  "COLORLESS_POTION": {
+    "rarity": "Common",
+    "description": "Choose  1  of  3  random Colorless cards to add into your  Hand . It's free to play this turn.",
+    "has_image": true
+  },
+  "COSMIC_CONCOCTION": {
+    "rarity": "Rare",
+    "description": "Add  3   Upgraded  Colorless cards into your  Hand .",
+    "has_image": true
+  },
+  "CUNNING_POTION": {
+    "rarity": "Uncommon",
+    "description": "Add  3   Upgraded   Shivs  into your  Hand .",
+    "has_image": true
+  },
+  "CURE_ALL": {
+    "rarity": "Uncommon",
+    "description": "Gain  . Draw  2  cards.",
+    "has_image": true
+  },
+  "DEXTERITY_POTION": {
+    "rarity": "Common",
+    "description": "Gain  2   Dexterity .",
+    "has_image": true
+  },
+  "DISTILLED_CHAOS": {
+    "rarity": "Rare",
+    "description": "Play the top  3  cards of your  Draw Pile .",
+    "has_image": true
+  },
+  "DROPLET_OF_PRECOGNITION": {
+    "rarity": "Rare",
+    "description": "Choose a card in your  Draw Pile  and add it into your  Hand .",
+    "has_image": true
+  },
+  "DUPLICATOR": {
+    "rarity": "Uncommon",
+    "description": "This turn, your next card is played an extra time.",
+    "has_image": true
+  },
+  "ENERGY_POTION": {
+    "rarity": "Common",
+    "description": "Gain  .",
+    "has_image": true
+  },
+  "ENTROPIC_BREW": {
+    "rarity": "Rare",
+    "description": "Fill all your empty potion slots with random potions.",
+    "has_image": true
+  },
+  "ESSENCE_OF_DARKNESS": {
+    "rarity": "Rare",
+    "description": "Channel  a  Dark  for each of your Orb Slots.",
+    "has_image": true
+  },
+  "EXPLOSIVE_AMPOULE": {
+    "rarity": "Common",
+    "description": "Deal  10  damage to ALL enemies.",
+    "has_image": true
+  },
+  "FAIRY_IN_A_BOTTLE": {
+    "rarity": "Rare",
+    "description": "When you would die, instead this potion is discarded and you heal to  30%  of your Max HP.",
+    "has_image": true
+  },
+  "FIRE_POTION": {
+    "rarity": "Common",
+    "description": "Deal  20  damage.",
+    "has_image": true
+  },
+  "FLEX_POTION": {
+    "rarity": "Common",
+    "description": "Gain  5   Strength . At the end of your turn, lose  5   Strength .",
+    "has_image": true
+  },
+  "FOCUS_POTION": {
+    "rarity": "Common",
+    "description": "Gain  2   Focus .",
+    "has_image": true
+  },
+  "FORTIFIER": {
+    "rarity": "Uncommon",
+    "description": "Triple your  Block .",
+    "has_image": true
+  },
+  "FOUL_POTION": {
+    "rarity": "Event",
+    "description": "Deal  12  damage to EVERYONE.   Can be thrown at the Merchant for  100   Gold  instead.",
+    "has_image": true
+  },
+  "FRUIT_JUICE": {
+    "rarity": "Rare",
+    "description": "Gain  5  Max HP.",
+    "has_image": true
+  },
+  "FYSH_OIL": {
+    "rarity": "Uncommon",
+    "description": "Gain  1   Strength  and  1   Dexterity .",
+    "has_image": true
+  },
+  "GAMBLERS_BREW": {
+    "rarity": "Uncommon",
+    "description": "Discard any number of cards, then draw that many.",
+    "has_image": true
+  },
+  "GHOST_IN_A_JAR": {
+    "rarity": "Rare",
+    "description": "Gain  1   Intangible .",
+    "has_image": true
+  },
+  "GIGANTIFICATION_POTION": {
+    "rarity": "Rare",
+    "description": "The next Attack you play deals triple damage.",
+    "has_image": true
+  },
+  "GLOWWATER_POTION": {
+    "rarity": "Event",
+    "description": "Exhaust  your  Hand . Draw  10  cards.",
+    "has_image": true
+  },
+  "HEART_OF_IRON": {
+    "rarity": "Uncommon",
+    "description": "Gain  7   Plating .",
+    "has_image": true
+  },
+  "KINGS_COURAGE": {
+    "rarity": "Uncommon",
+    "description": "Forge   15 .",
+    "has_image": true
+  },
+  "LIQUID_BRONZE": {
+    "rarity": "Uncommon",
+    "description": "Gain  3   Thorns .",
+    "has_image": true
+  },
+  "LIQUID_MEMORIES": {
+    "rarity": "Rare",
+    "description": "Put a card from your  Discard Pile  into your  Hand . It costs  0    this turn.",
+    "has_image": true
+  },
+  "LUCKY_TONIC": {
+    "rarity": "Rare",
+    "description": "Gain  1  Buffer.",
+    "has_image": true
+  },
+  "MAZALETHS_GIFT": {
+    "rarity": "Rare",
+    "description": "Gain  1  Ritual.",
+    "has_image": true
+  },
+  "OROBIC_ACID": {
+    "rarity": "Rare",
+    "description": "Add a random Attack, Skill, and Power into your  Hand . They're free to play this turn.",
+    "has_image": true
+  },
+  "POISON_POTION": {
+    "rarity": "Common",
+    "description": "Apply  6   Poison .",
+    "has_image": true
+  },
+  "POTION_OF_BINDING": {
+    "rarity": "Uncommon",
+    "description": "Apply  1   Weak  and  1   Vulnerable  to ALL enemies.",
+    "has_image": true
+  },
+  "POTION_OF_CAPACITY": {
+    "rarity": "Uncommon",
+    "description": "Gain  2  Orb Slots.",
+    "has_image": true
+  },
+  "POTION_OF_DOOM": {
+    "rarity": "Common",
+    "description": "Apply  33   Doom .",
+    "has_image": true
+  },
+  "POTION_SHAPED_ROCK": {
+    "rarity": "Token",
+    "description": "Deal  15  damage.",
+    "has_image": true
+  },
+  "POT_OF_GHOULS": {
+    "rarity": "Rare",
+    "description": "Add  2   Souls  into your  Hand .",
+    "has_image": true
+  },
+  "POWDERED_DEMISE": {
+    "rarity": "Uncommon",
+    "description": "Enemy loses  9  HP at the end of each of its turns.",
+    "has_image": true
+  },
+  "POWER_POTION": {
+    "rarity": "Common",
+    "description": "Choose  1  of  3  random Power cards to add into your  Hand . It's free to play this turn.",
+    "has_image": true
+  },
+  "RADIANT_TINCTURE": {
+    "rarity": "Uncommon",
+    "description": "Gain  . Gain an additional   at the start of your next  3  turns.",
+    "has_image": true
+  },
+  "REGEN_POTION": {
+    "rarity": "Uncommon",
+    "description": "Gain  5  Regen.",
+    "has_image": true
+  },
+  "SHACKLING_POTION": {
+    "rarity": "Rare",
+    "description": "ALL enemies lose  7   Strength  this turn.",
+    "has_image": true
+  },
+  "SHIP_IN_A_BOTTLE": {
+    "rarity": "Rare",
+    "description": "Gain  10   Block . Next turn, gain  10   Block .",
+    "has_image": true
+  },
+  "SKILL_POTION": {
+    "rarity": "Common",
+    "description": "Choose  1  of  3  random Skill cards to add into your  Hand . It's free to play this turn.",
+    "has_image": true
+  },
+  "SNECKO_OIL": {
+    "rarity": "Rare",
+    "description": "Draw  7  cards. Randomize the cost of cards in your  Hand  this turn.",
+    "has_image": true
+  },
+  "SOLDIERS_STEW": {
+    "rarity": "Rare",
+    "description": "All cards containing Strike gain  1   Replay  this combat.",
+    "has_image": true
+  },
+  "SPEED_POTION": {
+    "rarity": "Common",
+    "description": "Gain  5   Dexterity . At the end of your turn, lose  5   Dexterity .",
+    "has_image": true
+  },
+  "STABLE_SERUM": {
+    "rarity": "Uncommon",
+    "description": "Retain  your  Hand  for  2  turns.",
+    "has_image": true
+  },
+  "STAR_POTION": {
+    "rarity": "Common",
+    "description": "Gain  .",
+    "has_image": true
+  },
+  "STRENGTH_POTION": {
+    "rarity": "Common",
+    "description": "Gain  2   Strength .",
+    "has_image": true
+  },
+  "SWIFT_POTION": {
+    "rarity": "Common",
+    "description": "Draw  3  cards.",
+    "has_image": true
+  },
+  "TOUCH_OF_INSANITY": {
+    "rarity": "Uncommon",
+    "description": "Choose a card in your  Hand . It is free to play this combat.",
+    "has_image": true
+  },
+  "VULNERABLE_POTION": {
+    "rarity": "Common",
+    "description": "Apply  3   Vulnerable .",
+    "has_image": true
+  },
+  "WEAK_POTION": {
+    "rarity": "Common",
+    "description": "Apply  3   Weak .",
+    "has_image": true
+  }
+}

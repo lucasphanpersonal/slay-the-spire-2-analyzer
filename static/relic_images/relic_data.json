@@ -1,0 +1,1407 @@
+{
+  "AKABEKO": {
+    "rarity": "Uncommon",
+    "description": "At the start of each combat, gain  8   Vigor .",
+    "has_image": true
+  },
+  "ALCHEMICAL_COFFER": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, gain  4  potion slots filled with random potions.",
+    "has_image": true
+  },
+  "AMETHYST_AUBERGINE": {
+    "rarity": "Common",
+    "description": "Enemies drop  10  additional  Gold .",
+    "has_image": true
+  },
+  "ANCHOR": {
+    "rarity": "Common",
+    "description": "Start each combat with  10   Block .",
+    "has_image": true
+  },
+  "ARCANE_SCROLL": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, obtain a random Rare Card to add to your  Deck .",
+    "has_image": true
+  },
+  "ARCHAIC_TOOTH": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, Transform a starter card with an ancient version.",
+    "has_image": true
+  },
+  "ART_OF_WAR": {
+    "rarity": "Rare",
+    "description": "If you do not play any Attacks during your turn, gain an additional   next turn.",
+    "has_image": true
+  },
+  "ASTROLABE": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, Transform  3  cards, then  Upgrade  them.",
+    "has_image": true
+  },
+  "BAG_OF_MARBLES": {
+    "rarity": "Uncommon",
+    "description": "At the start of each combat, apply  1   Vulnerable  to ALL enemies.",
+    "has_image": true
+  },
+  "BAG_OF_PREPARATION": {
+    "rarity": "Common",
+    "description": "At the start of each combat, draw  2  additional cards.",
+    "has_image": true
+  },
+  "BEATING_REMNANT": {
+    "rarity": "Rare",
+    "description": "You cannot lose more than  20  HP in a single turn.",
+    "has_image": true
+  },
+  "BEAUTIFUL_BRACELET": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, choose  3  cards in your  Deck . Enchant them with Swift  3 .",
+    "has_image": true
+  },
+  "BELLOWS": {
+    "rarity": "Uncommon",
+    "description": "The first  Hand  you draw each combat is  Upgraded .",
+    "has_image": true
+  },
+  "BELT_BUCKLE": {
+    "rarity": "Shop",
+    "description": "While you have no potions, you have  2  additional  Dexterity .",
+    "has_image": true
+  },
+  "BIG_MUSHROOM": {
+    "rarity": "Event",
+    "description": "Upon pickup, raise your Max HP by  20 . At the start of each combat, draw  2  fewer cards.",
+    "has_image": true
+  },
+  "BIIIG_HUG": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, remove  4  cards from your  Deck . Whenever you shuffle your  Draw Pile , add a Soot into your  Draw Pile .",
+    "has_image": true
+  },
+  "BING_BONG": {
+    "rarity": "Event",
+    "description": "Whenever you add a card to your  Deck , add one additional copy.",
+    "has_image": true
+  },
+  "BLACK_BLOOD": {
+    "rarity": "Starter",
+    "description": "At the end of combat, heal  12  HP.",
+    "has_image": true
+  },
+  "BLACK_STAR": {
+    "rarity": "Ancient",
+    "description": "Elites drop an additional Relic when defeated.",
+    "has_image": true
+  },
+  "BLESSED_ANTLER": {
+    "rarity": "Ancient",
+    "description": "Gain   at the start of each turn. At the start of each combat, shuffle  3   Dazed  into your  Draw Pile .",
+    "has_image": true
+  },
+  "BLOOD_SOAKED_ROSE": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, add  1  Enthralled to your  Deck . Gain   at the start of each turn.",
+    "has_image": true
+  },
+  "BLOOD_VIAL": {
+    "rarity": "Common",
+    "description": "At the start of each combat, heal  2  HP.",
+    "has_image": true
+  },
+  "BONE_FLUTE": {
+    "rarity": "Common",
+    "description": "Whenever  Osty  attacks, gain  2   Block .",
+    "has_image": true
+  },
+  "BONE_TEA": {
+    "rarity": "Event",
+    "description": "At the start of the next combat,  Upgrade  your starting hand.",
+    "has_image": true
+  },
+  "BOOKMARK": {
+    "rarity": "Rare",
+    "description": "At the end of each turn, lower the cost of a random Retained card by  1  until played.",
+    "has_image": true
+  },
+  "BOOK_OF_FIVE_RINGS": {
+    "rarity": "Common",
+    "description": "Every  5  cards you add to your  Deck , heal  15  HP.",
+    "has_image": true
+  },
+  "BOOK_REPAIR_KNIFE": {
+    "rarity": "Uncommon",
+    "description": "Whenever a non-Minion enemy dies to  Doom , heal  3  HP.",
+    "has_image": true
+  },
+  "BOOMING_CONCH": {
+    "rarity": "Ancient",
+    "description": "At the start of Elite combats, draw  2  additional cards.",
+    "has_image": true
+  },
+  "BOUND_PHYLACTERY": {
+    "rarity": "Starter",
+    "description": "At the start of your turn,  Summon   1 .",
+    "has_image": true
+  },
+  "BOWLER_HAT": {
+    "rarity": "Uncommon",
+    "description": "Gain  20%  additional  Gold .",
+    "has_image": true
+  },
+  "BREAD": {
+    "rarity": "Shop",
+    "description": "At the start of your first turn, lose  . At the start of all other turns, gain  .",
+    "has_image": true
+  },
+  "BRILLIANT_SCARF": {
+    "rarity": "Ancient",
+    "description": "The  5 th card you play each turn is free.",
+    "has_image": true
+  },
+  "BRIMSTONE": {
+    "rarity": "Shop",
+    "description": "At the start of your turn, gain  2   Strength  and ALL enemies gain  1   Strength .",
+    "has_image": true
+  },
+  "BRONZE_SCALES": {
+    "rarity": "Common",
+    "description": "Start each combat with  3   Thorns .",
+    "has_image": true
+  },
+  "BURNING_BLOOD": {
+    "rarity": "Starter",
+    "description": "At the end of combat, heal  6  HP.",
+    "has_image": true
+  },
+  "BURNING_STICKS": {
+    "rarity": "Shop",
+    "description": "The first time each combat you  Exhaust  a Skill, add a copy of it into your  Hand .",
+    "has_image": true
+  },
+  "BYRDPIP": {
+    "rarity": "Event",
+    "description": "Upon pickup, gain the card Byrd Swoop. A Byrdpip will accompany you in battles.",
+    "has_image": true
+  },
+  "CALLING_BELL": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, obtain a unique Curse and  3  Relics.",
+    "has_image": true
+  },
+  "CANDELABRA": {
+    "rarity": "Uncommon",
+    "description": "At the start of your  2 nd turn, gain  .",
+    "has_image": true
+  },
+  "CAPTAINS_WHEEL": {
+    "rarity": "Rare",
+    "description": "At the start of your  3 rd turn, gain  18   Block .",
+    "has_image": true
+  },
+  "CAULDRON": {
+    "rarity": "Shop",
+    "description": "Upon pickup, brews  5  random potions.",
+    "has_image": true
+  },
+  "CENTENNIAL_PUZZLE": {
+    "rarity": "Common",
+    "description": "The first time you lose HP each combat, draw  3  cards.",
+    "has_image": true
+  },
+  "CHANDELIER": {
+    "rarity": "Rare",
+    "description": "At the start of your  3 rd turn, gain  .",
+    "has_image": true
+  },
+  "CHEMICAL_X": {
+    "rarity": "Shop",
+    "description": "The effects of your cost X cards are increased by  2 .",
+    "has_image": true
+  },
+  "CHOICES_PARADOX": {
+    "rarity": "Ancient",
+    "description": "At the start of each combat, add  1  of  5  random cards into your  Hand . Add  Retain  to the chosen card.",
+    "has_image": true
+  },
+  "CHOSEN_CHEESE": {
+    "rarity": "Event",
+    "description": "At the end of combat, gain  1  Max HP.",
+    "has_image": true
+  },
+  "CLAWS": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, Transform up to  6  cards into Maul.",
+    "has_image": true
+  },
+  "CLOAK_CLASP": {
+    "rarity": "Rare",
+    "description": "At the end of your turn, gain  1   Block  for each card in your  Hand .",
+    "has_image": true
+  },
+  "CRACKED_CORE": {
+    "rarity": "Starter",
+    "description": "At the start of each combat,  Channel   1   Lightning .",
+    "has_image": true
+  },
+  "CROSSBOW": {
+    "rarity": "Ancient",
+    "description": "At the start of your turn, add a random Attack into your  Hand . It costs  0  this turn.",
+    "has_image": true
+  },
+  "CURSED_PEARL": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, receive Greed. Gain  333   Gold .",
+    "has_image": true
+  },
+  "DARKSTONE_PERIAPT": {
+    "rarity": "Event",
+    "description": "Whenever you obtain a Curse, raise your Max HP by  6 .",
+    "has_image": true
+  },
+  "DATA_DISK": {
+    "rarity": "Common",
+    "description": "Start each combat with  1   Focus .",
+    "has_image": true
+  },
+  "DAUGHTER_OF_THE_WIND": {
+    "rarity": "Event",
+    "description": "Whenever you play an Attack, gain  1   Block .",
+    "has_image": true
+  },
+  "DEFECT": {
+    "rarity": null,
+    "description": null,
+    "has_image": true
+  },
+  "DELICATE_FROND": {
+    "rarity": "Ancient",
+    "description": "At the start of each combat, fill all empty potion slots with random potions.",
+    "has_image": true
+  },
+  "DIAMOND_DIADEM": {
+    "rarity": "Ancient",
+    "description": "Whenever you play  2  or fewer cards in a turn, take half damage from enemies.",
+    "has_image": true
+  },
+  "DINGY_RUG": {
+    "rarity": "Shop",
+    "description": "Card rewards can now contain Colorless cards.",
+    "has_image": true
+  },
+  "DISTINGUISHED_CAPE": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, lose  9  Max HP. Add  3  Apparitions to your  Deck .",
+    "has_image": true
+  },
+  "DIVINE_DESTINY": {
+    "rarity": "Starter",
+    "description": "At the start of each combat, gain  .",
+    "has_image": true
+  },
+  "DIVINE_RIGHT": {
+    "rarity": "Starter",
+    "description": "At the start of each combat, gain  .",
+    "has_image": true
+  },
+  "DOLLYS_MIRROR": {
+    "rarity": "Shop",
+    "description": "Upon pickup, obtain an additional copy of a card in your  Deck .",
+    "has_image": true
+  },
+  "DRAGON_FRUIT": {
+    "rarity": "Shop",
+    "description": "Whenever you gain  Gold , raise your Max HP by  1 .",
+    "has_image": true
+  },
+  "DREAM_CATCHER": {
+    "rarity": "Event",
+    "description": "Whenever you Rest, you may add a card to your  Deck .",
+    "has_image": true
+  },
+  "DRIFTWOOD": {
+    "rarity": "Ancient",
+    "description": "You may reroll each card reward once.",
+    "has_image": true
+  },
+  "DUSTY_TOME": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, obtain an Ancient Card.",
+    "has_image": true
+  },
+  "ECTOPLASM": {
+    "rarity": "Ancient",
+    "description": "You can no longer gain  Gold . Gain   at the start of each turn.",
+    "has_image": true
+  },
+  "ELECTRIC_SHRYMP": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, Enchant a Skill with Imbued.",
+    "has_image": true
+  },
+  "EMBER_TEA": {
+    "rarity": "Event",
+    "description": "At the start of the next  5  combats, gain  2   Strength .",
+    "has_image": true
+  },
+  "EMPTY_CAGE": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, remove  2  cards from your  Deck .",
+    "has_image": true
+  },
+  "ETERNAL_FEATHER": {
+    "rarity": "Uncommon",
+    "description": "For every  5  cards in your  Deck , heal  3  HP whenever you enter a  Rest Site .",
+    "has_image": true
+  },
+  "FAKE_ANCHOR": {
+    "rarity": "Event",
+    "description": "Start each combat with  4   Block .",
+    "has_image": true
+  },
+  "FAKE_BLOOD_VIAL": {
+    "rarity": "Event",
+    "description": "At the start of each combat, heal  1  HP.",
+    "has_image": true
+  },
+  "FAKE_HAPPY_FLOWER": {
+    "rarity": "Event",
+    "description": "Every  5  turns, gain  .",
+    "has_image": true
+  },
+  "FAKE_LEES_WAFFLE": {
+    "rarity": "Event",
+    "description": "Upon pickup, heal  10%  of your HP.",
+    "has_image": true
+  },
+  "FAKE_MANGO": {
+    "rarity": "Event",
+    "description": "Upon pickup, raise your Max HP by  3 .",
+    "has_image": true
+  },
+  "FAKE_STRIKE_DUMMY": {
+    "rarity": "Event",
+    "description": "Cards containing “Strike” deal  1  additional damage.",
+    "has_image": true
+  },
+  "FAKE_VENERABLE_TEA_SET": {
+    "rarity": "Event",
+    "description": "Whenever you enter a  Rest Site , start the next combat with an additional  .",
+    "has_image": true
+  },
+  "FENCING_MANUAL": {
+    "rarity": "Common",
+    "description": "At the start of each combat,  Forge   10 .",
+    "has_image": true
+  },
+  "FESTIVE_POPPER": {
+    "rarity": "Common",
+    "description": "At the start of each combat, deal  9  damage to ALL enemies.",
+    "has_image": true
+  },
+  "FIDDLE": {
+    "rarity": "Ancient",
+    "description": "At the start of each turn, draw  2  additional cards. You may not draw cards during your turn.",
+    "has_image": true
+  },
+  "FORGOTTEN_SOUL": {
+    "rarity": "Event",
+    "description": "Whenever you  Exhaust  a card, deal  1  damage to a random enemy.",
+    "has_image": true
+  },
+  "FRAGRANT_MUSHROOM": {
+    "rarity": "Event",
+    "description": "Upon pickup, lose  15  HP and  Upgrade   3  random cards.",
+    "has_image": true
+  },
+  "FRESNEL_LENS": {
+    "rarity": "Event",
+    "description": "Whenever you add a card that gains  Block  to your  Deck , Enchant it with Nimble  2 .",
+    "has_image": true
+  },
+  "FROZEN_EGG": {
+    "rarity": "Rare",
+    "description": "Whenever you add a Power into your  Deck ,  Upgrade  it.",
+    "has_image": true
+  },
+  "FUNERARY_MASK": {
+    "rarity": "Uncommon",
+    "description": "At the start of each combat, add  3   Souls  into your  Draw Pile .",
+    "has_image": true
+  },
+  "FUR_COAT": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, mark  7  random combats. Enemies in those rooms have  1  HP.",
+    "has_image": true
+  },
+  "GALACTIC_DUST": {
+    "rarity": "Uncommon",
+    "description": "For every  10    spent, gain  10   Block .",
+    "has_image": true
+  },
+  "GAMBLING_CHIP": {
+    "rarity": "Rare",
+    "description": "At the start of each combat, discard any number of cards then draw that many.",
+    "has_image": true
+  },
+  "GAME_PIECE": {
+    "rarity": "Rare",
+    "description": "Whenever you play a Power, draw  1  card.",
+    "has_image": true
+  },
+  "GHOST_SEED": {
+    "rarity": "Shop",
+    "description": "Strikes and Defends gain  Ethereal .",
+    "has_image": true
+  },
+  "GIRYA": {
+    "rarity": "Rare",
+    "description": "You can now gain  Strength  at Rest Sites. ( 3  times max)",
+    "has_image": true
+  },
+  "GLASS_EYE": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, obtain  2  Common cards,  2  Uncommon cards, and  1  Rare card.",
+    "has_image": true
+  },
+  "GLITTER": {
+    "rarity": "Ancient",
+    "description": "Enchant all card rewards with Glam.",
+    "has_image": true
+  },
+  "GNARLED_HAMMER": {
+    "rarity": "Shop",
+    "description": "Upon pickup, Enchant up to  3  Attacks with Sharp  3 .",
+    "has_image": true
+  },
+  "GOLDEN_COMPASS": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, replace the Act  2  Map with a single special path.",
+    "has_image": true
+  },
+  "GOLDEN_PEARL": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, gain  150   Gold .",
+    "has_image": true
+  },
+  "GOLD_PLATED_CABLES": {
+    "rarity": "Uncommon",
+    "description": "Your rightmost Orb triggers its passive an additional time.",
+    "has_image": true
+  },
+  "GORGET": {
+    "rarity": "Common",
+    "description": "At the start of each combat, gain  4   Plating .",
+    "has_image": true
+  },
+  "GREMLIN_HORN": {
+    "rarity": "Uncommon",
+    "description": "Whenever an enemy dies, gain   and draw  1  card.",
+    "has_image": true
+  },
+  "HAND_DRILL": {
+    "rarity": "Event",
+    "description": "Whenever you break an enemy's  Block , apply  2   Vulnerable .",
+    "has_image": true
+  },
+  "HAPPY_FLOWER": {
+    "rarity": "Common",
+    "description": "Every  3  turns, gain  .",
+    "has_image": true
+  },
+  "HEFTY_TABLET": {
+    "rarity": null,
+    "description": null,
+    "has_image": false
+  },
+  "HELICAL_DART": {
+    "rarity": "Rare",
+    "description": "Whenever you play a  Shiv , gain  1   Dexterity  this turn.",
+    "has_image": true
+  },
+  "HISTORY_COURSE": {
+    "rarity": "Event",
+    "description": "At the start of your turn, play a copy of your last played Attack or Skill.",
+    "has_image": true
+  },
+  "HORN_CLEAT": {
+    "rarity": "Uncommon",
+    "description": "At the start of your  2 nd turn, gain  14   Block .",
+    "has_image": true
+  },
+  "ICE_CREAM": {
+    "rarity": "Rare",
+    "description": "Energy  is now conserved between turns.",
+    "has_image": true
+  },
+  "INFUSED_CORE": {
+    "rarity": "Starter",
+    "description": "At the start of each combat,  Channel   3   Lightning .",
+    "has_image": true
+  },
+  "INTIMIDATING_HELMET": {
+    "rarity": "Rare",
+    "description": "Whenever you play a card that costs   or more, gain  4   Block .",
+    "has_image": true
+  },
+  "IRONCLAD": {
+    "rarity": null,
+    "description": null,
+    "has_image": true
+  },
+  "IRON_CLUB": {
+    "rarity": "Ancient",
+    "description": "Every  4  cards you play, draw  1  card.",
+    "has_image": true
+  },
+  "IVORY_TILE": {
+    "rarity": "Rare",
+    "description": "Whenever you play a card that costs   or more, gain  .",
+    "has_image": true
+  },
+  "JEWELED_MASK": {
+    "rarity": "Ancient",
+    "description": "At the start of combat put a random Power from your  Draw Pile  into your  Hand , it's free to play.",
+    "has_image": true
+  },
+  "JEWELRY_BOX": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, add  1  Apotheosis to your  Deck .",
+    "has_image": true
+  },
+  "JOSS_PAPER": {
+    "rarity": "Uncommon",
+    "description": "Every  5  times you  Exhaust  a card, draw  1  card.",
+    "has_image": true
+  },
+  "JUZU_BRACELET": {
+    "rarity": "Common",
+    "description": "Regular enemy combats are no longer encountered in ? rooms.",
+    "has_image": true
+  },
+  "KIFUDA": {
+    "rarity": "Shop",
+    "description": "Upon pickup, Enchant up to  3  cards with Adroit.",
+    "has_image": true
+  },
+  "KUNAI": {
+    "rarity": "Rare",
+    "description": "Every time you play  3  Attacks in a single turn, gain  1   Dexterity .",
+    "has_image": true
+  },
+  "KUSARIGAMA": {
+    "rarity": "Uncommon",
+    "description": "Every time you play  3  Attacks in a single turn, deal  6  damage to a random enemy.",
+    "has_image": true
+  },
+  "LANTERN": {
+    "rarity": "Common",
+    "description": "Start each combat with an additional  .",
+    "has_image": true
+  },
+  "LARGE_CAPSULE": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, obtain  2  random Relics. Add an additional Strike and Defend to your  Deck .",
+    "has_image": true
+  },
+  "LASTING_CANDY": {
+    "rarity": "Rare",
+    "description": "Every other combat, your card rewards gain an additional Power.",
+    "has_image": true
+  },
+  "LAVA_LAMP": {
+    "rarity": "Shop",
+    "description": "At the end of combat,  Upgrade  all card rewards if you took no damage.",
+    "has_image": true
+  },
+  "LAVA_ROCK": {
+    "rarity": "Ancient",
+    "description": "The Act  1  Boss drops  2  Relics.",
+    "has_image": true
+  },
+  "LEAD_PAPERWEIGHT": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, choose  1  of  2  Colorless cards to add to your  Deck .",
+    "has_image": true
+  },
+  "LEAFY_POULTICE": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, Transform  1  of your Strikes and  1  of your Defends and lose  10  Max HP.",
+    "has_image": true
+  },
+  "LEES_WAFFLE": {
+    "rarity": "Shop",
+    "description": "Upon pickup, raise your Max HP by  7  and heal all of your HP.",
+    "has_image": true
+  },
+  "LETTER_OPENER": {
+    "rarity": "Uncommon",
+    "description": "Every time you play  3  Skills in a single turn, deal  5  damage to ALL enemies.",
+    "has_image": true
+  },
+  "LIZARD_TAIL": {
+    "rarity": "Rare",
+    "description": "When you would die, heal to  50%  of your Max HP instead (works once).",
+    "has_image": true
+  },
+  "LOOMING_FRUIT": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, raise your Max HP by  31 .",
+    "has_image": true
+  },
+  "LORDS_PARASOL": {
+    "rarity": "Ancient",
+    "description": "When you encounter the Merchant, immediately obtain EVERYTHING he sells.",
+    "has_image": true
+  },
+  "LOST_COFFER": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, gain  1  card reward and procure  1  random potion.",
+    "has_image": true
+  },
+  "LOST_WISP": {
+    "rarity": "Event",
+    "description": "Whenever you play a Power, deal  8  damage to ALL enemies.",
+    "has_image": true
+  },
+  "LUCKY_FYSH": {
+    "rarity": "Uncommon",
+    "description": "Whenever you add a card to your  Deck , gain  15   Gold .",
+    "has_image": true
+  },
+  "LUNAR_PASTRY": {
+    "rarity": "Rare",
+    "description": "At the end of your turn, gain  .",
+    "has_image": true
+  },
+  "MANGO": {
+    "rarity": "Rare",
+    "description": "Upon pickup, raise your Max HP by  14 .",
+    "has_image": true
+  },
+  "MASSIVE_SCROLL": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, choose  1  of  3  Multiplayer Colorless Cards to add to your  Deck .",
+    "has_image": true
+  },
+  "MAW_BANK": {
+    "rarity": "Event",
+    "description": "Whenever you climb a floor, gain  12   Gold . No longer works when you spend any  Gold  at the shop.",
+    "has_image": true
+  },
+  "MEAL_TICKET": {
+    "rarity": "Common",
+    "description": "Whenever you enter a shop room, heal  15  HP.",
+    "has_image": true
+  },
+  "MEAT_CLEAVER": {
+    "rarity": "Ancient",
+    "description": "You may Cook at Rest Sites.",
+    "has_image": true
+  },
+  "MEAT_ON_THE_BONE": {
+    "rarity": "Rare",
+    "description": "If your HP is at or below  50%  at the end of combat, heal  12  HP.",
+    "has_image": true
+  },
+  "MEMBERSHIP_CARD": {
+    "rarity": "Shop",
+    "description": "50%  discount on all products!",
+    "has_image": true
+  },
+  "MERCURY_HOURGLASS": {
+    "rarity": "Uncommon",
+    "description": "At the start of your turn, deal  3  damage to ALL enemies.",
+    "has_image": true
+  },
+  "METRONOME": {
+    "rarity": "Rare",
+    "description": "The first time you  Channel   7  Orbs each combat, deal  30  damage to ALL enemies.",
+    "has_image": true
+  },
+  "MINIATURE_CANNON": {
+    "rarity": "Uncommon",
+    "description": "Upgraded  Attacks deal  3  additional damage.",
+    "has_image": true
+  },
+  "MINIATURE_TENT": {
+    "rarity": "Shop",
+    "description": "You may choose any number of options at Rest Sites.",
+    "has_image": true
+  },
+  "MINI_REGENT": {
+    "rarity": "Rare",
+    "description": "The first time you spend   each turn, gain  1   Strength .",
+    "has_image": true
+  },
+  "MOLTEN_EGG": {
+    "rarity": "Rare",
+    "description": "Whenever you add an Attack card to your  Deck ,  Upgrade  it.",
+    "has_image": true
+  },
+  "MR_STRUGGLES": {
+    "rarity": "Event",
+    "description": "At the start of your turn, deal damage equal to the turn number to ALL enemies.",
+    "has_image": true
+  },
+  "MUMMIFIED_HAND": {
+    "rarity": "Rare",
+    "description": "Whenever you play a Power, a random card in your  Hand  is free to play that turn.",
+    "has_image": true
+  },
+  "MUSIC_BOX": {
+    "rarity": "Ancient",
+    "description": "Create an  Ethereal  copy of the first Attack you play each turn.",
+    "has_image": true
+  },
+  "MYSTIC_LIGHTER": {
+    "rarity": "Shop",
+    "description": "Enchanted Attacks deal  9  additional damage.",
+    "has_image": true
+  },
+  "NECROBINDER": {
+    "rarity": null,
+    "description": null,
+    "has_image": true
+  },
+  "NEOWS_TALISMAN": {
+    "rarity": null,
+    "description": null,
+    "has_image": false
+  },
+  "NEOWS_TORMENT": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, add  1  Neow's Fury to your  Deck .",
+    "has_image": true
+  },
+  "NEW_LEAF": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, Transform  1  card.",
+    "has_image": true
+  },
+  "NINJA_SCROLL": {
+    "rarity": "Shop",
+    "description": "At the start of each combat, add  3   Shivs  into your  Hand .",
+    "has_image": true
+  },
+  "NUNCHAKU": {
+    "rarity": "Uncommon",
+    "description": "Every time you play  10  Attacks, gain  .",
+    "has_image": true
+  },
+  "NUTRITIOUS_OYSTER": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, raise your Max HP by  11 .",
+    "has_image": true
+  },
+  "NUTRITIOUS_SOUP": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, Enchant all Strikes in your  Deck  with Tezcatara's Ember.",
+    "has_image": true
+  },
+  "ODDLY_SMOOTH_STONE": {
+    "rarity": "Common",
+    "description": "Start each combat with  1   Dexterity .",
+    "has_image": true
+  },
+  "OLD_COIN": {
+    "rarity": "Rare",
+    "description": "Upon pickup, gain  300   Gold .",
+    "has_image": true
+  },
+  "ORANGE_DOUGH": {
+    "rarity": "Rare",
+    "description": "At the start of each combat, add  2  random Colorless cards into your  Hand .",
+    "has_image": true
+  },
+  "ORICHALCUM": {
+    "rarity": "Uncommon",
+    "description": "If you end your turn without  Block , gain  6   Block .",
+    "has_image": true
+  },
+  "ORNAMENTAL_FAN": {
+    "rarity": "Uncommon",
+    "description": "Every time you play  3  Attacks in a single turn, gain  4   Block .",
+    "has_image": true
+  },
+  "ORRERY": {
+    "rarity": "Shop",
+    "description": "Upon pickup, gain  5  card rewards.",
+    "has_image": true
+  },
+  "PAELS_BLOOD": {
+    "rarity": "Ancient",
+    "description": "At the start of your turn, draw  1  additional card.",
+    "has_image": true
+  },
+  "PAELS_CLAW": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, Enchant all Defends with Goopy.",
+    "has_image": true
+  },
+  "PAELS_EYE": {
+    "rarity": "Ancient",
+    "description": "The first time each combat you end your turn without playing cards,  Exhaust  your  Hand , and take an extra turn.",
+    "has_image": true
+  },
+  "PAELS_FLESH": {
+    "rarity": "Ancient",
+    "description": "Gain an additional   at the start of your  3 rd turn, and every turn after that.",
+    "has_image": true
+  },
+  "PAELS_GROWTH": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, Enchant a card with Clone.",
+    "has_image": true
+  },
+  "PAELS_HORN": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, add  2  Relax to your  Deck .",
+    "has_image": true
+  },
+  "PAELS_LEGION": {
+    "rarity": "Ancient",
+    "description": "Doubles  Block  gained from a card, then goes to sleep for  2  turns.",
+    "has_image": true
+  },
+  "PAELS_TEARS": {
+    "rarity": "Ancient",
+    "description": "If you end your turn with unspent  , gain an additional   next turn.",
+    "has_image": true
+  },
+  "PAELS_TOOTH": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, remove  5  cards from your  Deck . After each combat, randomly add  1  back  Upgraded .",
+    "has_image": true
+  },
+  "PAELS_WING": {
+    "rarity": "Ancient",
+    "description": "You may sacrifice card rewards to Pael. Every  2  sacrifices, obtain a Relic.",
+    "has_image": true
+  },
+  "PANDORAS_BOX": {
+    "rarity": "Ancient",
+    "description": "Transform ALL Strikes and Defends.",
+    "has_image": true
+  },
+  "PANTOGRAPH": {
+    "rarity": "Uncommon",
+    "description": "At the start of each Boss combat, heal  25  HP.",
+    "has_image": true
+  },
+  "PAPER_KRANE": {
+    "rarity": "Rare",
+    "description": "Enemies with  Weak  deal  40%  less damage to you rather than  25% .",
+    "has_image": true
+  },
+  "PAPER_PHROG": {
+    "rarity": "Uncommon",
+    "description": "Enemies with  Vulnerable  take  75%  more damage rather than  50% .",
+    "has_image": true
+  },
+  "PARRYING_SHIELD": {
+    "rarity": "Uncommon",
+    "description": "If you end a turn with at least  10   Block , deal  6  damage to a random enemy.",
+    "has_image": true
+  },
+  "PEAR": {
+    "rarity": "Uncommon",
+    "description": "Upon pickup, raise your Max HP by  10 .",
+    "has_image": true
+  },
+  "PENDULUM": {
+    "rarity": "Common",
+    "description": "Whenever you shuffle your  Draw Pile , draw a card.",
+    "has_image": true
+  },
+  "PEN_NIB": {
+    "rarity": "Uncommon",
+    "description": "Every  10 th Attack you play deals double damage.",
+    "has_image": true
+  },
+  "PERMAFROST": {
+    "rarity": "Common",
+    "description": "The first time you play a Power each combat, gain  6   Block .",
+    "has_image": true
+  },
+  "PETRIFIED_TOAD": {
+    "rarity": "Uncommon",
+    "description": "At the start of each combat, procure a Potion-Shaped Rock.",
+    "has_image": true
+  },
+  "PHYLACTERY_UNBOUND": {
+    "rarity": "Starter",
+    "description": "At the start of each combat,  Summon   5 . At the start of your turn,  Summon   2 .",
+    "has_image": true
+  },
+  "PLANISPHERE": {
+    "rarity": "Uncommon",
+    "description": "Whenever you enter a ? room, heal  4  HP.",
+    "has_image": true
+  },
+  "POCKETWATCH": {
+    "rarity": "Rare",
+    "description": "Whenever you play  3  or fewer cards during your turn, draw  3  additional cards at the start of your next turn.",
+    "has_image": true
+  },
+  "POLLINOUS_CORE": {
+    "rarity": "Event",
+    "description": "Every  4  turns, draw  2  additional cards.",
+    "has_image": true
+  },
+  "POMANDER": {
+    "rarity": "Ancient",
+    "description": "Upon pickup,  Upgrade  a card.",
+    "has_image": true
+  },
+  "POTION_BELT": {
+    "rarity": "Common",
+    "description": "Upon pickup, gain  2  potion slots.",
+    "has_image": true
+  },
+  "PRAYER_WHEEL": {
+    "rarity": "Rare",
+    "description": "Normal enemies drop an additional card reward.",
+    "has_image": true
+  },
+  "PRECARIOUS_SHEARS": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, remove  2  cards from your  Deck  and take  13  damage.",
+    "has_image": true
+  },
+  "PRECISE_SCISSORS": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, remove  1  card from your  Deck .",
+    "has_image": true
+  },
+  "PRESERVED_FOG": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, remove  5  cards from your  Deck . Add Folly to your  Deck .",
+    "has_image": true
+  },
+  "PRISMATIC_GEM": {
+    "rarity": "Ancient",
+    "description": "Gain   at the start of each turn. Card rewards now contain cards from other colors.",
+    "has_image": true
+  },
+  "PUMPKIN_CANDLE": {
+    "rarity": "Ancient",
+    "description": "Gain   at the start of each turn. Extinguishes at the start of Act  3 .",
+    "has_image": true
+  },
+  "PUNCH_DAGGER": {
+    "rarity": "Shop",
+    "description": "Upon pickup, Enchant an Attack with Momentum  5 .",
+    "has_image": true
+  },
+  "RADIANT_PEARL": {
+    "rarity": "Ancient",
+    "description": "At the start of each combat, add  1  Luminesce into your  Hand .",
+    "has_image": true
+  },
+  "RAINBOW_RING": {
+    "rarity": "Rare",
+    "description": "The first time you play an Attack, Skill, and Power each turn, gain  1   Strength  and  1   Dexterity .",
+    "has_image": true
+  },
+  "RAZOR_TOOTH": {
+    "rarity": "Rare",
+    "description": "Every time you play an Attack or Skill,  Upgrade  it for the remainder of combat.",
+    "has_image": true
+  },
+  "RED_MASK": {
+    "rarity": "Uncommon",
+    "description": "At the start of each combat, apply  1   Weak  to ALL enemies.",
+    "has_image": true
+  },
+  "RED_SKULL": {
+    "rarity": "Common",
+    "description": "While your HP is at or below  50% , you have  3  additional  Strength .",
+    "has_image": true
+  },
+  "REGALITE": {
+    "rarity": "Uncommon",
+    "description": "Whenever you create a Colorless card, gain  2   Block .",
+    "has_image": true
+  },
+  "REGAL_PILLOW": {
+    "rarity": "Common",
+    "description": "Whenever you Rest, heal an additional  15  HP.",
+    "has_image": true
+  },
+  "REGENT": {
+    "rarity": null,
+    "description": null,
+    "has_image": true
+  },
+  "REPTILE_TRINKET": {
+    "rarity": "Uncommon",
+    "description": "Whenever you use a potion, gain  3   Strength  this turn.",
+    "has_image": true
+  },
+  "RINGING_TRIANGLE": {
+    "rarity": "Shop",
+    "description": "Retain  your  Hand  on the first turn of combat.",
+    "has_image": true
+  },
+  "RING_OF_THE_DRAKE": {
+    "rarity": "Starter",
+    "description": "At the start of your first  3  turns, draw  2  additional cards.",
+    "has_image": true
+  },
+  "RING_OF_THE_SNAKE": {
+    "rarity": "Starter",
+    "description": "At the start of each combat, draw  2  additional cards.",
+    "has_image": true
+  },
+  "RIPPLE_BASIN": {
+    "rarity": "Uncommon",
+    "description": "If you did not play any Attacks during your turn, gain  4   Block .",
+    "has_image": true
+  },
+  "ROYAL_POISON": {
+    "rarity": "Event",
+    "description": "At the start of each combat, lose  4  HP.",
+    "has_image": true
+  },
+  "ROYAL_STAMP": {
+    "rarity": "Shop",
+    "description": "Upon pickup, choose an Attack or Skill in your  Deck  to Enchant with Royally Approved.",
+    "has_image": true
+  },
+  "RUINED_HELMET": {
+    "rarity": "Rare",
+    "description": "The first time you gain  Strength  each combat, double the amount gained.",
+    "has_image": true
+  },
+  "RUNIC_PYRAMID": {
+    "rarity": "Ancient",
+    "description": "At the end of your turn, you no longer discard your  Hand .",
+    "has_image": true
+  },
+  "SAI": {
+    "rarity": "Ancient",
+    "description": "At the start of your turn, gain  7   Block .",
+    "has_image": true
+  },
+  "SAND_CASTLE": {
+    "rarity": "Ancient",
+    "description": "Upon pickup,  Upgrade   6  random cards.",
+    "has_image": true
+  },
+  "SCREAMING_FLAGON": {
+    "rarity": "Shop",
+    "description": "If you end your turn with no cards in your  Hand , deal  20  damage to ALL enemies.",
+    "has_image": true
+  },
+  "SCROLL_BOXES": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, lose all  Gold  and choose  1  of  2  packs of cards to add to your  Deck .",
+    "has_image": true
+  },
+  "SEAL_OF_GOLD": {
+    "rarity": "Ancient",
+    "description": "At the start of your turn, spend  5   Gold  to gain  .",
+    "has_image": true
+  },
+  "SEA_GLASS": {
+    "rarity": "Ancient",
+    "description": "See  15  cards from another character. Choose any number of them to add to your  Deck .",
+    "has_image": true
+  },
+  "SELF_FORMING_CLAY": {
+    "rarity": "Uncommon",
+    "description": "Whenever you lose HP in combat, gain  3   Block  next turn.",
+    "has_image": true
+  },
+  "SERE_TALON": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, add  2  random Curses and  3  Wishes to your  Deck .",
+    "has_image": true
+  },
+  "SHOVEL": {
+    "rarity": "Rare",
+    "description": "You can now dig at Rest Sites to obtain a random Relic.",
+    "has_image": true
+  },
+  "SHURIKEN": {
+    "rarity": "Rare",
+    "description": "Every time you play  3  Attacks in a single turn, gain  1   Strength .",
+    "has_image": true
+  },
+  "SIGNET_RING": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, gain  999   Gold .",
+    "has_image": true
+  },
+  "SILENT": {
+    "rarity": null,
+    "description": null,
+    "has_image": true
+  },
+  "SILVER_CRUCIBLE": {
+    "rarity": "Ancient",
+    "description": "The first  3  card rewards you see are  Upgraded . The first Treasure Chest you open is empty.",
+    "has_image": true
+  },
+  "SLING_OF_COURAGE": {
+    "rarity": "Shop",
+    "description": "Start each Elite combat with  2   Strength .",
+    "has_image": true
+  },
+  "SMALL_CAPSULE": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, obtain a random Relic.",
+    "has_image": true
+  },
+  "SNECKO_EYE": {
+    "rarity": "Ancient",
+    "description": "At the start of your turn, draw  2  additional cards. Start each combat Confused.",
+    "has_image": true
+  },
+  "SNECKO_SKULL": {
+    "rarity": "Common",
+    "description": "Whenever you apply  Poison , apply an additional  1   Poison .",
+    "has_image": true
+  },
+  "SOZU": {
+    "rarity": "Ancient",
+    "description": "Gain   at the start of each turn. You can no longer obtain potions.",
+    "has_image": true
+  },
+  "SPARKLING_ROUGE": {
+    "rarity": "Uncommon",
+    "description": "At the start of your  3 rd turn, gain  1   Strength  and  1   Dexterity .",
+    "has_image": true
+  },
+  "SPIKED_GAUNTLETS": {
+    "rarity": "Ancient",
+    "description": "Gain   at the start of each turn. Powers cost  1  more  .",
+    "has_image": true
+  },
+  "STONE_CALENDAR": {
+    "rarity": "Rare",
+    "description": "At the end of turn  7 , deal  52  damage to ALL enemies.",
+    "has_image": true
+  },
+  "STONE_CRACKER": {
+    "rarity": "Uncommon",
+    "description": "At the start of Boss combats,  Upgrade   3  random cards in your  Draw Pile  for the rest of combat.",
+    "has_image": true
+  },
+  "STONE_HUMIDIFIER": {
+    "rarity": "Ancient",
+    "description": "Whenever you Rest at a  Rest Site , raise your Max HP by  5 .",
+    "has_image": true
+  },
+  "STORYBOOK": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, add  1  Brightest Flame to your  Deck .",
+    "has_image": true
+  },
+  "STRAWBERRY": {
+    "rarity": "Common",
+    "description": "Upon pickup, raise your Max HP by  7 .",
+    "has_image": true
+  },
+  "STRIKE_DUMMY": {
+    "rarity": "Common",
+    "description": "Cards containing “Strike” deal  3  additional damage.",
+    "has_image": true
+  },
+  "STURDY_CLAMP": {
+    "rarity": "Rare",
+    "description": "Up to  10   Block  persists across turns.",
+    "has_image": true
+  },
+  "SWORD_OF_JADE": {
+    "rarity": "Event",
+    "description": "Start each combat with  3   Strength .",
+    "has_image": true
+  },
+  "SWORD_OF_STONE": {
+    "rarity": "Event",
+    "description": "Transforms into a powerful Relic after defeating  5  Elites.",
+    "has_image": true
+  },
+  "SYMBIOTIC_VIRUS": {
+    "rarity": "Uncommon",
+    "description": "At the start of each combat,  Channel   1   Dark .",
+    "has_image": true
+  },
+  "TANXS_WHISTLE": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, add  1  Whistle to your  Deck .",
+    "has_image": true
+  },
+  "THE_ABACUS": {
+    "rarity": "Shop",
+    "description": "Whenever you shuffle your  Draw Pile , gain  6   Block .",
+    "has_image": true
+  },
+  "THE_BOOT": {
+    "rarity": "Event",
+    "description": "Whenever you would deal  4  or less unblocked attack damage, increase it to  5 .",
+    "has_image": true
+  },
+  "THE_COURIER": {
+    "rarity": "Rare",
+    "description": "The merchant no longer runs out of cards, relics, or potions and his prices are reduced by  20% .",
+    "has_image": true
+  },
+  "THROWING_AXE": {
+    "rarity": "Ancient",
+    "description": "The first card you play each combat is played an extra time.",
+    "has_image": true
+  },
+  "TINGSHA": {
+    "rarity": "Uncommon",
+    "description": "Whenever you discard a card during your turn, deal  3  damage to a random enemy for each card discarded.",
+    "has_image": true
+  },
+  "TINY_MAILBOX": {
+    "rarity": "Common",
+    "description": "Whenever you Rest, procure a random potion.",
+    "has_image": true
+  },
+  "TOASTY_MITTENS": {
+    "rarity": "Ancient",
+    "description": "At the start of your turn,  Exhaust  the top card of your  Draw Pile  and gain  1   Strength .",
+    "has_image": true
+  },
+  "TOOLBOX": {
+    "rarity": "Shop",
+    "description": "At the start of each combat, choose  1  of  3  random Colorless cards and add the chosen card into your  Hand .",
+    "has_image": true
+  },
+  "TOUCH_OF_OROBAS": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, replace your starter Relic with an Ancient version.",
+    "has_image": true
+  },
+  "TOUGH_BANDAGES": {
+    "rarity": "Rare",
+    "description": "Whenever you discard a card during your turn, gain  3   Block .",
+    "has_image": true
+  },
+  "TOXIC_EGG": {
+    "rarity": "Rare",
+    "description": "Whenever you add a Skill into your  Deck ,  Upgrade  it.",
+    "has_image": true
+  },
+  "TOY_BOX": {
+    "rarity": "Ancient",
+    "description": "Upon pickup, obtain  4  Wax Relics. Every  3  combats, your left-most Wax Relic will melt away.",
+    "has_image": true
+  },
+  "TRI_BOOMERANG": {
+    "rarity": "Ancient",
+    "description": "Choose  3  Attacks in your  Deck . Enchant them with Instinct.",
+    "has_image": true
+  },
+  "TUNGSTEN_ROD": {
+    "rarity": "Rare",
+    "description": "Whenever you would lose HP, lose  1  less.",
+    "has_image": true
+  },
+  "TUNING_FORK": {
+    "rarity": "Uncommon",
+    "description": "Every time you play  10  Skills, gain  7   Block .",
+    "has_image": true
+  },
+  "TWISTED_FUNNEL": {
+    "rarity": "Uncommon",
+    "description": "At the start of each combat, apply  4   Poison  to ALL enemies.",
+    "has_image": true
+  },
+  "UNCEASING_TOP": {
+    "rarity": "Rare",
+    "description": "Whenever you have no cards in  Hand  during your turn, draw a card.",
+    "has_image": true
+  },
+  "UNDYING_SIGIL": {
+    "rarity": "Shop",
+    "description": "Enemies with at least as much  Doom  as HP deal  50%  less damage.",
+    "has_image": true
+  },
+  "UNSETTLING_LAMP": {
+    "rarity": "Rare",
+    "description": "Each combat, the first time you play a card that Debuffs an enemy, double its effect.",
+    "has_image": true
+  },
+  "VAJRA": {
+    "rarity": "Common",
+    "description": "Start each combat with  1   Strength .",
+    "has_image": true
+  },
+  "VAMBRACE": {
+    "rarity": "Uncommon",
+    "description": "The first time you gain  Block  from a card each combat, double the amount gained.",
+    "has_image": true
+  },
+  "VELVET_CHOKER": {
+    "rarity": "Ancient",
+    "description": "Gain   at the start of each turn. You cannot play more than  6  cards per turn.",
+    "has_image": true
+  },
+  "VENERABLE_TEA_SET": {
+    "rarity": "Common",
+    "description": "Whenever you enter a  Rest Site , start the next combat with an additional  .",
+    "has_image": true
+  },
+  "VERY_HOT_COCOA": {
+    "rarity": "Ancient",
+    "description": "Start each combat with an additional  4 .",
+    "has_image": true
+  },
+  "VEXING_PUZZLEBOX": {
+    "rarity": "Rare",
+    "description": "At the start of each combat, add a random card into your  Hand . It costs  0 .",
+    "has_image": true
+  },
+  "VITRUVIAN_MINION": {
+    "rarity": "Shop",
+    "description": "Cards containing “Minion” deal double damage and gain double  Block .",
+    "has_image": true
+  },
+  "WAR_HAMMER": {
+    "rarity": "Ancient",
+    "description": "Whenever you kill an Elite,  Upgrade   4  random cards.",
+    "has_image": true
+  },
+  "WAR_PAINT": {
+    "rarity": "Common",
+    "description": "Upon pickup,  Upgrade   2  random Skills.",
+    "has_image": true
+  },
+  "WHETSTONE": {
+    "rarity": "Common",
+    "description": "Upon pickup,  Upgrade   2  random Attacks.",
+    "has_image": true
+  },
+  "WHISPERING_EARRING": {
+    "rarity": "Ancient",
+    "description": "Gain   at the start of each turn. Vakuu plays your first turn for you.",
+    "has_image": true
+  },
+  "WHITE_BEAST_STATUE": {
+    "rarity": "Rare",
+    "description": "Potions always appear in combat rewards.",
+    "has_image": true
+  },
+  "WHITE_STAR": {
+    "rarity": "Rare",
+    "description": "Elites drop an additional Rare card reward.",
+    "has_image": true
+  },
+  "WING_CHARM": {
+    "rarity": "Shop",
+    "description": "A random card in each card reward is Enchanted with Swift  1 .",
+    "has_image": true
+  },
+  "YUMMY_COOKIE": {
+    "rarity": "Ancient",
+    "description": "Upon pickup,  Upgrade   4  cards.",
+    "has_image": true
+  }
+}
