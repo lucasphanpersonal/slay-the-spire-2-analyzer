@@ -455,15 +455,21 @@
         </div>
         <div>
           <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Killed By</label>
-          <input type="text" id="runs-filter-killed-by" class="form-control form-control-sm" placeholder="partial match…" style="width:150px" />
+          <select id="runs-filter-killed-by" class="form-select form-select-sm" style="width:160px">
+            <option value="">All</option>
+          </select>
         </div>
         <div>
           <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Has Relic</label>
-          <input type="text" id="runs-filter-has-relic" class="form-control form-control-sm" placeholder="partial match…" style="width:150px" />
+          <select id="runs-filter-has-relic" class="form-select form-select-sm" style="width:160px">
+            <option value="">All</option>
+          </select>
         </div>
         <div>
           <label class="d-block mb-1" style="color:var(--sts-gold);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Has Card</label>
-          <input type="text" id="runs-filter-has-card" class="form-control form-control-sm" placeholder="partial match…" style="width:150px" />
+          <select id="runs-filter-has-card" class="form-select form-select-sm" style="width:160px">
+            <option value="">All</option>
+          </select>
         </div>
         <div class="d-flex gap-2 align-items-end">
           <button id="runs-filter-clear" class="btn btn-sm" style="background:var(--sts-border);color:var(--sts-text);border:none" onclick="clearRunsFilter()">Clear filters</button>
@@ -1246,9 +1252,9 @@ let currentRunsData = [];
 // Apply the runs-tab local filters to a full data array and return the subset.
 function applyRunsFilter(data) {
   const f = state.runsFilter;
-  const killedBy = f.killedBy.trim().toLowerCase();
-  const hasRelic = f.hasRelic.trim().toLowerCase();
-  const hasCard  = f.hasCard.trim().toLowerCase();
+  const killedBy = f.killedBy.trim();
+  const hasRelic = f.hasRelic.trim();
+  const hasCard  = f.hasCard.trim();
   const minActs    = f.minActs    !== '' ? parseInt(f.minActs, 10)    : null;
   const maxActs    = f.maxActs    !== '' ? parseInt(f.maxActs, 10)    : null;
   const minHpPct   = f.minHpPct   !== '' ? parseFloat(f.minHpPct)    : null;
@@ -1267,16 +1273,13 @@ function applyRunsFilter(data) {
     if (maxDamage !== null && r.total_damage > maxDamage) return false;
     if (minGold   !== null && (r.gold ?? 0) < minGold)    return false;
     if (killedBy) {
-      const kb = (r.killed_by || '').toLowerCase();
-      if (!kb.includes(killedBy)) return false;
+      if ((r.killed_by || '') !== killedBy) return false;
     }
     if (hasRelic) {
-      const found = (r.relics || []).some(rel => rel.toLowerCase().includes(hasRelic));
-      if (!found) return false;
+      if (!(r.relics || []).includes(hasRelic)) return false;
     }
     if (hasCard) {
-      const found = (r.deck || []).some(c => (c.id || '').toLowerCase().includes(hasCard));
-      if (!found) return false;
+      if (!(r.deck || []).some(c => (c.id || '') === hasCard)) return false;
     }
     return true;
   });
@@ -1314,11 +1317,40 @@ function clearRunsFilter() {
   updateRunsFilterCount(filtered.length, currentRunsData.length);
   renderRuns(filtered);
 }
+function populateRunsFilterDropdowns(data) {
+  const killedBySet = new Set();
+  const relicSet = new Set();
+  const cardSet = new Set();
+  data.forEach(r => {
+    if (r.killed_by) killedBySet.add(r.killed_by);
+    (r.relics || []).forEach(rel => relicSet.add(rel));
+    (r.deck || []).forEach(c => { if (c.id) cardSet.add(c.id); });
+  });
+
+  function fillSelect(id, values, labelFn) {
+    const sel = document.getElementById(id);
+    const current = sel.value;
+    while (sel.options.length > 1) sel.remove(1);
+    [...values].sort().forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = labelFn(v);
+      sel.appendChild(opt);
+    });
+    sel.value = current;
+  }
+
+  fillSelect('runs-filter-killed-by', killedBySet, v => v);
+  fillSelect('runs-filter-has-relic', relicSet, v => cardDisplayName(v));
+  fillSelect('runs-filter-has-card', cardSet, v => cardDisplayName(v));
+}
+
 async function loadRuns() {
   showLoading('runs-loading'); hideContent('runs-content');
   try {
     const data = await apiFetch('runs');
     currentRunsData = data;
+    populateRunsFilterDropdowns(data);
     const filtered = applyRunsFilter(data);
     updateRunsFilterCount(filtered.length, data.length);
     renderRuns(filtered);
@@ -1344,7 +1376,7 @@ function renderRuns(data) {
     const deckLabel = enchantedCount > 0
       ? `${r.deck_size} <span class="enchant-count">(✦${enchantedCount})</span>`
       : String(r.deck_size);
-    rows.push(`<tr data-run-idx="${idx}">
+    rows.push(`<tr data-run-idx="${idx}" data-run-filename="${esc(r.filename || '')}">
       <td><strong>${r.character.replace(/_/g,' ')}</strong></td>
       <td>${r.win ? '<span class="badge badge-win">WIN</span>' : '<span class="badge badge-loss">LOSS</span>'}</td>
       <td>${r.ascension}</td>
@@ -1382,10 +1414,9 @@ function renderRuns(data) {
   // Make run rows open detail modal on click
   tbody.querySelectorAll('tr[data-run-idx]').forEach(row => {
     row.addEventListener('click', () => {
-      const idx = parseInt(row.dataset.runIdx, 10);
-      const run = !isNaN(idx) ? currentRunsData[idx] : null;
-      if (run && run.filename) {
-        openRunDetail(run.filename);
+      const filename = row.dataset.runFilename;
+      if (filename) {
+        openRunDetail(filename);
       }
     });
   });
@@ -1969,13 +2000,13 @@ document.getElementById('runs-filter-max-damage').addEventListener('input', e =>
 document.getElementById('runs-filter-min-gold').addEventListener('input', e => {
   state.runsFilter.minGold = e.target.value; _runsFilterRerender();
 });
-document.getElementById('runs-filter-killed-by').addEventListener('input', e => {
+document.getElementById('runs-filter-killed-by').addEventListener('change', e => {
   state.runsFilter.killedBy = e.target.value; _runsFilterRerender();
 });
-document.getElementById('runs-filter-has-relic').addEventListener('input', e => {
+document.getElementById('runs-filter-has-relic').addEventListener('change', e => {
   state.runsFilter.hasRelic = e.target.value; _runsFilterRerender();
 });
-document.getElementById('runs-filter-has-card').addEventListener('input', e => {
+document.getElementById('runs-filter-has-card').addEventListener('change', e => {
   state.runsFilter.hasCard = e.target.value; _runsFilterRerender();
 });
 
