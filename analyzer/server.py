@@ -84,14 +84,14 @@ def create_app(history_path: str) -> Flask:
         return ids or None
 
     def _known_relics() -> Optional[List[str]]:
-        """IDs derived from downloaded relic image filenames."""
-        ids = _ids_from_image_dir(os.path.join(static_dir, "relic_images"))
-        return ids or None
+        """IDs from relic_data.json (if available), else from downloaded image filenames."""
+        ids = _ids_from_card_data(os.path.join(static_dir, "relic_images", "relic_data.json"))
+        return ids or (_ids_from_image_dir(os.path.join(static_dir, "relic_images")) or None)
 
     def _known_potions() -> Optional[List[str]]:
-        """IDs derived from downloaded potion image filenames."""
-        ids = _ids_from_image_dir(os.path.join(static_dir, "potion_images"))
-        return ids or None
+        """IDs from potion_data.json (if available), else from downloaded image filenames."""
+        ids = _ids_from_card_data(os.path.join(static_dir, "potion_images", "potion_data.json"))
+        return ids or (_ids_from_image_dir(os.path.join(static_dir, "potion_images")) or None)
 
     # ── Frontend ──────────────────────────────────────────────────────────────
 
@@ -178,6 +178,30 @@ def create_app(history_path: str) -> Flask:
             return jsonify({})
         except Exception:
             return jsonify({"error": "Failed to load card data"}), 500
+
+    @app.route("/api/relic_data")
+    def api_relic_data():
+        """Return scraped relic metadata from relic_data.json (empty dict if not yet scraped)."""
+        data_file = os.path.join(static_dir, "relic_images", "relic_data.json")
+        try:
+            with open(data_file, encoding="utf-8") as f:
+                return jsonify(json.load(f))
+        except FileNotFoundError:
+            return jsonify({})
+        except Exception:
+            return jsonify({"error": "Failed to load relic data"}), 500
+
+    @app.route("/api/potion_data")
+    def api_potion_data():
+        """Return scraped potion metadata from potion_data.json (empty dict if not yet scraped)."""
+        data_file = os.path.join(static_dir, "potion_images", "potion_data.json")
+        try:
+            with open(data_file, encoding="utf-8") as f:
+                return jsonify(json.load(f))
+        except FileNotFoundError:
+            return jsonify({})
+        except Exception:
+            return jsonify({"error": "Failed to load potion data"}), 500
 
     @app.route("/api/run/<path:filename>")
     def api_run_detail(filename: str):

@@ -163,7 +163,7 @@
                        background: rgba(0,0,0,0.75); align-items: center; justify-content: center; }
     #itemDetailModal.show { display: flex !important; }
     .item-detail-inner { background: var(--sts-surface); border: 1px solid var(--sts-gold);
-                          border-radius: 8px; max-width: 320px; width: 95%; max-height: 90vh;
+                          border-radius: 8px; max-width: 500px; width: 95%; max-height: 90vh;
                           overflow-y: auto; padding: 1.5rem; position: relative; }
     .item-detail-header { display: flex; justify-content: space-between; align-items: center;
                            margin-bottom: 1rem; border-bottom: 1px solid var(--sts-border); padding-bottom: 0.75rem; }
@@ -171,13 +171,15 @@
     .item-detail-close { background: none; border: none; color: var(--sts-muted); font-size: 1.5rem;
                           cursor: pointer; padding: 0; line-height: 1; }
     .item-detail-close:hover { color: var(--sts-text); }
-    #item-detail-art-img { max-width: 140px; max-height: 140px; border-radius: 6px;
-                            border: 2px solid var(--sts-border); display: block; margin: 0 auto 0.5rem; }
+    .item-detail-body { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .item-detail-art-col { flex-shrink: 0; text-align: center; }
+    #item-detail-art-img { width: 130px; height: auto; border-radius: 6px;
+                            border: 2px solid var(--sts-border); display: block; }
     .item-detail-art-placeholder { width: 100px; height: 100px; background: var(--sts-border); border-radius: 6px;
                                     display: none; align-items: center; justify-content: center;
-                                    font-size: 2.5rem; margin: 0 auto 0.5rem; }
-    .relic-pill-clickable { cursor: pointer; }
-    .relic-pill-clickable:hover { border-color: var(--sts-gold); }
+                                    font-size: 2.5rem; }
+    .item-detail-info { flex: 1; min-width: 0; }
+    .item-detail-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
   </style>
 </head>
 <body>
@@ -515,9 +517,21 @@
       <h5 class="item-detail-title" id="itemDetailModalLabel"></h5>
       <button class="item-detail-close" onclick="closeItemDetail()" aria-label="Close">×</button>
     </div>
-    <div style="text-align:center">
-      <img id="item-detail-art-img" src="" alt="" onerror="itemDetailArtFallback()" />
-      <div class="item-detail-art-placeholder" id="item-detail-art-placeholder">🔮</div>
+    <div class="item-detail-body">
+      <div class="item-detail-art-col">
+        <img id="item-detail-art-img" src="" alt="" onerror="itemDetailArtFallback()" />
+        <div class="item-detail-art-placeholder" id="item-detail-art-placeholder">🔮</div>
+      </div>
+      <div class="item-detail-info">
+        <div class="item-detail-meta" id="item-detail-meta"></div>
+        <div id="item-detail-desc" style="display:none">
+          <div class="card-detail-desc-label" style="color:var(--sts-gold)">Description</div>
+          <div class="card-detail-desc-text" id="item-detail-desc-text"></div>
+        </div>
+        <div id="item-detail-no-data" style="display:none;color:var(--sts-muted);font-style:italic;font-size:0.9rem">
+          No data available — run <code>python run.py --scrape-images</code> to fetch info.
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -759,6 +773,12 @@ function cardIdPillHtml(cardId, picked = false) {
     return `<span class="card-pill" onclick="${oc}" style="cursor:pointer;background:rgba(90,170,90,0.35);border-color:var(--sts-green);font-weight:600">${esc(cardId)} ✓</span>`;
   }
   return `<span class="card-pill" onclick="${oc}" style="cursor:pointer;opacity:0.6">${esc(cardId)}</span>`;
+}
+
+/** Generate a clickable relic pill span for a plain relic ID string. */
+function relicPillHtml(relicId, extra = '') {
+  const oc = `event.stopPropagation();openItemDetail('${jsStr(relicId)}','relic')`;
+  return `<span class="relic-pill" onclick="${oc}" style="cursor:pointer"${extra ? ' ' + extra : ''}>${esc(relicId)}</span>`;
 }
 
 let allCards = [];
@@ -1007,7 +1027,7 @@ function renderAncients(data) {
   const rows = [];
   data.forEach((a, idx) => {
     const relicSummary = (a.relics || []).slice(0, 3)
-      .map(r => `<span class="relic-pill" title="Pick rate: ${Math.round(r.pick_rate*100)}%">${esc(r.relic)}</span>`)
+      .map(r => relicPillHtml(r.relic, `title="Pick rate: ${Math.round(r.pick_rate*100)}%"`))
       .join('') +
       ((a.relics || []).length > 3
         ? `<button class="deck-expand-btn" data-ancient-idx="${idx}">+${a.relics.length - 3} more</button>`
@@ -1023,7 +1043,7 @@ function renderAncients(data) {
     // Hidden detail row with full relic table
     const relicRows = (a.relics || []).map(r =>
       `<tr>
-        <td style="padding-left:1.5rem">${esc(r.relic)}</td>
+        <td style="padding-left:1.5rem">${relicPillHtml(r.relic)}</td>
         <td>${r.offered_runs}</td>
         <td>${r.picked_runs}</td>
         <td>${pct(r.pick_rate)}</td>
@@ -1159,9 +1179,8 @@ function renderRuns(data) {
   data.forEach((r, idx) => {
     const hpPct = r.max_hp ? r.hp / r.max_hp : 0;
     const hpClass = hpPct < 0.3 ? 'low' : hpPct < 0.6 ? 'mid' : '';
-    const relicsHtml = (r.relics || []).slice(0, 6).map(rel =>
-      `<span class="relic-pill">${esc(rel)}</span>`
-    ).join('') + ((r.relics || []).length > 6 ? `<span class="relic-pill">+${r.relics.length - 6}</span>` : '');
+    const relicsHtml = (r.relics || []).slice(0, 6).map(rel => relicPillHtml(rel)).join('') +
+      ((r.relics || []).length > 6 ? `<span class="relic-pill">+${r.relics.length - 6}</span>` : '');
     const enchantedCount = (r.deck || []).filter(c => c.enchantment).length;
     const deckLabel = enchantedCount > 0
       ? `${r.deck_size} <span class="enchant-count">(✦${enchantedCount})</span>`
@@ -1299,7 +1318,7 @@ function renderDetailSummary(d) {
   const enchantedCount = (d.deck || []).filter(c => c.enchantment).length;
   const deckHtml = (d.deck || []).map(c => cardPillHtml(c)).join('') || '<span style="color:var(--sts-muted)">—</span>';
 
-  const relicsHtml = (d.relics || []).map(r => `<span class="relic-pill">${esc(r)}</span>`).join('') ||
+  const relicsHtml = (d.relics || []).map(r => relicPillHtml(r)).join('') ||
     '<span style="color:var(--sts-muted)">—</span>';
 
   document.getElementById('detail-tab-summary').innerHTML = `
@@ -1412,7 +1431,7 @@ function renderDetailRelics(d) {
       : `<span class="badge badge-forced">skipped</span>`;
     return `<div class="choice-event d-flex align-items-center gap-2 flex-wrap">
       ${badge}
-      <strong>${esc(e.relic)}</strong>
+      ${relicPillHtml(e.relic)}
       ${status}
     </div>`;
   }).join('');
@@ -1585,12 +1604,32 @@ document.getElementById('cardDetailModal').addEventListener('click', function(e)
 // ────────────────────────────────────────────────────────────────────────────
 // ITEM DETAIL MODAL (relics & potions)
 // ────────────────────────────────────────────────────────────────────────────
-function openItemDetail(itemId, type) {
+let relicDataCache = null;
+let potionDataCache = null;
+
+async function ensureRelicData() {
+  if (relicDataCache !== null) return;
+  try { relicDataCache = await fetch('/api/relic_data').then(r => r.json()); }
+  catch(e) { relicDataCache = {}; }
+}
+
+async function ensurePotionData() {
+  if (potionDataCache !== null) return;
+  try { potionDataCache = await fetch('/api/potion_data').then(r => r.json()); }
+  catch(e) { potionDataCache = {}; }
+}
+
+const _RARITY_COLORS = {
+  Common: '#888', Uncommon: 'var(--sts-green)', Rare: 'var(--sts-blue)',
+  Boss: 'var(--sts-red)', Shop: '#2d6a2d', Special: 'var(--sts-purple)',
+};
+
+async function openItemDetail(itemId, type) {
   const modal = document.getElementById('itemDetailModal');
   modal.classList.add('show');
   document.body.style.overflow = 'hidden';
 
-  const dir = type === 'relic' ? 'relic_images' : 'potion_images';
+  const dir  = type === 'relic' ? 'relic_images' : 'potion_images';
   const icon = type === 'relic' ? '🔮' : '🧪';
 
   document.getElementById('itemDetailModalLabel').textContent = cardDisplayName(itemId);
@@ -1602,6 +1641,35 @@ function openItemDetail(itemId, type) {
   const img = document.getElementById('item-detail-art-img');
   img.src = `/static/${dir}/${itemId.toLowerCase()}.png`;
   img.style.display = '';
+
+  // Fetch metadata (cached after first call)
+  if (type === 'relic') await ensureRelicData();
+  else await ensurePotionData();
+  const cache = type === 'relic' ? relicDataCache : potionDataCache;
+  const data  = (cache && cache[itemId]) || null;
+
+  const metaDiv   = document.getElementById('item-detail-meta');
+  const descDiv   = document.getElementById('item-detail-desc');
+  const noDataDiv = document.getElementById('item-detail-no-data');
+
+  if (data && data.rarity) {
+    const color = _RARITY_COLORS[data.rarity] || '#888';
+    metaDiv.innerHTML = `<span class="badge" style="background:${color}">${esc(data.rarity)}</span>`;
+  } else {
+    metaDiv.innerHTML = '';
+  }
+
+  if (data && data.description) {
+    descDiv.style.display = '';
+    document.getElementById('item-detail-desc-text').textContent = data.description;
+    noDataDiv.style.display = 'none';
+  } else if (!data || (!data.rarity && !data.description)) {
+    descDiv.style.display = 'none';
+    noDataDiv.style.display = '';
+  } else {
+    descDiv.style.display = 'none';
+    noDataDiv.style.display = 'none';
+  }
 }
 
 function itemDetailArtFallback() {
@@ -1722,6 +1790,8 @@ loadAscensions();
 loadAncientFilter();
 loadOverview();
 ensureCardData();
+ensureRelicData();
+ensurePotionData();
 </script>
 </body>
 </html>
