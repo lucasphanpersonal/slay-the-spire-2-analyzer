@@ -12,9 +12,12 @@ import urllib.request
 from pathlib import Path
 from typing import Dict, List, Optional
 
-# Wiki base URL for Slay the Spire (covers STS2 cards)
-WIKI_API = "https://slay-the-spire.wiki.gg/api.php"
-WIKI_BASE = "https://slay-the-spire.wiki.gg"
+# Wiki base URL for Slay the Spire 2 cards
+WIKI_API = "https://slaythespire.wiki.gg/api.php"
+WIKI_BASE = "https://slaythespire.wiki.gg"
+
+# Namespace prefix used for STS2 card pages on the wiki
+STS2_NAMESPACE = "Slay_the_Spire_2"
 
 # Delay between requests (seconds) to be polite to the wiki
 REQUEST_DELAY = 0.3
@@ -112,17 +115,61 @@ def card_display_name(card_id: str) -> str:
     return " ".join(p.title() for p in parts)
 
 
+def _get_images_from_card_page(card_id: str) -> List[str]:
+    """Query the STS2 wiki card page and return its list of ``File:`` titles.
+
+    The card page is looked up as ``Slay_the_Spire_2:<DisplayName>``.
+    Returns a list of ``File:`` titles (e.g. ``["File:All_for_One.png"]``),
+    or an empty list if the page is not found.
+    """
+    display = card_display_name(card_id)
+    page_title = f"{STS2_NAMESPACE}:{display.replace(' ', '_')}"
+    params = urllib.parse.urlencode({
+        "action": "query",
+        "titles": page_title,
+        "prop": "images",
+        "imlimit": "50",
+        "format": "json",
+    })
+    data = _get_json(f"{WIKI_API}?{params}")
+    if not data:
+        return []
+    pages = data.get("query", {}).get("pages", {})
+    for page in pages.values():
+        if page.get("missing") is not None:
+            return []
+        return [img["title"] for img in page.get("images", []) if "title" in img]
+    return []
+
+
 def _candidate_file_titles(card_id: str) -> List[str]:
-    """Return candidate MediaWiki ``File:`` titles to try for *card_id*."""
+    """Return candidate MediaWiki ``File:`` titles to try for *card_id*.
+
+    First tries images listed on the card's ``Slay_the_Spire_2:`` wiki page,
+    then falls back to guessed filenames derived from the display name.
+    """
     display = card_display_name(card_id)
     display_underscored = display.replace(" ", "_")
 
-    candidates = [
+    # Prefer .png images found directly on the card's wiki page
+    page_images = _get_images_from_card_page(card_id)
+    png_images = [t for t in page_images if t.lower().endswith(".png")]
+
+    # Fallback filename guesses
+    guesses = [
         f"File:{display_underscored}.png",
         f"File:{display_underscored}.jpg",
         f"File:{display_underscored}_(Card).png",
         f"File:{display_underscored}_(card).png",
     ]
+
+    # Deduplicate while preserving order (page images first)
+    seen: set[str] = set()
+    candidates: List[str] = []
+    for title in png_images + guesses:
+        if title not in seen:
+            seen.add(title)
+            candidates.append(title)
     return candidates
 
 
