@@ -19,6 +19,7 @@ from .parser import (
     get_run_id,
     is_abandoned_first_floor,
     is_solo_run,
+    iter_nodes,
     run_acts_reached,
     run_deck,
     run_deck_size,
@@ -122,6 +123,15 @@ def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
             "avg_run_time_s": 0.0,
             "acts_reached": {},
             "kills_by": {},
+            "longest_win_streak": 0,
+            "total_encounters": 0,
+            "total_boss_kills": 0,
+            "total_damage_taken": 0,
+            "total_hp_healed": 0,
+            "total_gold_earned": 0,
+            "total_cards_picked": 0,
+            "fastest_win_s": None,
+            "close_call_wins": 0,
         }
 
     wins = sum(1 for r in runs if r.get("win", False))
@@ -147,6 +157,62 @@ def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
         killer = run_killed_by(r) or "Unknown"
         kills_by[str(killer)] += 1
 
+    # ── Fun / lifetime stats ───────────────────────────────────────────────────
+
+    # Longest consecutive win streak (ordered by start_time)
+    sorted_runs = sorted(runs, key=lambda r: r.get("start_time") or "")
+    longest_streak = cur_streak = 0
+    for r in sorted_runs:
+        if r.get("win"):
+            cur_streak += 1
+            longest_streak = max(longest_streak, cur_streak)
+        else:
+            cur_streak = 0
+
+    # Encounter totals
+    total_encounters = 0
+    total_boss_kills = 0
+    for r in runs:
+        for enc in extract_encounters(r):
+            total_encounters += 1
+            if enc.get("type") == "boss":
+                total_boss_kills += 1
+
+    # Lifetime damage and healing
+    total_damage_taken = sum(damages)
+    total_hp_healed = sum(
+        stats.get("hp_healed", 0)
+        for r in runs
+        for _, stats, _ in iter_nodes(r)
+    )
+
+    # Total gold earned
+    total_gold_earned = sum(
+        stats.get("gold_gained", 0)
+        for r in runs
+        for _, stats, _ in iter_nodes(r)
+    )
+
+    # Total cards picked
+    total_cards_picked = sum(
+        1
+        for r in runs
+        for ev in extract_card_choices(r)
+        if ev.get("picked")
+    )
+
+    # Fastest win time
+    win_times = [r.get("run_time") for r in runs if r.get("win") and r.get("run_time")]
+    fastest_win_s: Optional[float] = min(win_times) if win_times else None
+
+    # Close-call wins: won with ≤5 HP remaining
+    close_call_wins = 0
+    for r in runs:
+        if r.get("win"):
+            final_hp = run_final_hp(r)
+            if final_hp is not None and final_hp <= 5:
+                close_call_wins += 1
+
     return {
         "total_runs": total,
         "wins": wins,
@@ -158,6 +224,15 @@ def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
         "kills_by": dict(
             sorted(kills_by.items(), key=lambda x: x[1], reverse=True)[:15]
         ),
+        "longest_win_streak": longest_streak,
+        "total_encounters": total_encounters,
+        "total_boss_kills": total_boss_kills,
+        "total_damage_taken": total_damage_taken,
+        "total_hp_healed": total_hp_healed,
+        "total_gold_earned": total_gold_earned,
+        "total_cards_picked": total_cards_picked,
+        "fastest_win_s": fastest_win_s,
+        "close_call_wins": close_call_wins,
     }
 
 

@@ -250,6 +250,8 @@
     <div id="overview-loading" class="loading">Loading…</div>
     <div id="overview-content" style="display:none">
       <div class="row g-3 mb-4" id="overview-stat-cards"></div>
+      <h6 class="text-uppercase mb-2" style="color:var(--sts-purple);letter-spacing:.08em;font-size:.8rem">✨ Lifetime Stats</h6>
+      <div class="row g-3 mb-4" id="overview-fun-stats"></div>
       <div class="row g-3">
         <div class="col-lg-6">
           <div class="card"><div class="card-header">Acts Reached Distribution</div>
@@ -765,6 +767,28 @@ function renderOverview(d) {
       <div class="stat-value">${d.avg_deck_size}</div><div class="stat-label">Avg Deck Size</div></div></div>
     <div class="col-6 col-md-4 col-xl-2"><div class="card stat-card p-3">
       <div class="stat-value">${fmtTime(d.avg_run_time_s)}</div><div class="stat-label">Avg Run Time</div></div></div>
+  `;
+
+  const streakColor = d.longest_win_streak >= 5 ? 'var(--sts-green)' : d.longest_win_streak >= 3 ? 'var(--sts-gold)' : 'var(--sts-text)';
+  document.getElementById('overview-fun-stats').innerHTML = `
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value" style="color:${streakColor}">🏆 ${d.longest_win_streak}</div><div class="stat-label">Longest Win Streak</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value">⚔️ ${(d.total_encounters || 0).toLocaleString()}</div><div class="stat-label">Total Battles</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value">💀 ${(d.total_boss_kills || 0).toLocaleString()}</div><div class="stat-label">Boss Kills</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value" style="color:var(--sts-red)">🩸 ${(d.total_damage_taken || 0).toLocaleString()}</div><div class="stat-label">Lifetime Dmg Taken</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value" style="color:var(--sts-green)">❤️ ${(d.total_hp_healed || 0).toLocaleString()}</div><div class="stat-label">Lifetime HP Healed</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value">💰 ${(d.total_gold_earned || 0).toLocaleString()}</div><div class="stat-label">Total Gold Earned</div></div></div>
+    <div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value">🃏 ${(d.total_cards_picked || 0).toLocaleString()}</div><div class="stat-label">Cards Picked</div></div></div>
+    ${d.fastest_win_s ? `<div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value">⚡ ${fmtTime(d.fastest_win_s)}</div><div class="stat-label">Fastest Win</div></div></div>` : ''}
+    ${d.close_call_wins > 0 ? `<div class="col-6 col-md-4 col-xl-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-purple)">
+      <div class="stat-value" style="color:var(--sts-red)">🫀 ${d.close_call_wins}</div><div class="stat-label">Close Calls (≤5 HP)</div></div></div>` : ''}
   `;
 
   // Acts chart
