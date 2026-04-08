@@ -395,6 +395,74 @@ def extract_events(run: Dict[str, Any]) -> List[Dict[str, Any]]:
     return result
 
 
+# ── Shop data ─────────────────────────────────────────────────────────────────
+
+def extract_shop_events(run: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Return one entry per shop node visit with all items purchased/removed.
+
+    Each entry has:
+        ``{
+            "cards_purchased": [{"card": str, "is_colorless": bool}, ...],
+            "relics_purchased": [str, ...],
+            "potions_purchased": [str, ...],
+            "cards_removed": [str, ...],
+        }``
+    where all IDs have their type prefix stripped (e.g. ``"STRIKE_IRONCLAD"``).
+    """
+    result: List[Dict[str, Any]] = []
+    for node_type, stats, _node in iter_nodes(run):
+        if node_type != "shop":
+            continue
+
+        # colorless cards purchased (subset of cards_gained)
+        colorless_ids = {
+            _strip_prefix(c) if isinstance(c, str) else ""
+            for c in stats.get("bought_colorless", [])
+        }
+
+        cards_purchased: List[Dict[str, Any]] = []
+        for card in stats.get("cards_gained", []):
+            if isinstance(card, dict):
+                card_id = _strip_prefix(card.get("id", ""))
+            elif isinstance(card, str):
+                card_id = _strip_prefix(card)
+            else:
+                continue
+            if card_id:
+                cards_purchased.append({
+                    "card": card_id,
+                    "is_colorless": card_id in colorless_ids,
+                })
+
+        relics_purchased = [
+            _strip_prefix(r) if isinstance(r, str) else ""
+            for r in stats.get("bought_relics", [])
+            if r
+        ]
+        relics_purchased = [r for r in relics_purchased if r]
+
+        potions_purchased = [
+            _strip_prefix(p) if isinstance(p, str) else ""
+            for p in stats.get("bought_potions", [])
+            if p
+        ]
+        potions_purchased = [p for p in potions_purchased if p]
+
+        cards_removed = [
+            _strip_prefix(c.get("id", "")) if isinstance(c, dict) else _strip_prefix(c)
+            for c in stats.get("cards_removed", [])
+        ]
+        cards_removed = [c for c in cards_removed if c]
+
+        result.append({
+            "cards_purchased": cards_purchased,
+            "relics_purchased": relics_purchased,
+            "potions_purchased": potions_purchased,
+            "cards_removed": cards_removed,
+        })
+    return result
+
+
 # ── Run summary helpers ───────────────────────────────────────────────────────
 
 def run_total_damage(run: Dict[str, Any]) -> int:

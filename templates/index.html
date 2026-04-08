@@ -197,6 +197,7 @@
       <li class="nav-item"><a class="nav-link"        data-tab="ancients"  href="#">Ancients</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="rest"      href="#">Rest Sites</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="events"    href="#">Events</a></li>
+      <li class="nav-item"><a class="nav-link"        data-tab="shops"     href="#">Shops</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="runs"      href="#">Runs</a></li>
     </ul>
     <div class="ms-auto">
@@ -417,6 +418,72 @@
         </tr></thead>
         <tbody id="events-tbody"></tbody>
       </table>
+    </div>
+  </div>
+
+  <!-- SHOPS TAB -->
+  <div id="tab-shops" class="tab-pane" style="display:none">
+    <div id="shops-loading" class="loading">Loading…</div>
+    <div id="shops-content" style="display:none">
+      <!-- Overview stat cards -->
+      <div class="row g-3 mb-4" id="shops-overview-cards"></div>
+      <!-- Subtabs -->
+      <ul class="nav nav-pills mb-3" id="shop-subtabs">
+        <li class="nav-item"><a class="nav-link active btn-gold" data-shop-tab="removals"  href="#">Card Removals</a></li>
+        <li class="nav-item ms-2"><a class="nav-link" data-shop-tab="cards"    href="#" style="color:var(--sts-text);background:var(--sts-surface);border:1px solid var(--sts-border)">Cards Purchased</a></li>
+        <li class="nav-item ms-2"><a class="nav-link" data-shop-tab="relics"   href="#" style="color:var(--sts-text);background:var(--sts-surface);border:1px solid var(--sts-border)">Relics Purchased</a></li>
+        <li class="nav-item ms-2"><a class="nav-link" data-shop-tab="potions"  href="#" style="color:var(--sts-text);background:var(--sts-surface);border:1px solid var(--sts-border)">Potions Purchased</a></li>
+      </ul>
+      <!-- Card Removals subtab -->
+      <div id="shop-tab-removals">
+        <table class="table table-sm" id="shop-removals-table">
+          <thead><tr>
+            <th style="width:60px">Art</th>
+            <th class="sort-icon" data-col="card">Card</th>
+            <th class="sort-icon" data-col="removed_runs">Runs Removed</th>
+            <th class="sort-icon" data-col="total_removals">Total Removals</th>
+            <th class="sort-icon" data-col="win_rate">Win Rate (runs where removed)</th>
+          </tr></thead>
+          <tbody id="shop-removals-tbody"></tbody>
+        </table>
+      </div>
+      <!-- Cards Purchased subtab -->
+      <div id="shop-tab-cards" style="display:none">
+        <table class="table table-sm" id="shop-cards-table">
+          <thead><tr>
+            <th style="width:60px">Art</th>
+            <th class="sort-icon" data-col="card">Card</th>
+            <th class="sort-icon" data-col="is_colorless">Type</th>
+            <th class="sort-icon" data-col="purchased_runs">Runs Purchased</th>
+            <th class="sort-icon" data-col="win_rate">Win Rate (runs where purchased)</th>
+          </tr></thead>
+          <tbody id="shop-cards-tbody"></tbody>
+        </table>
+      </div>
+      <!-- Relics Purchased subtab -->
+      <div id="shop-tab-relics" style="display:none">
+        <table class="table table-sm" id="shop-relics-table">
+          <thead><tr>
+            <th style="width:50px">Art</th>
+            <th class="sort-icon" data-col="relic">Relic</th>
+            <th class="sort-icon" data-col="purchased_runs">Runs Purchased</th>
+            <th class="sort-icon" data-col="win_rate">Win Rate (runs where purchased)</th>
+          </tr></thead>
+          <tbody id="shop-relics-tbody"></tbody>
+        </table>
+      </div>
+      <!-- Potions Purchased subtab -->
+      <div id="shop-tab-potions" style="display:none">
+        <table class="table table-sm" id="shop-potions-table">
+          <thead><tr>
+            <th style="width:46px">Art</th>
+            <th class="sort-icon" data-col="potion">Potion</th>
+            <th class="sort-icon" data-col="purchased_runs">Runs Purchased</th>
+            <th class="sort-icon" data-col="win_rate">Win Rate (runs where purchased)</th>
+          </tr></thead>
+          <tbody id="shop-potions-tbody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -1252,6 +1319,109 @@ function renderEvents(data) {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
+// SHOPS
+// ────────────────────────────────────────────────────────────────────────────
+let shopsData = null;
+let shopSubtab = 'removals';
+
+async function loadShops() {
+  showLoading('shops-loading'); hideContent('shops-content');
+  try {
+    shopsData = await apiFetch('shops');
+    renderShopsOverview(shopsData.overview);
+    renderShopSubtab(shopSubtab);
+    initSort('shop-removals-table', shopsData.card_removals, renderShopRemovals);
+    initSort('shop-cards-table',    shopsData.cards_purchased, renderShopCards);
+    initSort('shop-relics-table',   shopsData.relics_purchased, renderShopRelics);
+    initSort('shop-potions-table',  shopsData.potions_purchased, renderShopPotions);
+    showContent('shops-content');
+  } catch(e) { showError('Failed to load shop stats: ' + e.message); }
+  hideLoading('shops-loading');
+}
+
+function renderShopsOverview(ov) {
+  const pctRem = ((ov.pct_runs_with_removal || 0) * 100).toFixed(1);
+  document.getElementById('shops-overview-cards').innerHTML = `
+    <div class="col-6 col-md-3"><div class="card stat-card p-3">
+      <div class="stat-value">${ov.total_shop_visits}</div>
+      <div class="stat-label">Total Shop Visits</div></div></div>
+    <div class="col-6 col-md-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-red)">
+      <div class="stat-value" style="color:var(--sts-red)">${ov.runs_with_removal}</div>
+      <div class="stat-label">Runs With Card Removal</div></div></div>
+    <div class="col-6 col-md-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-red)">
+      <div class="stat-value" style="color:var(--sts-red)">${pctRem}%</div>
+      <div class="stat-label">% Runs With Removal</div></div></div>
+    <div class="col-6 col-md-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-red)">
+      <div class="stat-value" style="color:var(--sts-red)">${(ov.avg_removals_per_run || 0).toFixed(2)}</div>
+      <div class="stat-label">Avg Removals / Run</div></div></div>
+  `;
+}
+
+function renderShopSubtab(tab) {
+  shopSubtab = tab;
+  ['removals','cards','relics','potions'].forEach(t => {
+    const el = document.getElementById(`shop-tab-${t}`);
+    if (el) el.style.display = t === tab ? '' : 'none';
+  });
+  if (!shopsData) return;
+  if (tab === 'removals') renderShopRemovals(shopsData.card_removals);
+  if (tab === 'cards')    renderShopCards(shopsData.cards_purchased);
+  if (tab === 'relics')   renderShopRelics(shopsData.relics_purchased);
+  if (tab === 'potions')  renderShopPotions(shopsData.potions_purchased);
+}
+
+function renderShopRemovals(data) {
+  document.getElementById('shop-removals-tbody').innerHTML = data.length
+    ? data.map(r => `<tr>
+        <td>${cardArtHtml(r.card)}</td>
+        <td><span onclick="openCardDetail('${jsStr(r.card)}')" style="cursor:pointer;text-decoration:underline dotted">${esc(r.card)}</span></td>
+        <td>${r.removed_runs}</td>
+        <td>${r.total_removals}</td>
+        <td>${pct(r.win_rate)}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="5" class="empty-state">No card removal data</td></tr>';
+}
+
+function renderShopCards(data) {
+  document.getElementById('shop-cards-tbody').innerHTML = data.length
+    ? data.map(r => {
+        const typeBadgeHtml = r.is_colorless
+          ? `<span class="badge" style="background:var(--sts-muted)">Colorless</span>`
+          : `<span class="badge" style="background:var(--sts-blue)">Colored</span>`;
+        return `<tr>
+          <td>${cardArtHtml(r.card)}</td>
+          <td><span onclick="openCardDetail('${jsStr(r.card)}')" style="cursor:pointer;text-decoration:underline dotted">${esc(r.card)}</span></td>
+          <td>${typeBadgeHtml}</td>
+          <td>${r.purchased_runs}</td>
+          <td>${pct(r.win_rate)}</td>
+        </tr>`;
+      }).join('')
+    : '<tr><td colspan="5" class="empty-state">No card purchase data</td></tr>';
+}
+
+function renderShopRelics(data) {
+  document.getElementById('shop-relics-tbody').innerHTML = data.length
+    ? data.map(r => `<tr>
+        <td>${relicArtHtml(r.relic)}</td>
+        <td><span onclick="openItemDetail('${jsStr(r.relic)}','relic')" style="cursor:pointer;text-decoration:underline dotted">${esc(r.relic)}</span></td>
+        <td>${r.purchased_runs}</td>
+        <td>${pct(r.win_rate)}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="4" class="empty-state">No relic purchase data</td></tr>';
+}
+
+function renderShopPotions(data) {
+  document.getElementById('shop-potions-tbody').innerHTML = data.length
+    ? data.map(r => `<tr>
+        <td>${potionArtHtml(r.potion)}</td>
+        <td><span onclick="openItemDetail('${jsStr(r.potion)}','potion')" style="cursor:pointer;text-decoration:underline dotted">${esc(r.potion)}</span></td>
+        <td>${r.purchased_runs}</td>
+        <td>${pct(r.win_rate)}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="4" class="empty-state">No potion purchase data</td></tr>';
+}
+
+// ────────────────────────────────────────────────────────────────────────────
 // RUNS
 // ────────────────────────────────────────────────────────────────────────────
 let currentRunsData = [];
@@ -1889,7 +2059,7 @@ function switchTab(tab) {
   document.querySelectorAll('#main-tabs .nav-link').forEach(l => {
     l.classList.toggle('active', l.dataset.tab === tab);
   });
-  ['overview','cards','relics','potions','encounters','ancients','rest','events','runs'].forEach(t => {
+  ['overview','cards','relics','potions','encounters','ancients','rest','events','shops','runs'].forEach(t => {
     document.getElementById(`tab-${t}`).style.display = t === tab ? '' : 'none';
   });
   loadCurrentTab();
@@ -1905,6 +2075,7 @@ function loadCurrentTab() {
   if (t === 'ancients')    loadAncients();
   if (t === 'rest')        loadRestSites();
   if (t === 'events')      loadEvents();
+  if (t === 'shops')       loadShops();
   if (t === 'runs')        loadRuns();
 }
 
@@ -1976,6 +2147,19 @@ document.querySelectorAll('#relic-subtabs .nav-link').forEach(link => {
     link.classList.add('active', 'btn-gold');
     link.style.cssText = '';
     renderRelicSubtab(state.relicSubtab);
+  });
+});
+
+document.querySelectorAll('#shop-subtabs .nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelectorAll('#shop-subtabs .nav-link').forEach(l => {
+      l.classList.remove('active', 'btn-gold');
+      l.style.cssText = 'color:var(--sts-text);background:var(--sts-surface);border:1px solid var(--sts-border)';
+    });
+    link.classList.add('active', 'btn-gold');
+    link.style.cssText = '';
+    renderShopSubtab(link.dataset.shopTab);
   });
 });
 
