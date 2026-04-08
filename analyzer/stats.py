@@ -387,6 +387,48 @@ def compute_runs_list(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return rows
 
 
+# ── Individual run detail ─────────────────────────────────────────────────────
+
+def compute_run_detail(run: Dict[str, Any]) -> Dict[str, Any]:
+    """Return full detail for a single run (for the run-detail modal)."""
+    from .parser import _strip_prefix
+
+    # Reuse compute_runs_list for the summary fields
+    summary_rows = compute_runs_list([run])
+    summary = summary_rows[0] if summary_rows else {}
+
+    # Map path — one entry per node visited
+    map_path: List[List[Dict[str, Any]]] = []
+    for act in run.get("map_point_history", []):
+        act_nodes: List[Dict[str, Any]] = []
+        for node in act:
+            node_type: str = node.get("map_point_type", "unknown").lower()
+            rooms = node.get("rooms", [])
+            room = rooms[0] if rooms else {}
+            model_id = room.get("model_id", "")
+            name = _strip_prefix(model_id) if model_id else node_type
+            ps_list = node.get("player_stats", [])
+            ps: Dict[str, Any] = ps_list[0] if ps_list else {}
+            act_nodes.append({
+                "type": node_type,
+                "name": name,
+                "hp": ps.get("current_hp"),
+                "max_hp": ps.get("max_hp"),
+                "gold": ps.get("current_gold"),
+                "damage_taken": ps.get("damage_taken") or 0,
+            })
+        map_path.append(act_nodes)
+
+    return {
+        **summary,
+        "card_choices": extract_card_choices(run),
+        "relic_events": extract_relic_events(run),
+        "encounters": extract_encounters(run),
+        "rest_sites": extract_rest_sites(run),
+        "map_path": map_path,
+    }
+
+
 # ── Diagnostic ────────────────────────────────────────────────────────────────
 
 def compute_diagnostic(all_runs: List[Dict[str, Any]]) -> Dict[str, Any]:

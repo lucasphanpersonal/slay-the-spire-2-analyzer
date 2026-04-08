@@ -90,6 +90,33 @@
     .deck-detail-row td { padding: 0.5rem 1rem 0.75rem 1rem !important; background: rgba(0,0,0,0.18); }
     .enchant-count { color: var(--sts-purple); font-size: 0.8em; }
     .card-upgrade { color: var(--sts-gold); }
+    /* Run detail modal */
+    .run-detail-modal .modal-content { background: var(--sts-surface); border: 1px solid var(--sts-gold); color: var(--sts-text); }
+    .run-detail-modal .modal-header { border-bottom: 1px solid var(--sts-border); }
+    .run-detail-modal .modal-footer { border-top: 1px solid var(--sts-border); }
+    .run-detail-modal .nav-pills .nav-link { color: var(--sts-muted); }
+    .run-detail-modal .nav-pills .nav-link.active { background: var(--sts-gold); color: #1a1611; }
+    .run-detail-modal .btn-close { filter: invert(1); }
+    /* Manual modal backdrop since Bootstrap JS isn't loaded */
+    #runDetailModal { display: none; position: fixed; inset: 0; z-index: 1055;
+                       background: rgba(0,0,0,0.7); align-items: center; justify-content: center; }
+    #runDetailModal.show { display: flex !important; }
+    .detail-section-title { color: var(--sts-gold); font-weight: 600; font-size: 0.85rem;
+                              text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
+    .map-node { display: inline-flex; flex-direction: column; align-items: center;
+                 background: var(--sts-bg); border: 1px solid var(--sts-border);
+                 border-radius: 6px; padding: 4px 8px; margin: 2px; min-width: 70px;
+                 font-size: 0.75rem; text-align: center; }
+    .map-node-type { font-size: 0.65rem; color: var(--sts-muted); }
+    .map-node-hp { font-size: 0.7rem; color: var(--sts-green); }
+    .map-act-label { color: var(--sts-gold); font-size: 0.8rem; font-weight: 600;
+                      margin: 0.5rem 0 0.2rem; }
+    .choice-event { background: var(--sts-bg); border: 1px solid var(--sts-border);
+                     border-radius: 6px; padding: 6px 10px; margin: 4px 0; }
+    .choice-offered { color: var(--sts-muted); font-size: 0.8rem; }
+    .choice-picked { color: var(--sts-green); font-weight: 600; }
+    .choice-skipped { color: var(--sts-muted); font-style: italic; }
+    .runs-tbody-clickable tr[data-run-idx] { cursor: pointer; }
   </style>
 </head>
 <body>
@@ -276,12 +303,46 @@
           <th>Relics</th>
           <th>Killed By</th>
         </tr></thead>
-        <tbody id="runs-tbody"></tbody>
+        <tbody id="runs-tbody" class="runs-tbody-clickable"></tbody>
       </table>
     </div>
   </div>
 
 </div><!-- /container -->
+
+<!-- Run Detail Modal -->
+<div class="modal fade run-detail-modal" id="runDetailModal" tabindex="-1" aria-labelledby="runDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header py-2">
+        <h5 class="modal-title" id="runDetailModalLabel">Run Detail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeRunDetail()"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div id="run-detail-loading" class="loading" style="display:none">Loading…</div>
+        <div id="run-detail-content" style="display:none">
+          <!-- Sub-nav -->
+          <ul class="nav nav-pills px-3 pt-3 pb-2 gap-2" id="run-detail-tabs">
+            <li class="nav-item"><a class="nav-link active" data-detail-tab="summary"   href="#">Summary</a></li>
+            <li class="nav-item"><a class="nav-link"        data-detail-tab="map"       href="#">Map Path</a></li>
+            <li class="nav-item"><a class="nav-link"        data-detail-tab="cards"     href="#">Card Choices</a></li>
+            <li class="nav-item"><a class="nav-link"        data-detail-tab="relics"    href="#">Relic Events</a></li>
+            <li class="nav-item"><a class="nav-link"        data-detail-tab="encounters"href="#">Encounters</a></li>
+            <li class="nav-item"><a class="nav-link"        data-detail-tab="rest"      href="#">Rest Sites</a></li>
+          </ul>
+          <div class="px-3 pb-3">
+            <div id="detail-tab-summary"></div>
+            <div id="detail-tab-map"        style="display:none"></div>
+            <div id="detail-tab-cards"      style="display:none"></div>
+            <div id="detail-tab-relics"     style="display:none"></div>
+            <div id="detail-tab-encounters" style="display:none"></div>
+            <div id="detail-tab-rest"       style="display:none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 // ────────────────────────────────────────────────────────────────────────────
@@ -651,12 +712,14 @@ function renderRestSites(data) {
 // ────────────────────────────────────────────────────────────────────────────
 // RUNS
 // ────────────────────────────────────────────────────────────────────────────
+let currentRunsData = [];
 async function loadRuns() {
   showLoading('runs-loading'); hideContent('runs-content');
   try {
     const data = await apiFetch('runs');
+    currentRunsData = data;
     renderRuns(data);
-    initSort('runs-table', data, renderRuns);
+    initSort('runs-table', data, d => { currentRunsData = d; renderRuns(d); });
     showContent('runs-content');
   } catch(e) { showError('Failed to load runs: ' + e.message); }
   hideLoading('runs-loading');
@@ -720,6 +783,276 @@ function renderRuns(data) {
       }
     });
   });
+
+  // Make run rows open detail modal on click
+  tbody.querySelectorAll('tr[data-run-idx]').forEach(row => {
+    row.addEventListener('click', () => {
+      const idx = parseInt(row.dataset.runIdx, 10);
+      const run = !isNaN(idx) ? currentRunsData[idx] : null;
+      if (run && run.filename) {
+        openRunDetail(run.filename);
+      }
+    });
+  });
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// RUN DETAIL MODAL
+// ────────────────────────────────────────────────────────────────────────────
+let runDetailActiveTab = 'summary';
+let runDetailModal = null;
+
+function getRunDetailModal() {
+  if (!runDetailModal) {
+    // Inline Bootstrap modal implementation (no BS JS required)
+    runDetailModal = document.getElementById('runDetailModal');
+  }
+  return runDetailModal;
+}
+
+function openRunDetail(filename) {
+  const modal = getRunDetailModal();
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+
+  // Reset tabs
+  switchDetailTab('summary');
+
+  // Show loading
+  document.getElementById('run-detail-loading').style.display = '';
+  document.getElementById('run-detail-content').style.display = 'none';
+
+  fetch(`/api/run/${encodeURIComponent(filename)}`)
+    .then(r => {
+      if (r.status === 404) throw new Error('Run not found — the file may have been moved or deleted.');
+      if (!r.ok) throw new Error(`API error ${r.status}`);
+      return r.json();
+    })
+    .then(data => {
+      document.getElementById('run-detail-loading').style.display = 'none';
+      renderRunDetail(data);
+      document.getElementById('run-detail-content').style.display = '';
+      document.getElementById('runDetailModalLabel').textContent =
+        `${data.character.replace(/_/g,' ')} — ${data.win ? '🏆 Win' : '☠ Loss'} — A${data.ascension} — ${data.filename}`;
+    })
+    .catch(e => {
+      document.getElementById('run-detail-loading').style.display = 'none';
+      showError('Failed to load run detail: ' + e.message);
+    });
+}
+
+function closeRunDetail() {
+  const modal = getRunDetailModal();
+  modal.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// Close on backdrop click
+document.getElementById('runDetailModal').addEventListener('click', function(e) {
+  if (e.target === this) closeRunDetail();
+});
+
+function switchDetailTab(tab) {
+  runDetailActiveTab = tab;
+  document.querySelectorAll('#run-detail-tabs .nav-link').forEach(l => {
+    l.classList.toggle('active', l.dataset.detailTab === tab);
+  });
+  ['summary','map','cards','relics','encounters','rest'].forEach(t => {
+    const el = document.getElementById(`detail-tab-${t}`);
+    if (el) el.style.display = t === tab ? '' : 'none';
+  });
+}
+
+document.querySelectorAll('#run-detail-tabs .nav-link').forEach(link => {
+  link.addEventListener('click', e => { e.preventDefault(); switchDetailTab(link.dataset.detailTab); });
+});
+
+function renderRunDetail(d) {
+  renderDetailSummary(d);
+  renderDetailMap(d);
+  renderDetailCards(d);
+  renderDetailRelics(d);
+  renderDetailEncounters(d);
+  renderDetailRest(d);
+}
+
+function renderDetailSummary(d) {
+  const hpPct = d.max_hp ? d.hp / d.max_hp : 0;
+  const hpClass = hpPct < 0.3 ? 'low' : hpPct < 0.6 ? 'mid' : '';
+  const enchantedCount = (d.deck || []).filter(c => c.enchantment).length;
+  const deckHtml = (d.deck || []).map(c => {
+    const upg = c.upgrade > 0 ? `<sup class="card-upgrade">+${c.upgrade}</sup>` : '';
+    if (c.enchantment) {
+      const enchAmt = c.enchant_amount > 1 ? ` x${c.enchant_amount}` : '';
+      return `<span class="card-pill enchanted">${esc(c.id)}${upg}<span class="enchant-badge">✦ ${esc(c.enchantment)}${esc(enchAmt)}</span></span>`;
+    }
+    return `<span class="card-pill">${esc(c.id)}${upg}</span>`;
+  }).join('') || '<span style="color:var(--sts-muted)">—</span>';
+
+  const relicsHtml = (d.relics || []).map(r => `<span class="relic-pill">${esc(r)}</span>`).join('') ||
+    '<span style="color:var(--sts-muted)">—</span>';
+
+  document.getElementById('detail-tab-summary').innerHTML = `
+    <div class="row g-3 mt-1">
+      <div class="col-sm-6 col-md-4 col-lg-3"><div class="card stat-card p-3">
+        <div class="stat-value">${d.win ? '<span style="color:var(--sts-green)">WIN</span>' : '<span style="color:var(--sts-red)">LOSS</span>'}</div>
+        <div class="stat-label">Result</div></div></div>
+      <div class="col-sm-6 col-md-4 col-lg-3"><div class="card stat-card p-3">
+        <div class="stat-value">${esc(d.character.replace(/_/g,' '))}</div>
+        <div class="stat-label">Character</div></div></div>
+      <div class="col-sm-6 col-md-4 col-lg-3"><div class="card stat-card p-3">
+        <div class="stat-value">A${d.ascension}</div>
+        <div class="stat-label">Ascension</div></div></div>
+      <div class="col-sm-6 col-md-4 col-lg-3"><div class="card stat-card p-3">
+        <div class="stat-value">${d.acts_reached}</div>
+        <div class="stat-label">Acts Reached</div></div></div>
+      <div class="col-sm-6 col-md-4 col-lg-3"><div class="card stat-card p-3">
+        <div class="stat-value">${d.hp != null ? `${d.hp}/${d.max_hp}` : '—'}</div>
+        ${d.hp != null && d.max_hp ? `<div class="hp-bar mt-1"><div class="hp-bar-fill ${hpClass}" style="width:${Math.round(hpPct*100)}%"></div></div>` : ''}
+        <div class="stat-label">Final HP</div></div></div>
+      <div class="col-sm-6 col-md-4 col-lg-3"><div class="card stat-card p-3">
+        <div class="stat-value">${d.gold ?? '—'}</div>
+        <div class="stat-label">Final Gold</div></div></div>
+      <div class="col-sm-6 col-md-4 col-lg-3"><div class="card stat-card p-3">
+        <div class="stat-value">${d.deck_size}${enchantedCount > 0 ? ` <span class="enchant-count">(✦${enchantedCount})</span>` : ''}</div>
+        <div class="stat-label">Deck Size</div></div></div>
+      <div class="col-sm-6 col-md-4 col-lg-3"><div class="card stat-card p-3">
+        <div class="stat-value">${d.total_damage}</div>
+        <div class="stat-label">Total Dmg Taken</div></div></div>
+      <div class="col-sm-6 col-md-4 col-lg-3"><div class="card stat-card p-3">
+        <div class="stat-value">${fmtTime(d.run_time_s)}</div>
+        <div class="stat-label">Run Time</div></div></div>
+      <div class="col-sm-6 col-md-4 col-lg-3"><div class="card stat-card p-3">
+        <div class="stat-value" style="font-size:1.1rem">${d.seed ?? '—'}</div>
+        <div class="stat-label">Seed</div></div></div>
+      ${d.killed_by ? `<div class="col-sm-6 col-md-4 col-lg-3"><div class="card stat-card p-3">
+        <div class="stat-value" style="font-size:1.1rem;color:var(--sts-red)">${esc(d.killed_by)}</div>
+        <div class="stat-label">Killed By</div></div></div>` : ''}
+    </div>
+    <div class="mt-4">
+      <div class="detail-section-title">Final Deck</div>
+      <div>${deckHtml}</div>
+    </div>
+    <div class="mt-3">
+      <div class="detail-section-title">Final Relics</div>
+      <div>${relicsHtml}</div>
+    </div>
+  `;
+}
+
+function renderDetailMap(d) {
+  const map = d.map_path || [];
+  if (!map.length) {
+    document.getElementById('detail-tab-map').innerHTML = '<div class="empty-state">No map data</div>';
+    return;
+  }
+  const NODE_COLORS = {
+    monster: '#555', elite: '#9b59b6', boss: '#c74848',
+    rest_site: '#5aaa5a', shop: '#2d6a2d', ancient: '#4a3080',
+    treasure: '#7a5a20', event: '#4a8cbf',
+  };
+  let html = '';
+  map.forEach((act, i) => {
+    html += `<div class="map-act-label">Act ${i + 1}</div><div class="d-flex flex-wrap">`;
+    act.forEach(node => {
+      const color = NODE_COLORS[node.type] || '#444';
+      const hpStr = node.hp != null ? `${node.hp}/${node.max_hp}` : '';
+      html += `<div class="map-node" style="border-color:${color}">
+        <span class="map-node-type" style="color:${color}">${esc(node.type)}</span>
+        <span style="font-size:0.75rem;font-weight:600">${esc(node.name !== node.type ? node.name : '')}</span>
+        ${hpStr ? `<span class="map-node-hp">${hpStr} HP</span>` : ''}
+        ${node.damage_taken > 0 ? `<span style="color:var(--sts-red);font-size:0.68rem">-${node.damage_taken} HP</span>` : ''}
+      </div>`;
+    });
+    html += '</div>';
+  });
+  document.getElementById('detail-tab-map').innerHTML = html;
+}
+
+function renderDetailCards(d) {
+  const choices = d.card_choices || [];
+  if (!choices.length) {
+    document.getElementById('detail-tab-cards').innerHTML = '<div class="empty-state">No card choice data</div>';
+    return;
+  }
+  const html = choices.map((c, i) => {
+    const offeredHtml = (c.offered || []).map(card =>
+      card === c.picked
+        ? `<span class="card-pill" style="background:rgba(90,170,90,0.35);border-color:var(--sts-green);font-weight:600">${esc(card)} ✓</span>`
+        : `<span class="card-pill" style="opacity:0.6">${esc(card)}</span>`
+    ).join('');
+    const skipped = !c.picked;
+    return `<div class="choice-event">
+      <span style="color:var(--sts-muted);font-size:0.75rem">Choice ${i+1}</span>
+      ${skipped ? '<span class="badge badge-forced ms-2">skipped</span>' : ''}
+      <div class="mt-1">${offeredHtml || '<span style="color:var(--sts-muted)">—</span>'}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('detail-tab-cards').innerHTML = html;
+}
+
+function renderDetailRelics(d) {
+  const events = d.relic_events || [];
+  if (!events.length) {
+    document.getElementById('detail-tab-relics').innerHTML = '<div class="empty-state">No relic event data</div>';
+    return;
+  }
+  const html = events.map(e => {
+    const badge = typeBadge(e.source);
+    const status = e.picked
+      ? `<span class="badge badge-win">taken</span>`
+      : `<span class="badge badge-forced">skipped</span>`;
+    return `<div class="choice-event d-flex align-items-center gap-2 flex-wrap">
+      ${badge}
+      <strong>${esc(e.relic)}</strong>
+      ${status}
+    </div>`;
+  }).join('');
+  document.getElementById('detail-tab-relics').innerHTML = html;
+}
+
+function renderDetailEncounters(d) {
+  const encs = d.encounters || [];
+  if (!encs.length) {
+    document.getElementById('detail-tab-encounters').innerHTML = '<div class="empty-state">No encounter data</div>';
+    return;
+  }
+  const rows = encs.map(e => `<tr>
+    <td>${esc(e.name)}</td>
+    <td>${typeBadge(e.type)}</td>
+    <td>${e.damage_taken}</td>
+    <td>${e.turns ?? '—'}</td>
+  </tr>`).join('');
+  document.getElementById('detail-tab-encounters').innerHTML = `
+    <table class="table table-sm mt-2">
+      <thead><tr>
+        <th style="color:var(--sts-gold)">Encounter</th>
+        <th style="color:var(--sts-gold)">Type</th>
+        <th style="color:var(--sts-gold)">Dmg Taken</th>
+        <th style="color:var(--sts-gold)">Turns</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+function renderDetailRest(d) {
+  const sites = d.rest_sites || [];
+  if (!sites.length) {
+    document.getElementById('detail-tab-rest').innerHTML = '<div class="empty-state">No rest site data</div>';
+    return;
+  }
+  const rows = sites.map(s => `<tr>
+    <td><strong>${esc(s.choice)}</strong></td>
+    <td>${s.hp_healed > 0 ? `+${s.hp_healed}` : '—'}</td>
+  </tr>`).join('');
+  document.getElementById('detail-tab-rest').innerHTML = `
+    <table class="table table-sm mt-2">
+      <thead><tr>
+        <th style="color:var(--sts-gold)">Choice</th>
+        <th style="color:var(--sts-gold)">HP Healed</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
 }
 
 // ────────────────────────────────────────────────────────────────────────────
