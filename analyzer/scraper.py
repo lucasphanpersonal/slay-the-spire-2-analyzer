@@ -305,14 +305,13 @@ def _parse_html_metadata(html: str, result: Dict[str, Any]) -> None:
             result[field] = parsed[field]
 
 
-def _fetch_card_page_data(card_id: str) -> Dict[str, Any]:
-    """Fetch the untapped.gg card page for *card_id* and extract all available data.
+def _fetch_untapped_page_data(page_url: str, slug: str) -> Dict[str, Any]:
+    """Fetch and parse an untapped.gg page, returning all extractable metadata.
 
-    Returns a dict with:
-    ``image_url``, ``upgraded_image_url``, ``character``, ``card_type``,
-    ``cost``, ``rarity``, ``description``, ``description_upgraded``.
-
-    Missing fields are ``None``.
+    Used by both the card scraper and the relic/potion scrapers.  Returns a
+    dict with keys: ``image_url``, ``upgraded_image_url``, ``character``,
+    ``card_type``, ``cost``, ``rarity``, ``description``,
+    ``description_upgraded``.  All values default to ``None`` if not found.
     """
     result: Dict[str, Any] = {
         "image_url": None,
@@ -325,8 +324,6 @@ def _fetch_card_page_data(card_id: str) -> Dict[str, Any]:
         "description_upgraded": None,
     }
 
-    slug = card_id_to_slug(card_id)
-    page_url = f"{UNTAPPED_BASE}{UNTAPPED_CARDS_PATH}/{slug}"
     html_bytes = _get(page_url)
     if not html_bytes:
         return result
@@ -364,7 +361,7 @@ def _fetch_card_page_data(card_id: str) -> Dict[str, Any]:
     # 3. Server-rendered HTML <dt>/<dd> metadata (ItemDetailGrid + description divs)
     _parse_html_metadata(html, result)
 
-    # 4. Fallback: any <img src="..."> whose URL contains the card slug
+    # 4. Fallback: any <img src="..."> whose URL contains the slug
     if not result["image_url"]:
         img_matches = re.findall(
             r'<img[^>]+src=["\'](https?://[^"\']+)["\']',
@@ -377,6 +374,31 @@ def _fetch_card_page_data(card_id: str) -> Dict[str, Any]:
                 break
 
     return result
+
+
+def _fetch_card_page_data(card_id: str) -> Dict[str, Any]:
+    """Fetch the untapped.gg card page for *card_id* and extract all available data.
+
+    Returns a dict with:
+    ``image_url``, ``upgraded_image_url``, ``character``, ``card_type``,
+    ``cost``, ``rarity``, ``description``, ``description_upgraded``.
+
+    Missing fields are ``None``.
+    """
+    slug = card_id_to_slug(card_id)
+    return _fetch_untapped_page_data(f"{UNTAPPED_BASE}{UNTAPPED_CARDS_PATH}/{slug}", slug)
+
+
+def _fetch_relic_page_data(relic_id: str) -> Dict[str, Any]:
+    """Fetch the untapped.gg relic page for *relic_id* and extract metadata + image URL."""
+    slug = relic_id_to_slug(relic_id)
+    return _fetch_untapped_page_data(f"{UNTAPPED_BASE}{UNTAPPED_RELICS_PATH}/{slug}", slug)
+
+
+def _fetch_potion_page_data(potion_id: str) -> Dict[str, Any]:
+    """Fetch the untapped.gg potion page for *potion_id* and extract metadata + image URL."""
+    slug = potion_id_to_slug(potion_id)
+    return _fetch_untapped_page_data(f"{UNTAPPED_BASE}{UNTAPPED_POTIONS_PATH}/{slug}", slug)
 
 
 def _fetch_image_from_untapped_page(page_path: str, slug: str) -> Optional[str]:
@@ -820,6 +842,158 @@ def scrape_relic_images(
     )
 
 
+def _scrape_collectible_data(
+    item_ids: List[str],
+    output_dir: str,
+    fetch_page_fn,
+    wiki_fallback_fn,
+    data_filename: str,
+    *,
+    skip_existing: bool = True,
+    verbose: bool = True,
+) -> Dict[str, Dict[str, Any]]:
+    """Download images and scrape metadata for relics or potions.
+
+    Parameters
+    ----------
+    item_ids:
+        List of normalized item IDs to scrape.
+    output_dir:
+        Directory to save images and the JSON data file into.
+    fetch_page_fn:
+        Callable ``(item_id) -> page_data_dict`` (e.g. ``_fetch_relic_page_data``).
+    wiki_fallback_fn:
+        Callable ``(item_id) -> [file_title, ...]`` for wiki image fallback.
+    data_filename:
+        JSON filename to save metadata into (e.g. ``"relic_data.json"``).
+    skip_existing:
+        Skip items where both image and metadata are already cached.
+    verbose:
+        Print progress.
+
+    Returns
+    -------
+    The full item data dict keyed by item ID.
+    """
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    data_file = out / data_filename
+
+    item_data: Dict[str, Dict[str, Any]] = {}
+    if data_file.exists():
+        try:
+            with open(data_file, encoding="utf-8") as f:
+                item_data = json.load(f)
+        except Exception:  # noqa: BLE001
+            item_data = {}
+
+    total = len(item_ids)
+
+    for i, item_id in enumerate(sorted(item_ids), 1):
+        filename = item_id.lower() + ".png"
+        dest = out / filename
+        has_image = dest.exists()
+        has_meta = item_id in item_data
+
+        if skip_existing and has_image and has_meta:
+            if verbose:
+                print(f"  [{i:>3}/{total}] {item_id:<40} skip (all cached)")
+            continue
+
+        if verbose:
+            print(f"  [{i:>3}/{total}] {item_id:<40} ", end="", flush=True)
+
+        page_data = fetch_page_fn(item_id)
+        time.sleep(REQUEST_DELAY)
+
+        # Wiki fallback for image if untapped.gg didn't return one
+        if not page_data["image_url"]:
+            for file_title in wiki_fallback_fn(item_id):
+                wiki_url = _resolve_image_url_via_api(file_title)
+                if wiki_url:
+                    page_data["image_url"] = wiki_url
+                    break
+                time.sleep(REQUEST_DELAY)
+
+        downloaded: List[str] = []
+
+        if page_data["image_url"] and not (skip_existing and has_image):
+            img_bytes = _get(page_data["image_url"])
+            if img_bytes:
+                dest.write_bytes(img_bytes)
+                downloaded.append("art")
+                time.sleep(REQUEST_DELAY)
+
+        item_data[item_id] = {
+            "rarity":      page_data["rarity"],
+            "description": page_data["description"],
+            "has_image":   dest.exists(),
+        }
+
+        if verbose:
+            if downloaded:
+                print(f"✓  ({', '.join(downloaded)})")
+            elif page_data["rarity"] or page_data["description"]:
+                print("metadata only")
+            else:
+                print("not found")
+
+    with open(data_file, "w", encoding="utf-8") as f:
+        json.dump(item_data, f, indent=2, ensure_ascii=False)
+    if verbose:
+        print(f"\nSaved {data_filename} → {data_file}")
+
+    return item_data
+
+
+def scrape_relic_data(
+    relic_ids: List[str],
+    output_dir: str,
+    *,
+    skip_existing: bool = True,
+    verbose: bool = True,
+) -> Dict[str, Dict[str, Any]]:
+    """Download relic images and scrape metadata (rarity, description) for *relic_ids*.
+
+    Saves into *output_dir*:
+
+    * ``{relic_id_lower}.png`` — relic art
+    * ``relic_data.json``      — metadata for all scraped relics
+    """
+    return _scrape_collectible_data(
+        relic_ids, output_dir,
+        _fetch_relic_page_data,
+        _candidate_wiki_file_titles,
+        "relic_data.json",
+        skip_existing=skip_existing,
+        verbose=verbose,
+    )
+
+
+def scrape_potion_data(
+    potion_ids: List[str],
+    output_dir: str,
+    *,
+    skip_existing: bool = True,
+    verbose: bool = True,
+) -> Dict[str, Dict[str, Any]]:
+    """Download potion images and scrape metadata (rarity, description) for *potion_ids*.
+
+    Saves into *output_dir*:
+
+    * ``{potion_id_lower}.png`` — potion art
+    * ``potion_data.json``      — metadata for all scraped potions
+    """
+    return _scrape_collectible_data(
+        potion_ids, output_dir,
+        _fetch_potion_page_data,
+        _candidate_wiki_file_titles,
+        "potion_data.json",
+        skip_existing=skip_existing,
+        verbose=verbose,
+    )
+
+
 def scrape_potion_images(
     potion_ids: List[str],
     output_dir: str,
@@ -1035,13 +1209,23 @@ def run_scrape(history_path: str, static_dir: str) -> None:
     print("Discovering relic IDs from run files…")
     relic_ids = collect_relic_ids_from_runs(history_path)
     print(f"Found {len(relic_ids)} unique relic IDs.\n")
-    print("Fetching relic images from sts2.untapped.gg (with wiki fallback)…")
-    dl_relics = scrape_relic_images(relic_ids, relic_output, verbose=True)
-    print(f"\nRelics: downloaded {len(dl_relics)}/{len(relic_ids)} images → {relic_output}\n")
+    print("Fetching relic data from sts2.untapped.gg (images + metadata)…")
+    relic_data = scrape_relic_data(relic_ids, relic_output, verbose=True)
+    r_images = sum(1 for v in relic_data.values() if v.get("has_image"))
+    r_meta = sum(1 for v in relic_data.values() if v.get("rarity") or v.get("description"))
+    print(
+        f"\nRelics: {r_images}/{len(relic_ids)} images, "
+        f"{r_meta}/{len(relic_ids)} with metadata  →  {relic_output}\n"
+    )
 
     print("Discovering potion IDs from run files…")
     potion_ids = collect_potion_ids_from_runs(history_path)
     print(f"Found {len(potion_ids)} unique potion IDs.\n")
-    print("Fetching potion images from sts2.untapped.gg (with wiki fallback)…")
-    dl_potions = scrape_potion_images(potion_ids, potion_output, verbose=True)
-    print(f"\nPotions: downloaded {len(dl_potions)}/{len(potion_ids)} images → {potion_output}\n")
+    print("Fetching potion data from sts2.untapped.gg (images + metadata)…")
+    potion_data = scrape_potion_data(potion_ids, potion_output, verbose=True)
+    p_images = sum(1 for v in potion_data.values() if v.get("has_image"))
+    p_meta = sum(1 for v in potion_data.values() if v.get("rarity") or v.get("description"))
+    print(
+        f"\nPotions: {p_images}/{len(potion_ids)} images, "
+        f"{p_meta}/{len(potion_ids)} with metadata  →  {potion_output}\n"
+    )

@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import json
 import os
-from typing import Any
+from pathlib import Path
+from typing import Any, List, Optional
 
 from flask import Flask, jsonify, render_template, request
 
@@ -26,6 +27,27 @@ from .stats import (
     get_ascensions,
     get_characters,
 )
+
+
+def _ids_from_image_dir(image_dir: str) -> List[str]:
+    """Return sorted uppercase IDs derived from PNG filenames in *image_dir*.
+
+    e.g. ``akabeko.png`` → ``AKABEKO``
+    """
+    d = Path(image_dir)
+    if not d.is_dir():
+        return []
+    return sorted(p.stem.upper() for p in d.glob("*.png"))
+
+
+def _ids_from_card_data(card_data_file: str) -> List[str]:
+    """Return sorted card IDs from the scraped ``card_data.json`` file."""
+    try:
+        with open(card_data_file, encoding="utf-8") as f:
+            data = json.load(f)
+        return sorted(data.keys())
+    except Exception:  # noqa: BLE001
+        return []
 
 
 def create_app(history_path: str) -> Flask:
@@ -55,6 +77,21 @@ def create_app(history_path: str) -> Flask:
             "exclude_multiplayer": _bool(request.args.get("exclude_multiplayer"), True),
             "exclude_abandoned": _bool(request.args.get("exclude_abandoned"), True),
         }
+
+    def _known_cards() -> Optional[List[str]]:
+        """IDs from card_data.json (populated by the scraper)."""
+        ids = _ids_from_card_data(os.path.join(static_dir, "card_images", "card_data.json"))
+        return ids or None
+
+    def _known_relics() -> Optional[List[str]]:
+        """IDs from relic_data.json (if available), else from downloaded image filenames."""
+        ids = _ids_from_card_data(os.path.join(static_dir, "relic_images", "relic_data.json"))
+        return ids or (_ids_from_image_dir(os.path.join(static_dir, "relic_images")) or None)
+
+    def _known_potions() -> Optional[List[str]]:
+        """IDs from potion_data.json (if available), else from downloaded image filenames."""
+        ids = _ids_from_card_data(os.path.join(static_dir, "potion_images", "potion_data.json"))
+        return ids or (_ids_from_image_dir(os.path.join(static_dir, "potion_images")) or None)
 
     # ── Frontend ──────────────────────────────────────────────────────────────
 
@@ -98,17 +135,17 @@ def create_app(history_path: str) -> Flask:
     def api_cards():
         min_offered = int(request.args.get("min_samples", 1))
         runs = filter_runs(_load(), **_filters())
-        return jsonify(compute_cards(runs, min_offered=min_offered))
+        return jsonify(compute_cards(runs, min_offered=min_offered, known_cards=_known_cards()))
 
     @app.route("/api/relics")
     def api_relics():
         runs = filter_runs(_load(), **_filters())
-        return jsonify(compute_relics(runs))
+        return jsonify(compute_relics(runs, known_relics=_known_relics()))
 
     @app.route("/api/potions")
     def api_potions():
         runs = filter_runs(_load(), **_filters())
-        return jsonify(compute_potions(runs))
+        return jsonify(compute_potions(runs, known_potions=_known_potions()))
 
     @app.route("/api/encounters")
     def api_encounters():
@@ -141,6 +178,30 @@ def create_app(history_path: str) -> Flask:
             return jsonify({})
         except Exception:
             return jsonify({"error": "Failed to load card data"}), 500
+
+    @app.route("/api/relic_data")
+    def api_relic_data():
+        """Return scraped relic metadata from relic_data.json (empty dict if not yet scraped)."""
+        data_file = os.path.join(static_dir, "relic_images", "relic_data.json")
+        try:
+            with open(data_file, encoding="utf-8") as f:
+                return jsonify(json.load(f))
+        except FileNotFoundError:
+            return jsonify({})
+        except Exception:
+            return jsonify({"error": "Failed to load relic data"}), 500
+
+    @app.route("/api/potion_data")
+    def api_potion_data():
+        """Return scraped potion metadata from potion_data.json (empty dict if not yet scraped)."""
+        data_file = os.path.join(static_dir, "potion_images", "potion_data.json")
+        try:
+            with open(data_file, encoding="utf-8") as f:
+                return jsonify(json.load(f))
+        except FileNotFoundError:
+            return jsonify({})
+        except Exception:
+            return jsonify({"error": "Failed to load potion data"}), 500
 
     @app.route("/api/run/<path:filename>")
     def api_run_detail(filename: str):
