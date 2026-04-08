@@ -1,0 +1,5352 @@
+{
+  "ABRASIVE": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Sly .   Gain 1  Dexterity .   Gain 4  Thorns .",
+    "description_upgraded": "Sly .   Gain 1  Dexterity .   Gain  6   Thorns .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ACCELERANT": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Poison  is triggered 1 additional time.",
+    "description_upgraded": "Poison  is triggered  2  additional  times .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ACCURACY": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Shivs  deal 4 additional damage.",
+    "description_upgraded": "Shivs  deal  6  additional damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ACROBATICS": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Draw 3 cards.   Discard 1 card.",
+    "description_upgraded": "Draw  4  cards.   Discard 1 card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ADAPTIVE_STRIKE": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Deal 18 damage.   Add a 0  copy of this card into your  Discard Pile .",
+    "description_upgraded": "Deal  23  damage.   Add a 0  copy of this card into your  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ADRENALINE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Gain  .   Draw 2 cards.   Exhaust .",
+    "description_upgraded": "Gain  .   Draw 2 cards.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "AFTERIMAGE": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Whenever you play a card, gain 1  Block .",
+    "description_upgraded": "Innate .   Whenever you play a card, gain 1  Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "AFTERLIFE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Summon  6.   Exhaust .",
+    "description_upgraded": "Summon   9 .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "AGGRESSION": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "At the start of your turn, put a random Attack from your  Discard Pile  into your  Hand  and  Upgrade  it.",
+    "description_upgraded": "Innate .   At the start of your turn, put a random Attack from your  Discard Pile  into your  Hand  and  Upgrade  it.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ALCHEMIZE": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Procure a random potion.   Exhaust .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ALIGNMENT": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Gain  .",
+    "description_upgraded": "Gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ALL_FOR_ONE": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Deal 10 damage.   Put ALL 0  cards from your  Discard Pile  into your  Hand .",
+    "description_upgraded": "Deal  14  damage.   Put ALL 0  cards from your  Discard Pile  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ANGER": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Deal 6 damage.   Add a copy of this card into your  Discard Pile .",
+    "description_upgraded": "Deal  8  damage.   Add a copy of this card into your  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ANOINTED": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Put every Rare card from your  Draw Pile  into your  Hand .   Exhaust .",
+    "description_upgraded": "Retain .   Put every Rare card from your  Draw Pile  into your  Hand .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ANTICIPATE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Gain 3  Dexterity  this turn.",
+    "description_upgraded": "Gain  5   Dexterity  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "APOTHEOSIS": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Ancient",
+    "description": "Innate .   Upgrade  ALL your cards.   Exhaust .",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "APPARITION": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Ancient",
+    "description": "Ethereal .   Gain 1  Intangible .   Exhaust .",
+    "description_upgraded": "Gain 1  Intangible .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ARMAMENTS": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 5  Block .   Upgrade  a card in your  Hand .",
+    "description_upgraded": "Gain 5  Block .   Upgrade   ALL cards  in your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ARSENAL": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Whenever you play a Colorless card, gain 1  Strength .",
+    "description_upgraded": "Whenever you play a Colorless card, gain  2   Strength .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ASCENDERS_BANE": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   Ethereal .   Eternal .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ASHEN_STRIKE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 6 damage.   Deals 3 additional damage for each card in your  Exhaust  Pile.",
+    "description_upgraded": "Deal 6 damage.   Deals  4  additional damage for each card in your  Exhaust  Pile.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ASSASSINATE": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Innate .   Deal 10 damage.   Apply 1  Vulnerable .   Exhaust .",
+    "description_upgraded": "Innate .   Deal  13  damage.   Apply  2   Vulnerable .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ASTRAL_PULSE": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Deal 14 damage to ALL enemies.",
+    "description_upgraded": "Deal  18  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "AUTOMATION": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Every 10 cards you draw, gain  .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BACKFLIP": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 5  Block .   Draw 2 cards.",
+    "description_upgraded": "Gain  8   Block .   Draw 2 cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BACKSTAB": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Innate .   Deal 11 damage.   Exhaust .",
+    "description_upgraded": "Innate .   Deal  15  damage.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BAD_LUCK": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   At the end of your turn, if this is in your  Hand , lose 13 HP.   Eternal .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BALL_LIGHTNING": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 7 damage.   Channel  1  Lightning .",
+    "description_upgraded": "Deal  10  damage.   Channel  1  Lightning .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BANSHEES_CRY": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 6,
+    "rarity": "Rare",
+    "description": "Deal 33 damage to ALL enemies.   Costs   less for each  Ethereal  card played this combat.",
+    "description_upgraded": "Deal  39  damage to ALL enemies.   Costs   less for each  Ethereal  card played this combat.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BARRAGE": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 5 damage for each  Channeled  Orb.",
+    "description_upgraded": "Deal  7  damage for each  Channeled  Orb.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BARRICADE": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Block  is not removed at the start of your turn.",
+    "description_upgraded": "Cost changes from  3  to  2",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BASH": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Basic",
+    "description": "Deal 8 damage.   Apply 2  Vulnerable .",
+    "description_upgraded": "Deal  10  damage.   Apply  3   Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BATTLE_TRANCE": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Draw 3 cards.   You cannot draw additional cards this turn.",
+    "description_upgraded": "Draw  4  cards.   You cannot draw additional cards this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BEACON_OF_HOPE": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Whenever you gain  Block  on your turn, other players gain half that much  Block .",
+    "description_upgraded": "Innate .   Whenever you gain  Block  on your turn, other players gain half that much  Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BEAM_CELL": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Deal 3 damage.   Apply 1  Vulnerable .",
+    "description_upgraded": "Deal  4  damage.   Apply  2   Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BEAT_DOWN": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Play 3 random Attacks from your  Discard Pile .",
+    "description_upgraded": "Play  4  random Attacks from your  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BEAT_INTO_SHAPE": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal 5 damage.   Forge  5.   Forges  an additional 5 for every other time you've hit the enemy this turn.",
+    "description_upgraded": "Deal  7  damage.   Forge   7 .   Forges  an additional  7  for every other time you've hit the enemy this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BEGONE": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 4 damage.   Choose a card in your  Hand  to Transform into  Minion Dive Bomb .",
+    "description_upgraded": "Deal  5  damage.   Choose a card in your  Hand  to Transform into  Minion Dive Bomb+ .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BELIEVE_IN_YOU": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Another player gains .",
+    "description_upgraded": "Another player gains  4 .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BIASED_COGNITION": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Ancient",
+    "description": "Gain 4  Focus .   At the start of your turn, lose 1  Focus .",
+    "description_upgraded": "Gain  5   Focus .   At the start of your turn, lose 1  Focus .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BIG_BANG": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Draw 1 card.   Gain  .   Gain  .   Forge  5.   Exhaust .",
+    "description_upgraded": "Innate .   Draw 1 card.   Gain  .   Gain  .   Forge  5.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BLACK_HOLE": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you spend or gain  , deal 3 damage to ALL enemies.",
+    "description_upgraded": "Whenever you spend or gain  , deal  4  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BLADE_DANCE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Add 3  Shivs  into your  Hand .   Exhaust .",
+    "description_upgraded": "Add  4   Shivs  into your  Hand .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BLADE_OF_INK": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "This turn, whenever you play an Attack, gain 2  Strength  this turn.",
+    "description_upgraded": "This turn, whenever you play an Attack, gain  3   Strength  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BLIGHT_STRIKE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 8 damage.   Apply  Doom  equal to damage dealt.",
+    "description_upgraded": "Deal  10  damage.   Apply  Doom  equal to damage dealt.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BLOODLETTING": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Lose 3 HP.   Gain  .",
+    "description_upgraded": "Lose 3 HP.   Gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BLOOD_WALL": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Common",
+    "description": "Lose 2 HP.   Gain 16  Block .",
+    "description_upgraded": "Lose 2 HP.   Gain  20   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BLUDGEON": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Uncommon",
+    "description": "Deal 32 damage.",
+    "description_upgraded": "Deal  42  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BLUR": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 5  Block .   Block  is not removed at the start of your next turn.",
+    "description_upgraded": "Gain  8   Block .   Block  is not removed at the start of your next turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BODYGUARD": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Summon  5.",
+    "description_upgraded": "Summon   7 .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BODY_SLAM": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal damage equal to your  Block .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BOLAS": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Deal 3 damage.   At the start of your next turn, return this to your  Hand .",
+    "description_upgraded": "Deal  4  damage.   At the start of your next turn, return this to your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BOMBARDMENT": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Deal 18 damage.   At the start of your turn, plays from the  Exhaust  Pile.   Exhaust .",
+    "description_upgraded": "Deal  24  damage.   At the start of your turn, plays from the  Exhaust  Pile.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BONE_SHARDS": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "If  Osty  is alive, he deals 9 damage to ALL enemies and you gain 9  Block .   Osty  dies.",
+    "description_upgraded": "If  Osty  is alive, he deals  12  damage to ALL enemies and you gain  12   Block .   Osty  dies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BOOST_AWAY": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Gain 6  Block .   Add a  Dazed  into your  Discard Pile .",
+    "description_upgraded": "Gain  9   Block .   Add a  Dazed  into your  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BOOT_SEQUENCE": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Innate .   Gain 10  Block .   Exhaust .",
+    "description_upgraded": "Innate .   Gain  13   Block .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BORROWED_TIME": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Apply 3  Doom  to yourself.   Gain  .",
+    "description_upgraded": "Apply 3  Doom  to yourself.   Gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BOUNCING_FLASK": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Apply 3  Poison  to a random enemy 3 times.",
+    "description_upgraded": "Apply 3  Poison  to a random enemy  4  times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BRAND": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Lose 1 HP.   Exhaust  1 card.   Gain 1  Strength .",
+    "description_upgraded": "Lose 1 HP.   Exhaust  1 card.   Gain  2   Strength .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BREAK": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Ancient",
+    "description": "Deal 20 damage.   Apply 5  Vulnerable .",
+    "description_upgraded": "Deal  25  damage.   Apply  7   Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BREAKTHROUGH": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Lose 1 HP.   Deal 9 damage to ALL enemies.",
+    "description_upgraded": "Lose 1 HP.   Deal  13  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BRIGHTEST_FLAME": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Ancient",
+    "description": "Gain  .   Draw 2 cards.   Lose 1 Max HP.",
+    "description_upgraded": "Gain  .   Draw  3  cards.   Lose 1 Max HP.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BUBBLE_BUBBLE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "If the enemy has  Poison , apply 9  Poison .",
+    "description_upgraded": "If the enemy has  Poison , apply  12   Poison .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BUFFER": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Prevent the next time you would lose HP.",
+    "description_upgraded": "Prevent the next  2 times  you would lose HP.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BULK_UP": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Lose 1 Orb Slot.   Gain 2  Strength .   Gain 2  Dexterity .",
+    "description_upgraded": "Lose 1 Orb Slot.   Gain  3   Strength .   Gain  3   Dexterity .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BULLET_TIME": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "You cannot draw additional cards this turn. ALL cards in your  Hand  are free to play this turn.",
+    "description_upgraded": "Cost changes from  3  to  2",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BULLY": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Deal 4 damage.   Deals 2 additional damage for each  Vulnerable  on the enemy.",
+    "description_upgraded": "Deal 4 damage.   Deals  3  additional damage for each  Vulnerable  on the enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BULWARK": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Gain 13  Block .   Forge  10.",
+    "description_upgraded": "Gain  16   Block .   Forge   13 .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BUNDLE_OF_JOY": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Add 3 random Colorless cards into your  Hand .   Exhaust .",
+    "description_upgraded": "Add  4  random Colorless cards into your  Hand .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BURNING_PACT": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Exhaust  1 card.   Draw 2 cards.",
+    "description_upgraded": "Exhaust  1 card.   Draw  3  cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BURST": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "This turn, your next Skill is played an extra time.",
+    "description_upgraded": "This turn, your next  2 Skills are  played an extra time.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BURY": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 4,
+    "rarity": "Uncommon",
+    "description": "Deal 52 damage.",
+    "description_upgraded": "Deal  63  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BYRD_SWOOP": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Event",
+    "description": "Deal 14 damage.",
+    "description_upgraded": "Deal  18  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CALAMITY": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Whenever you play an Attack, add a random Attack into your  Hand .",
+    "description_upgraded": "Cost changes from  3  to  2",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CALCIFY": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Osty's  attacks deal 4 additional damage.",
+    "description_upgraded": "Osty's  attacks deal  6  additional damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CALCULATED_GAMBLE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Discard your  Hand ,   then draw that many cards.   Exhaust .",
+    "description_upgraded": "Retain .   Discard your  Hand ,   then draw that many cards.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CALL_OF_THE_VOID": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "At the start of your turn, add 1 random card into your  Hand . It gains  Ethereal .",
+    "description_upgraded": "Innate .   At the start of your turn, add 1 random card into your  Hand . It gains  Ethereal .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CAPACITOR": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 2 Orb Slots.",
+    "description_upgraded": "Gain  3  Orb Slots.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CAPTURE_SPIRIT": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Enemy loses 3 HP.   Add 3  Souls  into your  Draw Pile .",
+    "description_upgraded": "Enemy loses  4  HP.   Add  4   Souls  into your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CASCADE": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": "X",
+    "rarity": "Rare",
+    "description": "Play the top X cards of your  Draw Pile .",
+    "description_upgraded": "Play the top  X+1  cards of your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CATASTROPHE": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Play 2 random cards from your  Draw Pile .",
+    "description_upgraded": "Play  3  random cards from your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CELESTIAL_MIGHT": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Common",
+    "description": "Deal 6 damage 3 times.",
+    "description_upgraded": "Deal  8  damage 3 times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CHAOS": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Channel  1 random Orb.",
+    "description_upgraded": "Channel   2  random  Orbs .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CHARGE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Choose 2 cards in your  Draw Pile  to Transform into   Minion Strikes .",
+    "description_upgraded": "Choose 2 cards in your  Draw Pile  to Transform into   Minion Strikes+ .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CHARGE_BATTERY": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 7  Block .   Next turn, gain  .",
+    "description_upgraded": "Gain  10   Block .   Next turn, gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CHILD_OF_THE_STARS": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you spend  , gain 2  Block  for each   spent.",
+    "description_upgraded": "Whenever you spend  , gain  3   Block  for each   spent.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CHILL": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Channel  1  Frost  for each enemy.   Exhaust .",
+    "description_upgraded": "Channel  1  Frost  for each enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CINDER": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Common",
+    "description": "Deal 17 damage.   Exhaust  the top card of your  Draw Pile .",
+    "description_upgraded": "Deal  22  damage.   Exhaust  the top card of your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CLAW": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Deal 3 damage.   Increase the damage of ALL Claw cards by 2 this combat.",
+    "description_upgraded": "Deal  4  damage.   Increase the damage of ALL Claw cards by  3  this combat.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CLEANSE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Summon  3.   Exhaust  1 card from your  Draw Pile .",
+    "description_upgraded": "Summon   5 .   Exhaust  1 card from your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CLOAK_AND_DAGGER": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 6  Block .   Add 1  Shiv  into your  Hand .",
+    "description_upgraded": "Gain 6  Block .   Add  2  Shivs  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CLOAK_OF_STARS": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Gain 7  Block .",
+    "description_upgraded": "Gain  10   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CLUMSY": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   Ethereal .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "COLD_SNAP": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 6 damage.   Channel  1  Frost .",
+    "description_upgraded": "Deal  9  damage.   Channel  1  Frost .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "COLLISION_COURSE": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Deal 9 damage.   Add a  Debris  into your  Hand .",
+    "description_upgraded": "Deal  12  damage.   Add a  Debris  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "COLOSSUS": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Gain 5  Block .   You receive 50% less damage from  Vulnerable  enemies this turn.",
+    "description_upgraded": "Gain  8   Block .   You receive 50% less damage from  Vulnerable  enemies this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "COMET": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Deal 33 damage.   Apply 3  Weak .   Apply 3  Vulnerable .",
+    "description_upgraded": "Deal  44  damage.   Apply 3  Weak .   Apply 3  Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "COMPACT": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 6  Block .   Transform all  Status  cards in your  Hand  into  Fuel .",
+    "description_upgraded": "Gain  7   Block .   Transform all  Status  cards in your  Hand  into  Fuel+ .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "COMPILE_DRIVER": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 7 damage.   Draw 1 card for each unique Orb you have.",
+    "description_upgraded": "Deal  10  damage.   Draw 1 card for each unique Orb you have.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CONFLAGRATION": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal 8 damage to ALL enemies.   Deals 2 additional damage for each other Attack you've played this turn.",
+    "description_upgraded": "Deal  9  damage to ALL enemies.   Deals  3  additional damage for each other Attack you've played this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CONQUEROR": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Forge  3.   Sovereign Blade  deals double damage to the enemy this turn.",
+    "description_upgraded": "Forge   5 .   Sovereign Blade  deals double damage to the enemy this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CONSUMING_SHADOW": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Channel  2  Dark .   At the end of your turn,  Evoke  your leftmost Orb.",
+    "description_upgraded": "Channel   3   Dark .   At the end of your turn,  Evoke  your leftmost Orb.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CONVERGENCE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Next turn,   gain   and  .   Retain  your  Hand  this turn.",
+    "description_upgraded": "Next turn,   gain   and  .   Retain  your  Hand  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "COOLANT": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "At the start of your turn, gain 2  Block  for each unique Orb you have.",
+    "description_upgraded": "At the start of your turn, gain  3   Block  for each unique Orb you have.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "COOLHEADED": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Channel  1  Frost .   Draw 1 card.",
+    "description_upgraded": "Channel  1  Frost .   Draw  2 cards .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "COORDINATE": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Give another player 5  Strength  this turn.",
+    "description_upgraded": "Give another player  8   Strength  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CORROSIVE_WAVE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Whenever you draw a card this turn, apply 3  Poison  to ALL enemies.",
+    "description_upgraded": "Whenever you draw a card this turn, apply  4   Poison  to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "COSMIC_INDIFFERENCE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 6  Block .   Put a card from your  Discard Pile  on top of your  Draw Pile .",
+    "description_upgraded": "Gain  9   Block .   Put a card from your  Discard Pile  on top of your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "COUNTDOWN": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "At the start of your turn, apply 6  Doom  to a random enemy.",
+    "description_upgraded": "At the start of your turn, apply  9   Doom  to a random enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CRASH_LANDING": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal 21 damage to ALL enemies.   Fill your  Hand  with  Debris .",
+    "description_upgraded": "Deal  26  damage to ALL enemies.   Fill your  Hand  with  Debris .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CREATIVE_AI": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "At the start of your turn, add a random Power into your  Hand .",
+    "description_upgraded": "Cost changes from  3  to  2",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CRESCENT_SPEAR": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 6 damage.   Deals 2 additional damage for ALL your cards that have a   cost.",
+    "description_upgraded": "Deal 6 damage.   Deals  3  additional damage for ALL your cards that have a   cost.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CRIMSON_MANTLE": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "At the start of your turn, lose 1 HP and gain 8  Block .",
+    "description_upgraded": "At the start of your turn, lose 1 HP and gain  10   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CRUELTY": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Vulnerable  enemies take an additional 25% damage.",
+    "description_upgraded": "Vulnerable  enemies take an additional  50 % damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CRUSH_UNDER": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 7 damage to ALL enemies. All enemies lose 1  Strength  this turn.",
+    "description_upgraded": "Deal  8  damage to ALL enemies. All enemies lose  2   Strength  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "CURSE_OF_THE_BELL": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   Eternal .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DAGGER_SPRAY": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 4 damage to ALL enemies twice.",
+    "description_upgraded": "Deal  6  damage to ALL enemies twice.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DAGGER_THROW": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 9 damage.   Draw 1 card.   Discard 1 card.",
+    "description_upgraded": "Deal  12  damage.   Draw 1 card.   Discard 1 card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DANSE_MACABRE": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you play a card that costs   or more, gain 3  Block .",
+    "description_upgraded": "Whenever you play a card that costs   or more, gain  4   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DARKNESS": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Channel  1  Dark .   Trigger the passive ability of all  Dark  Orbs.",
+    "description_upgraded": "Channel  1  Dark .   Trigger the passive ability of all  Dark   twice .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DARK_EMBRACE": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Whenever a card is  Exhausted ,   draw 1 card.",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DARK_SHACKLES": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Enemy loses 9  Strength  this turn.   Exhaust .",
+    "description_upgraded": "Enemy loses  15   Strength  this turn.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DASH": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Gain 10  Block .   Deal 10 damage.",
+    "description_upgraded": "Gain  13   Block .   Deal  13  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEADLY_POISON": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Apply 5  Poison .",
+    "description_upgraded": "Apply  7   Poison .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEATHBRINGER": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Apply 21  Doom  and 1  Weak  to ALL enemies.",
+    "description_upgraded": "Apply  26   Doom  and 1  Weak  to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEATHS_DOOR": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 6  Block .   If you applied  Doom  this turn, gain  Block  2 additional times.",
+    "description_upgraded": "Gain  7   Block .   If you applied  Doom  this turn, gain  Block  2 additional times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEATH_MARCH": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 8 damage.   Deals 3 additional damage for each card drawn during your turn.",
+    "description_upgraded": "Deal  9  damage.   Deals  4  additional damage for each card drawn during your turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEBILITATE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 7 damage.   Vulnerable  and  Weak  are twice as effective against the enemy for the next 3 turns.",
+    "description_upgraded": "Deal  9  damage.   Vulnerable  and  Weak  are twice as effective against the enemy for the next  4  turns.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEBT": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   At the end of your turn, if this is in your  Hand , lose 10  Gold .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DECAY": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   At the end of your turn, if this is in your  Hand , take 2 damage.",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DECISIONS_DECISIONS": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Draw 3 cards.   Choose a Skill in your  Hand  and play it 3 times.   Exhaust .",
+    "description_upgraded": "Draw  5  cards.   Choose a Skill in your  Hand  and play it 3 times.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEFEND_DEFECT": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Gain 5  Block .",
+    "description_upgraded": "Gain  8   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEFEND_IRONCLAD": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Gain 5  Block .",
+    "description_upgraded": "Gain  8   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEFEND_NECROBINDER": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Gain 5  Block .",
+    "description_upgraded": "Gain  8   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEFEND_REGENT": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Gain 5  Block .",
+    "description_upgraded": "Gain  8   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEFEND_SILENT": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Gain 5  Block .",
+    "description_upgraded": "Gain  8   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEFILE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Ethereal .   Deal 13 damage.",
+    "description_upgraded": "Ethereal .   Deal  17  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEFLECT": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Gain 4  Block .",
+    "description_upgraded": "Gain  7   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEFRAGMENT": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Gain 1  Focus .",
+    "description_upgraded": "Gain  2   Focus .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEFY": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Ethereal .   Gain 6  Block .   Apply 1  Weak .",
+    "description_upgraded": "Ethereal .   Gain  7   Block .   Apply  2   Weak .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DELAY": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Gain 11  Block .   Next turn,   gain  .",
+    "description_upgraded": "Gain  13   Block .   Next turn,   gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEMESNE": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Ethereal .   At the start of your turn, gain   and draw 1 additional card.",
+    "description_upgraded": "Cost changes from  3  to  2",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEMONIC_SHIELD": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Lose 1 HP.   Give another player  Block  equal to your  Block .   Exhaust .",
+    "description_upgraded": "Lose 1 HP.   Give another player  Block  equal to your  Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEMON_FORM": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "At the start of your turn, gain 2  Strength .",
+    "description_upgraded": "At the start of your turn, gain  3   Strength .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEVASTATE": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 30 damage.",
+    "description_upgraded": "Deal  40  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DEVOUR_LIFE": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Whenever you play a  Soul ,  Summon  1.",
+    "description_upgraded": "Whenever you play a  Soul ,  Summon   2 .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DIRGE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": "X",
+    "rarity": "Uncommon",
+    "description": "Summon  3 X times.   Add X  Souls  into your  Draw Pile .",
+    "description_upgraded": "Summon   4  X times.   Add X  Souls+  into your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DISCOVERY": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Choose 1 of 3 random cards to add into your  Hand . It costs 0   this turn.   Exhaust .",
+    "description_upgraded": "Choose 1 of 3 random cards to add into your  Hand . It costs 0   this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DISMANTLE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 8 damage.   If the enemy is  Vulnerable , hits twice.",
+    "description_upgraded": "Deal  10  damage.   If the enemy is  Vulnerable , hits twice.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DISTRACTION": {
+    "character": null,
+    "card_type": null,
+    "cost": null,
+    "rarity": null,
+    "description": null,
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DODGE_AND_ROLL": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 4  Block .   Next turn, gain 4  Block .",
+    "description_upgraded": "Gain  6   Block .   Next turn, gain  6   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DOMINATE": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 1  Strength  for each  Vulnerable  on the enemy.   Exhaust .",
+    "description_upgraded": "Gain 1  Strength  for each  Vulnerable  on the enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DOUBLE_ENERGY": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Double your  Energy .   Exhaust .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DOUBT": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   At the end of your turn, if this is in your  Hand , gain 1  Weak .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DRAIN_POWER": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 10 damage.   Upgrade  2 random cards in your  Discard Pile .",
+    "description_upgraded": "Deal  12  damage.   Upgrade   3  random cards in your  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DRAMATIC_ENTRANCE": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Innate .   Deal 11 damage to ALL enemies.   Exhaust .",
+    "description_upgraded": "Innate .   Deal  15  damage to ALL enemies.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DREDGE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Put 3 cards from your  Discard Pile  into your  Hand .   Exhaust .",
+    "description_upgraded": "Retain .   Put 3 cards from your  Discard Pile  into your  Hand .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DRUM_OF_BATTLE": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Draw 2 cards.   At the start of your turn,  Exhaust  the top card of your  Draw Pile .",
+    "description_upgraded": "Draw  3  cards.   At the start of your turn,  Exhaust  the top card of your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DUALCAST": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Evoke  your rightmost Orb twice.",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "DYING_STAR": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Ethereal .   Deal 9 damage to ALL enemies. ALL enemies lose 9  Strength  this turn.",
+    "description_upgraded": "Ethereal .   Deal  11  damage to ALL enemies. ALL enemies lose  11   Strength  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ECHOING_SLASH": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal 10 damage to ALL enemies.   Repeat this effect for each enemy killed.",
+    "description_upgraded": "Deal  13  damage to ALL enemies.   Repeat this effect for each enemy killed.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ECHO_FORM": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Ethereal .   The first card you play each turn is played an extra time.",
+    "description_upgraded": "The first card you play each turn is played an extra time.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "EIDOLON": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Exhaust  your  Hand .   If 9 cards were  Exhausted  this way, gain 1  Intangible .",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "END_OF_DAYS": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Apply 29  Doom  to ALL enemies.   Kill enemies with at least as much  Doom  as HP.",
+    "description_upgraded": "Apply  37   Doom  to ALL enemies.   Kill enemies with at least as much  Doom  as HP.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ENERGY_SURGE": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "ALL players gain  .   Exhaust .",
+    "description_upgraded": "ALL players gain  .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ENFEEBLING_TOUCH": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Ethereal .   Enemy loses 8  Strength  this turn.",
+    "description_upgraded": "Ethereal .   Enemy loses  11   Strength  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ENLIGHTENMENT": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Event",
+    "description": "Reduce the cost of ALL cards in your  Hand  to 1 this turn.   Exhaust .",
+    "description_upgraded": "Reduce the cost of ALL cards in your  Hand  to 1 this  combat .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ENTHRALLED": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": 2,
+    "rarity": "Curse",
+    "description": "If this is in your  Hand , it must be played before other cards.   Eternal .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ENTROPY": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "At the start of your turn, Transform 1 card in your  Hand .",
+    "description_upgraded": "Innate .   At the start of your turn, Transform 1 card in your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ENVENOM": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Whenever an Attack deals unblocked damage, apply 1  Poison .",
+    "description_upgraded": "Whenever an Attack deals unblocked damage, apply  2   Poison .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "EQUILIBRIUM": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Gain 13  Block .   Retain  your  Hand  this turn.",
+    "description_upgraded": "Gain  16   Block .   Retain  your  Hand  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ERADICATE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": "X",
+    "rarity": "Rare",
+    "description": "Retain .   Deal 11 damage X times.",
+    "description_upgraded": "Retain .   Deal  14  damage X times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ESCAPE_PLAN": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Draw 1 card.   If you draw a Skill, gain 3  Block .",
+    "description_upgraded": "Draw 1 card.   If you draw a Skill, gain  5   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ETERNAL_ARMOR": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Gain 7  Plating .",
+    "description_upgraded": "Gain  9   Plating .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "EVIL_EYE": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 8  Block .   Gain another 8  Block  if you have  Exhausted  a card this turn.",
+    "description_upgraded": "Gain  11   Block .   Gain another  11   Block  if you have  Exhausted  a card this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "EXPECT_A_FIGHT": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Gain   for each Attack in your  Hand .",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "EXPERTISE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Draw cards until you have 6 in your  Hand .",
+    "description_upgraded": "Draw cards until you have  7  in your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "EXPOSE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Remove all  Artifact  and  Block  from the enemy.   Apply 2  Vulnerable .   Exhaust .",
+    "description_upgraded": "Remove all  Artifact  and  Block  from the enemy.   Apply  3   Vulnerable .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "EXTERMINATE": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Event",
+    "description": "Deal 3 damage 4 times to ALL enemies.",
+    "description_upgraded": "Deal  4  damage 4 times to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FALLING_STAR": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Basic",
+    "description": "Deal 7 damage.   Apply 1  Weak .   Apply 1  Vulnerable .",
+    "description_upgraded": "Deal  11  damage.   Apply 1  Weak .   Apply 1  Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FAN_OF_KNIVES": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Shivs  now hit ALL enemies.   Add 4  Shivs  into your  Hand .",
+    "description_upgraded": "Shivs  now hit ALL enemies.   Add  5   Shivs  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FASTEN": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain an additional 5  Block  from Defend cards.",
+    "description_upgraded": "Gain an additional  7   Block  from Defend cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FEAR": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Ethereal .   Deal 7 damage.   Apply 1  Vulnerable .",
+    "description_upgraded": "Ethereal .   Deal  8  damage.   Apply  2   Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FEED": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal 10 damage.   If  Fatal , raise your Max HP by 3.   Exhaust .",
+    "description_upgraded": "Deal  12  damage.   If  Fatal , raise your Max HP by  4 .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FEEL_NO_PAIN": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever a card is  Exhausted , gain 3  Block .",
+    "description_upgraded": "Whenever a card is  Exhausted , gain  4   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FERAL": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "The first time you play a   0  Attack each turn,   return it to your  Hand .",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FETCH": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Osty  deals 3 damage.   If this is the first time this card has been played this turn, draw 1 card.",
+    "description_upgraded": "Osty  deals  6  damage.   If this is the first time this card has been played this turn, draw 1 card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FIEND_FIRE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Exhaust  your  Hand .   Deal 7 damage for each card  Exhausted .   Exhaust .",
+    "description_upgraded": "Exhaust  your  Hand .   Deal  10  damage for each card  Exhausted .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FIGHT_ME": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Deal 5 damage twice.   Gain 2  Strength .   The enemy gains 1  Strength .",
+    "description_upgraded": "Deal  6  damage twice.   Gain  3   Strength .   The enemy gains 1  Strength .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FIGHT_THROUGH": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 13  Block .   Add 2  Wounds  into your  Discard Pile .",
+    "description_upgraded": "Gain  17   Block .   Add 2  Wounds  into your  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FINESSE": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Gain 4  Block .   Draw 1 card.",
+    "description_upgraded": "Gain  7   Block .   Draw 1 card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FINISHER": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 6 damage for each Attack already played this turn.",
+    "description_upgraded": "Deal  8  damage for each Attack already played this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FISTICUFFS": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 7 damage.   Gain  Block  equal to damage dealt.",
+    "description_upgraded": "Deal  9  damage.   Gain  Block  equal to damage dealt.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FLAK_CANNON": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Exhaust  ALL your  Status  cards.   Deal 8 damage to a random enemy for each card  Exhausted .",
+    "description_upgraded": "Exhaust  ALL your  Status  cards.   Deal  11  damage to a random enemy for each card  Exhausted .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FLAME_BARRIER": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Gain 12  Block .   Whenever you are attacked this turn, deal 4 damage back.",
+    "description_upgraded": "Gain  16   Block .   Whenever you are attacked this turn, deal  6  damage back.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FLANKING": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "The enemy takes double damage from other players this turn.",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FLASH_OF_STEEL": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Deal 5 damage.   Draw 1 card.",
+    "description_upgraded": "Deal  8  damage.   Draw 1 card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FLATTEN": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Common",
+    "description": "Osty  deals 12 damage.   This card costs 0   if  Osty  has attacked this turn.",
+    "description_upgraded": "Osty  deals  16  damage.   This card costs 0   if  Osty  has attacked this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FLECHETTES": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 5 damage for each Skill in your  Hand .",
+    "description_upgraded": "Deal  7  damage for each Skill in your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FLICK_FLACK": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Sly .   Deal 7 damage to ALL enemies.",
+    "description_upgraded": "Sly .   Deal  9  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FOCUSED_STRIKE": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 9 damage.   Gain 1  Focus  this turn.",
+    "description_upgraded": "Deal  11  damage.   Gain  2   Focus  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FOLLOW_THROUGH": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 6 damage to ALL enemies.   If the last card you played this turn was a Skill, apply 1  Weak  to ALL enemies.",
+    "description_upgraded": "Deal  8  damage to ALL enemies.   If the last card you played this turn was a Skill, apply  2   Weak  to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FOLLY": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   Innate .   Eternal .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FOOTWORK": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 2  Dexterity .",
+    "description_upgraded": "Gain  3   Dexterity .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FORBIDDEN_GRIMOIRE": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Ancient",
+    "description": "At the end of combat, you may remove a card from your  Deck .   Eternal .",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FOREGONE_CONCLUSION": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Next turn, put 2 cards from your  Draw Pile  into your  Hand .",
+    "description_upgraded": "Next turn, put  3  cards from your  Draw Pile  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FORGOTTEN_RITUAL": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "If you  Exhausted  a card this turn, gain .",
+    "description_upgraded": "If you  Exhausted  a card this turn, gain  4 .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FRIENDSHIP": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Lose 2  Strength .   Gain   at the start of each turn.",
+    "description_upgraded": "Lose  1   Strength .   Gain   at the start of each turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FTL": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Deal 5 damage.   If you have played fewer than 3 cards this turn, draw 1 card.",
+    "description_upgraded": "Deal  6  damage.   If you have played fewer than  4  cards this turn, draw 1 card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FURNACE": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "At the start of your turn,  Forge  4.",
+    "description_upgraded": "At the start of your turn,  Forge   6 .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "FUSION": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Channel  1  Plasma .",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GAMMA_BLAST": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Deal 13 damage.   Apply 2  Weak .   Apply 2  Vulnerable .",
+    "description_upgraded": "Deal  18  damage.   Apply 2  Weak .   Apply 2  Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GANG_UP": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 5 damage.   Deals 5 additional damage for each time another player has attacked the enemy this turn.",
+    "description_upgraded": "Deal 5 damage.   Deals  7  additional damage for each time another player has attacked the enemy this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GATHER_LIGHT": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 7  Block .   Gain  .",
+    "description_upgraded": "Gain  10   Block .   Gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GENESIS": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "At the start of your turn, gain  .",
+    "description_upgraded": "At the start of your turn, gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GENETIC_ALGORITHM": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Gain 1  Block .   Permanently increase this card's  Block  by 3.   Exhaust .",
+    "description_upgraded": "Gain 1  Block .   Permanently increase this card's  Block  by  4 .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GLACIER": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Gain 6  Block .   Channel  2  Frost .",
+    "description_upgraded": "Gain  9   Block .   Channel  2  Frost .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GLASSWORK": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 5  Block .   Channel  1  Glass .",
+    "description_upgraded": "Gain  8   Block .   Channel  1  Glass .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GLIMMER": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Draw 3 cards.   Put 1 card from your  Hand  on top of your  Draw Pile .",
+    "description_upgraded": "Draw  4  cards.   Put 1 card from your  Hand  on top of your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GLIMPSE_BEYOND": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "ALL players add 3  Souls  into their  Draw Pile .   Exhaust .",
+    "description_upgraded": "ALL players add  4   Souls  into their  Draw Pile .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GLITTERSTREAM": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Common",
+    "description": "Gain 11  Block .   Next turn, gain 4  Block .",
+    "description_upgraded": "Gain  13   Block .   Next turn, gain  6   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GLOW": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain  .   Draw 2 cards.",
+    "description_upgraded": "Gain  .   Draw 2 cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GOLD_AXE": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal damage equal to the number of cards played this combat.",
+    "description_upgraded": "Retain .   Deal damage equal to the number of cards played this combat.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GO_FOR_THE_EYES": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Deal 3 damage.   If the enemy intends to attack, apply 1  Weak .",
+    "description_upgraded": "Deal  4  damage.   If the enemy intends to attack, apply  2   Weak .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GRAND_FINALE": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Can only be played if there are no cards in your  Draw Pile . Deal 50 damage to ALL enemies.",
+    "description_upgraded": "Can only be played if there are no cards in your  Draw Pile . Deal  60  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GRAPPLE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 7 damage.   Whenever you gain  Block  this turn, deal 5 damage to the enemy.",
+    "description_upgraded": "Deal  9  damage.   Whenever you gain  Block  this turn, deal  7  damage to the enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GRAVEBLAST": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 4 damage.   Put a card from your  Discard Pile  into your  Hand .   Exhaust .",
+    "description_upgraded": "Deal  6  damage.   Put a card from your  Discard Pile  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GRAVE_WARDEN": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 8  Block .   Add a  Soul  into your  Draw Pile .",
+    "description_upgraded": "Gain  10   Block .   Add a  Soul+  into your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GREED": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   Eternal .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GUARDS": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Transform any number of cards in your  Hand  into  Minion Sacrifice .    Exhaust .",
+    "description_upgraded": "Transform any number of cards in your  Hand  into  Minion Sacrifice+ .     Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GUIDING_STAR": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 12 damage.   Next turn, draw 2 cards.",
+    "description_upgraded": "Deal  13  damage.   Next turn, draw  3  cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GUILTY": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   Removed from your  Deck  after 5 combats.",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "GUNK_UP": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 4 damage 3 times.   Add a  Slimed  into your  Discard Pile .",
+    "description_upgraded": "Deal  5  damage 3 times.   Add a  Slimed  into your  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HAILSTORM": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "At the end of your turn, if you have  Frost , deal 6 damage to ALL enemies.",
+    "description_upgraded": "At the end of your turn, if you have  Frost , deal  8  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HAND_OF_GREED": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Deal 20 damage.   If  Fatal , gain 20  Gold .",
+    "description_upgraded": "Deal  25  damage.   If  Fatal , gain  25   Gold .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HAND_TRICK": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 7  Block .   Add  Sly  to a Skill in your  Hand  this turn.",
+    "description_upgraded": "Gain  10   Block .   Add  Sly  to a Skill in your  Hand  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HANG": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal 10 damage.   Double the damage ALL Hang cards deal to this enemy.",
+    "description_upgraded": "Deal  13  damage.   Double the damage ALL Hang cards deal to this enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HAUNT": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you play a  Soul , a random enemy loses 6 HP.",
+    "description_upgraded": "Whenever you play a  Soul , a random enemy loses  8  HP.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HAVOC": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Play the top card of your  Draw Pile  and  Exhaust  it.",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HAZE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 3,
+    "rarity": "Uncommon",
+    "description": "Sly .   Apply 4  Poison  to ALL enemies.",
+    "description_upgraded": "Sly .   Apply  6   Poison  to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HEADBUTT": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 9 damage.   Put a card from your  Discard Pile  on top of your  Draw Pile .",
+    "description_upgraded": "Deal  12  damage.   Put a card from your  Discard Pile  on top of your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HEAVENLY_DRILL": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": "X",
+    "rarity": "Rare",
+    "description": "Deal 8 damage X times.   Double X if it's 4 or more.",
+    "description_upgraded": "Deal  10  damage X times.   Double X if it's 4 or more.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HEGEMONY": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Deal 15 damage.   Next turn, gain  .",
+    "description_upgraded": "Deal  18  damage.   Next turn, gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HEIRLOOM_HAMMER": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Deal 17 damage.   Choose a Colorless card in your  Hand . Add a copy of that card into your  Hand .",
+    "description_upgraded": "Deal  22  damage.   Choose a Colorless card in your  Hand . Add a copy of that card into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HELIX_DRILL": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Deal 3 damage for each   previously spent this turn.",
+    "description_upgraded": "Deal  5  damage for each   previously spent this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HELLRAISER": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Whenever you draw a card containing “Strike”, it is played against a random enemy.",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HEMOKINESIS": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Lose 2 HP.   Deal 14 damage.",
+    "description_upgraded": "Lose 2 HP.   Deal  19  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HIDDEN_CACHE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain  .   Next turn, gain  .",
+    "description_upgraded": "Gain  .   Next turn, gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HIDDEN_DAGGERS": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Discard 2 cards.   Add 2  Shivs  into your  Hand .",
+    "description_upgraded": "Discard 2 cards.   Add 2  Shivs+  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HIDDEN_GEM": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "A random card in your  Draw Pile  gains  Replay  2.",
+    "description_upgraded": "A random card in your  Draw Pile  gains  Replay   3 .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HIGH_FIVE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Osty  deals 11 damage   and applies 2  Vulnerable   to ALL enemies.",
+    "description_upgraded": "Osty  deals  13  damage   and applies  3   Vulnerable   to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HOLOGRAM": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 3  Block .   Put a card from your  Discard Pile  into your  Hand .   Exhaust .",
+    "description_upgraded": "Gain  5   Block .   Put a card from your  Discard Pile  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HOTFIX": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Gain 2  Focus  this turn.",
+    "description_upgraded": "Gain  3   Focus  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HOWL_FROM_BEYOND": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Uncommon",
+    "description": "Deal 16 damage to ALL enemies.   At the start of your turn, plays from the  Exhaust  Pile.",
+    "description_upgraded": "Deal  21  damage to ALL enemies.   At the start of your turn, plays from the  Exhaust  Pile.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HUDDLE_UP": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "ALL allies draw 2 cards.",
+    "description_upgraded": "ALL allies draw  3  cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "HYPERBEAM": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Deal 26 damage to ALL enemies.   Lose 3  Focus .",
+    "description_upgraded": "Deal  34  damage to ALL enemies.   Lose 3  Focus .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ICE_LANCE": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Deal 19 damage.   Channel  3  Frost .",
+    "description_upgraded": "Deal  24  damage.   Channel  3  Frost .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "IGNITION": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Another player  Channels   Plasma .   Exhaust .",
+    "description_upgraded": "Another player  Channels   Plasma .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "IMPATIENCE": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "If you have no Attacks in your  Hand , draw 2 cards.",
+    "description_upgraded": "If you have no Attacks in your  Hand , draw  3  cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "IMPERVIOUS": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Gain 30  Block .   Exhaust .",
+    "description_upgraded": "Gain  40   Block .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "INFERNAL_BLADE": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Add a random Attack into your  Hand . It's free to play this turn.   Exhaust .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "INFERNO": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "At the start of your turn, lose 1 HP.   Whenever you lose HP on your turn, deal 6 damage to ALL enemies.",
+    "description_upgraded": "At the start of your turn, lose 1 HP.   Whenever you lose HP on your turn, deal  9  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "INFINITE_BLADES": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "At the start of your turn, add 1  Shiv  into your  Hand .",
+    "description_upgraded": "Innate .   At the start of your turn, add 1  Shiv  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "INFLAME": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 2  Strength .",
+    "description_upgraded": "Gain  3   Strength .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "INJURY": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "INTERCEPT": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 9  Block .   Redirect all incoming attacks that would be dealt to another player this turn to you.",
+    "description_upgraded": "Gain  13   Block .   Redirect all incoming attacks that would be dealt to another player this turn to you.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "INVOKE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Next turn,  Summon  2 and gain  .",
+    "description_upgraded": "Next turn,  Summon   3  and gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "IRON_WAVE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 5  Block .   Deal 5 damage.",
+    "description_upgraded": "Gain  7   Block .   Deal  7  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ITERATION": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "The first time you draw a  Status  card each turn, draw 2 cards.",
+    "description_upgraded": "The first time you draw a  Status  card each turn, draw  3  cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "I_AM_INVINCIBLE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Gain 9  Block .   At the end of your turn, if this is on top of your  Draw Pile , play it.",
+    "description_upgraded": "Gain  12   Block .   At the end of your turn, if this is on top of your  Draw Pile , play it.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "JACKPOT": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Deal 25 damage.   Add 3 random 0  cards into your  Hand .",
+    "description_upgraded": "Deal  30  damage.   Add 3 random  Upgraded  0  cards into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "JACK_OF_ALL_TRADES": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Add 1 random Colorless card into your  Hand .   Exhaust .",
+    "description_upgraded": "Add  2  random Colorless  cards  into your  Hand .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "JUGGERNAUT": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Whenever you gain  Block , deal 5 damage to a random enemy.",
+    "description_upgraded": "Whenever you gain  Block , deal  7  damage to a random enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "JUGGLING": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Add a copy of the third Attack you play each turn into your  Hand .",
+    "description_upgraded": "Innate .   Add a copy of the third Attack you play each turn into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "KINGLY_KICK": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 4,
+    "rarity": "Uncommon",
+    "description": "Deal 24 damage.   Whenever you draw this card, reduce its cost by 1.",
+    "description_upgraded": "Deal  30  damage.   Whenever you draw this card, reduce its cost by 1.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "KINGLY_PUNCH": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 8 damage.   Whenever you draw this card, increase its damage by 3 this combat.",
+    "description_upgraded": "Deal 8 damage.   Whenever you draw this card, increase its damage by  5  this combat.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "KNIFE_TRAP": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Play every  Shiv  in your  Exhaust  Pile on the enemy.",
+    "description_upgraded": "Upgrade  and play  every  Shiv  in your  Exhaust  Pile on the enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "KNOCKDOWN": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Deal 10 damage.   The enemy takes double damage from other players this turn.",
+    "description_upgraded": "Deal  14  damage.   The enemy takes  triple  damage from other players this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "KNOCKOUT_BLOW": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Uncommon",
+    "description": "Deal 30 damage.   If this kills an enemy, gain  .",
+    "description_upgraded": "Deal  38  damage.   If this kills an enemy, gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "KNOW_THY_PLACE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Apply 1  Weak .   Apply 1  Vulnerable .   Exhaust .",
+    "description_upgraded": "Apply 1  Weak .   Apply 1  Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "LANTERN_KEY": {
+    "character": "N/A",
+    "card_type": "Quest",
+    "cost": "N/A",
+    "rarity": "Quest",
+    "description": "Unplayable .   Unlocks a special event in the next Act.",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "LARGESSE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Another player adds 1 random Colorless card to their  Hand .",
+    "description_upgraded": "Another player adds 1 random  Upgraded  Colorless card to their  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "LEADING_STRIKE": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 7 damage.   Add 1  Shiv  into your  Hand .",
+    "description_upgraded": "Deal  10  damage.   Add 1  Shiv  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "LEAP": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 9  Block .",
+    "description_upgraded": "Gain  12   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "LEGION_OF_BONE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "ALL players  Summon  6.   Exhaust .",
+    "description_upgraded": "ALL players  Summon   8 .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "LEG_SWEEP": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Apply 2  Weak .   Gain 11  Block .",
+    "description_upgraded": "Apply  3   Weak .   Gain  14   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "LETHALITY": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Ethereal .   The first Attack each turn deals 50% additional damage.",
+    "description_upgraded": "Ethereal .   The first Attack each turn deals  75 % additional damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "LIFT": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Give another player 11  Block .",
+    "description_upgraded": "Give another player  16   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "LIGHTNING_ROD": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 4  Block .   At the start of the next 2 turns,  Channel  1  Lightning .",
+    "description_upgraded": "Gain  7   Block .   At the start of the next 2 turns,  Channel  1  Lightning .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "LOOP": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "At the start of your turn, trigger the passive ability of your rightmost Orb.",
+    "description_upgraded": "At the start of your turn, trigger the passive ability of your rightmost  2 times .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "LUNAR_BLAST": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Deal 4 damage for each Skill already played this turn.",
+    "description_upgraded": "Deal  5  damage for each Skill already played this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MACHINE_LEARNING": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "At the start of your turn, draw 1 additional card.",
+    "description_upgraded": "Innate .   At the start of your turn, draw 1 additional card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MAD_SCIENCE": {
+    "character": null,
+    "card_type": null,
+    "cost": null,
+    "rarity": null,
+    "description": null,
+    "description_upgraded": null,
+    "has_image": false,
+    "has_upgraded_image": false
+  },
+  "MAKE_IT_SO": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Deal 6 damage.   Every 3 Skills you play in a turn, put this into your  Hand .",
+    "description_upgraded": "Deal  9  damage.   Every 3 Skills you play in a turn, put this into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MALAISE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": "X",
+    "rarity": "Rare",
+    "description": "Enemy loses X  Strength . Apply X  Weak .   Exhaust .",
+    "description_upgraded": "Enemy loses  X+1   Strength . Apply  X+1   Weak .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MANGLE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Deal 15 damage.   Enemy loses 10  Strength  this turn.",
+    "description_upgraded": "Deal  20  damage.   Enemy loses  15   Strength  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MANIFEST_AUTHORITY": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 7  Block .   Add 1 random Colorless card into your  Hand .",
+    "description_upgraded": "Gain  8   Block .   Add 1 random  Upgraded  Colorless card into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MASTER_OF_STRATEGY": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Draw 3 cards.   Exhaust .",
+    "description_upgraded": "Draw  4  cards.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MASTER_PLANNER": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "When you play a Skill, it gains  Sly .",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MAUL": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Ancient",
+    "description": "Deal 5 damage twice.   Increase the damage of ALL Maul cards by 1 this combat.",
+    "description_upgraded": "Deal  6  damage twice.   Increase the damage of ALL Maul cards by  2  this combat.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MAYHEM": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "At the start of your turn, play the top card of your  Draw Pile .",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MELANCHOLY": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 3,
+    "rarity": "Uncommon",
+    "description": "Gain 13  Block .   Reduce this card's cost by   whenever ANYONE dies.",
+    "description_upgraded": "Gain  17   Block .   Reduce this card's cost by   whenever ANYONE dies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MEMENTO_MORI": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 8 damage.   Deals 4 additional damage for each card discarded this turn.",
+    "description_upgraded": "Deal  10  damage.   Deals  5  additional damage for each card discarded this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "METAMORPHOSIS": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Event",
+    "description": "Add 3 random Attacks into your  Draw Pile . They're free to play this combat.   Exhaust .",
+    "description_upgraded": "Add  5  random Attacks into your  Draw Pile . They're free to play this combat.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "METEOR_SHOWER": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Ancient",
+    "description": "Deal 14 damage to ALL enemies.   Apply 2  Weak  and  Vulnerable  to ALL enemies.",
+    "description_upgraded": "Deal  21  damage to ALL enemies.   Apply 2  Weak  and  Vulnerable  to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "METEOR_STRIKE": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 5,
+    "rarity": "Rare",
+    "description": "Deal 24 damage.   Channel  3  Plasma .",
+    "description_upgraded": "Deal  30  damage.   Channel  3  Plasma .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MIND_BLAST": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Innate .   Deal damage equal to the number of cards in your  Draw Pile .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MIRAGE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain  Block  equal to  Poison  on ALL enemies.   Exhaust .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MISERY": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Deal 7 damage.   Apply any debuffs on the enemy to ALL other enemies.",
+    "description_upgraded": "Retain .   Deal  9  damage.   Apply any debuffs on the enemy to ALL other enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MODDED": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Gain 1 Orb Slot.   Draw 1 card. Increase this card's cost by 1.",
+    "description_upgraded": "Gain 1 Orb Slot.   Draw  2 cards . Increase this card's cost by 1.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MOLTEN_FIST": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 10 damage.   Double the enemy's  Vulnerable .   Exhaust .",
+    "description_upgraded": "Deal  14  damage.   Double the enemy's  Vulnerable .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MOMENTUM_STRIKE": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 10 damage.   Reduce this card's cost to 0  .",
+    "description_upgraded": "Deal  13  damage.   Reduce this card's cost to 0  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MONARCHS_GAZE": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Whenever you attack an enemy, it loses 1  Strength  this turn.",
+    "description_upgraded": "Cost changes from  3  to  2",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MONOLOGUE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Whenever you play a card this turn, gain 1  Strength  this turn.",
+    "description_upgraded": "Retain .   Whenever you play a card this turn, gain 1  Strength  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MULTI_CAST": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": "X",
+    "rarity": "Rare",
+    "description": "Evoke  your rightmost Orb X times.",
+    "description_upgraded": "Evoke  your rightmost Orb  X+1  times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "MURDER": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Deal 1 damage.   Deals 1 additional damage for each card drawn this combat.",
+    "description_upgraded": "Cost changes from  3  to  2",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "NECRO_MASTERY": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Summon  5.   Whenever  Osty  loses HP,   ALL enemies lose that much HP as well.",
+    "description_upgraded": "Summon   8 .   Whenever  Osty  loses HP,   ALL enemies lose that much HP as well.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "NEGATIVE_PULSE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 5  Block .   Apply 7  Doom  to ALL enemies.",
+    "description_upgraded": "Gain  6   Block .   Apply  11   Doom  to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "NEOWS_FURY": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Ancient",
+    "description": "Deal 10 damage.   Put 2 random cards from your  Discard Pile  into your  Hand .   Exhaust .",
+    "description_upgraded": "Deal  14  damage.   Put 2 random cards from your  Discard Pile  into your  Hand .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "NEUROSURGE": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Gain .   Draw 2 cards.   At the start of your turn, apply 3  Doom  to yourself.",
+    "description_upgraded": "Gain  4 .   Draw 2 cards.   At the start of your turn, apply 3  Doom  to yourself.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "NEUTRALIZE": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Basic",
+    "description": "Deal 3 damage.   Apply 1  Weak .",
+    "description_upgraded": "Deal  4  damage.   Apply  2   Weak .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "NEUTRON_AEGIS": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Gain 8  Plating .",
+    "description_upgraded": "Gain  11   Plating .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "NIGHTMARE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Choose a card.   Next turn, add 3 copies of that card into your  Hand .   Exhaust .",
+    "description_upgraded": "Cost changes from  3  to  2",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "NOSTALGIA": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "The first Attack or Skill you play each turn is placed on top of your  Draw Pile .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "NOXIOUS_FUMES": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "At the start of your turn, apply 2  Poison  to ALL enemies.",
+    "description_upgraded": "At the start of your turn, apply  3   Poison  to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "NO_ESCAPE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Apply 10  Doom , plus an additional 5  Doom  for every 10  Doom  already on this enemy.",
+    "description_upgraded": "Apply  15   Doom , plus an additional 5  Doom  for every 10  Doom  already on this enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "NULL": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Deal 10 damage.   Apply 2  Weak .   Channel  1  Dark .",
+    "description_upgraded": "Deal  13  damage.   Apply  3   Weak .   Channel  1  Dark .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "OBLIVION": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Whenever you play a card this turn, apply 3  Doom  to the enemy.",
+    "description_upgraded": "Whenever you play a card this turn, apply  4   Doom  to the enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "OFFERING": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Lose 6 HP.   Gain  .   Draw 3 cards.   Exhaust .",
+    "description_upgraded": "Lose 6 HP.   Gain  .   Draw  5  cards.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "OMNISLICE": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Deal 8 damage.   Damage ALL other enemies equal to the damage dealt.",
+    "description_upgraded": "Deal  11  damage.   Damage ALL other enemies equal to the damage dealt.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ONE_TWO_PUNCH": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "This turn, your next Attack is played an extra time.",
+    "description_upgraded": "This turn, your next  2 Attacks are  played an extra time.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ORBIT": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Every 4  you spend,   gain  .",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "OUTBREAK": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Every 3 times you apply  Poison , deal 11 damage to ALL enemies.",
+    "description_upgraded": "Every 3 times you apply  Poison , deal  15  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "OVERCLOCK": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Draw 2 cards.   Add a  Burn  into your  Discard Pile .",
+    "description_upgraded": "Draw  3  cards.   Add a  Burn  into your  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PACTS_END": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Can only be played if you have 3 or more cards in your  Exhaust  Pile.   Deal 17 damage to ALL enemies.",
+    "description_upgraded": "Can only be played if you have 3 or more cards in your  Exhaust  Pile.   Deal  23  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PAGESTORM": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you draw an  Ethereal  card, draw 1 card.",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PALE_BLUE_DOT": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "If you play 5 or more cards in a turn, draw 1 card at the start of your next turn.",
+    "description_upgraded": "If you play 5 or more cards in a turn, draw  2 cards  at the start of your next turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PANACHE": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Every time you play 5 cards in a single turn, deal 10 damage to ALL enemies.",
+    "description_upgraded": "Every time you play 5 cards in a single turn, deal  14  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PANIC_BUTTON": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Gain 30  Block .   You cannot gain  Block  from cards for 2 turns.   Exhaust .",
+    "description_upgraded": "Gain  40   Block .   You cannot gain  Block  from cards for 2 turns.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PARRY": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you play  Sovereign Blade , gain 6  Block .",
+    "description_upgraded": "Whenever you play  Sovereign Blade , gain  9   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PARSE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Ethereal .   Draw 3 cards.",
+    "description_upgraded": "Ethereal .   Draw  4  cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PARTICLE_WALL": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Gain 9  Block .   Return this card to your  Hand .",
+    "description_upgraded": "Gain  12   Block .   Return this card to your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PATTER": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 8  Block .   Gain 2  Vigor .",
+    "description_upgraded": "Gain  10   Block .   Gain  3   Vigor .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PECK": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Event",
+    "description": "Deal 2 damage 3 times.",
+    "description_upgraded": "Deal 2 damage  4  times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PERFECTED_STRIKE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Common",
+    "description": "Deal 6 damage.   Deals 2 additional damage for ALL your cards containing “Strike”.",
+    "description_upgraded": "Deal 6 damage.   Deals  3  additional damage for ALL your cards containing “Strike”.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PHANTOM_BLADES": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Shivs  gain  Retain .   The first  Shiv  you play each turn deals 9 additional damage.",
+    "description_upgraded": "Shivs  gain  Retain .   The first  Shiv  you play each turn deals  12  additional damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PHOTON_CUT": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 10 damage.   Draw 1 card.   Put 1 card from your  Hand  on top of your  Draw Pile .",
+    "description_upgraded": "Deal  13  damage.   Draw  2 cards .   Put 1 card from your  Hand  on top of your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PIERCING_WAIL": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "ALL enemies lose 6  Strength  this turn.   Exhaust .",
+    "description_upgraded": "ALL enemies lose  8   Strength  this turn.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PILLAGE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 6 damage.   Draw cards until you draw a non-Attack card.",
+    "description_upgraded": "Deal  9  damage.   Draw cards until you draw a non-Attack card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PILLAR_OF_CREATION": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you create a card, gain 3  Block .",
+    "description_upgraded": "Whenever you create a card, gain  4   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PINPOINT": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Uncommon",
+    "description": "Deal 17 damage.   Costs 1 less   for each Skill played this turn.",
+    "description_upgraded": "Deal  22  damage.   Costs 1 less   for each Skill played this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "POISONED_STAB": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 6 damage.   Apply 3  Poison .",
+    "description_upgraded": "Deal  8  damage.   Apply  4   Poison .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "POKE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Osty  deals 6 damage.",
+    "description_upgraded": "Osty  deals  9  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "POMMEL_STRIKE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 9 damage.   Draw 1 card.",
+    "description_upgraded": "Deal  10  damage.   Draw  2 cards .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "POUNCE": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Deal 12 damage.   The next Skill you play costs 0  .",
+    "description_upgraded": "Deal  18  damage.   The next Skill you play costs 0  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PRECISE_CUT": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Deal 13 damage.   Deals 2 less damage for each other card in your  Hand .",
+    "description_upgraded": "Deal  16  damage.   Deals 2 less damage for each other card in your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PREDATOR": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Deal 15 damage.   Next turn, draw 2 cards.",
+    "description_upgraded": "Deal  20  damage.   Next turn, draw 2 cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PREPARE": {
+    "character": null,
+    "card_type": null,
+    "cost": null,
+    "rarity": null,
+    "description": null,
+    "description_upgraded": null,
+    "has_image": false,
+    "has_upgraded_image": false
+  },
+  "PREPARED": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Draw 1 card.   Discard 1 card.",
+    "description_upgraded": "Draw  2 cards .   Discard  2 cards .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PREP_TIME": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "At the start of your turn, gain 4  Vigor .",
+    "description_upgraded": "At the start of your turn, gain  6   Vigor .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PRIMAL_FORCE": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Transform all Attacks in your  Hand  into  Giant Rock .",
+    "description_upgraded": "Transform all Attacks in your  Hand  into  Giant Rock+ .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PRODUCTION": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Gain  .   Exhaust .",
+    "description_upgraded": "Gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PROLONG": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Next turn, gain  Block  equal to your current  Block .   Exhaust .",
+    "description_upgraded": "Next turn, gain  Block  equal to your current  Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PROPHESIZE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Draw 6 cards.",
+    "description_upgraded": "Draw  9  cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PROTECTOR": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Ancient",
+    "description": "Osty  deals 10 damage.   Deals additional damage equal to  Osty's Max HP .",
+    "description_upgraded": "Cost changes from  1  to  0 Osty  deals  15  damage.   Deals additional damage equal to  Osty's Max HP .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PROWESS": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 1  Strength .   Gain 1  Dexterity .",
+    "description_upgraded": "Gain  2   Strength .   Gain  2   Dexterity .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PULL_AGGRO": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Common",
+    "description": "Summon  4.   Gain 7  Block .",
+    "description_upgraded": "Summon   5 .   Gain  9   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PULL_FROM_BELOW": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 5 damage for each  Ethereal  card played this combat.",
+    "description_upgraded": "Deal  7  damage for each  Ethereal  card played this combat.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PURITY": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Retain .   Exhaust  up to 3 cards in your  Hand .   Exhaust .",
+    "description_upgraded": "Retain .   Exhaust  up to  5  cards in your  Hand .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PUTREFY": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Apply 2  Weak .   Apply 2  Vulnerable .   Exhaust .",
+    "description_upgraded": "Apply  3   Weak .   Apply  3   Vulnerable .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "PYRE": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Gain   at the start of each turn.",
+    "description_upgraded": "Gain   at the start of each turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "QUADCAST": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Ancient",
+    "description": "Evoke  your rightmost Orb 4 times.",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "QUASAR": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Choose 1 of 3 random Colorless cards to add into your  Hand .",
+    "description_upgraded": "Choose 1 of 3 random  Upgraded  Colorless cards to add into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RADIATE": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Deal 3 damage to ALL enemies for each   gained this turn.",
+    "description_upgraded": "Deal  4  damage to ALL enemies for each   gained this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RAGE": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Whenever you play an Attack this turn, gain 3  Block .",
+    "description_upgraded": "Whenever you play an Attack this turn, gain  5   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RAINBOW": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Channel  1  Lightning .   Channel  1  Frost .   Channel  1  Dark .   Exhaust .",
+    "description_upgraded": "Channel  1  Lightning .   Channel  1  Frost .   Channel  1  Dark .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RALLY": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "ALL players gain 12  Block .",
+    "description_upgraded": "ALL players gain  17   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RAMPAGE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 9 damage.   Increase this card's damage by 5 this combat.",
+    "description_upgraded": "Deal 9 damage.   Increase this card's damage by  9  this combat.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RATTLE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Osty  deals 7 damage.   Hits an additional time for each other time he has attacked this turn.",
+    "description_upgraded": "Osty  deals  9  damage.   Hits an additional time for each other time he has attacked this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "REANIMATE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Summon  20.   Exhaust .",
+    "description_upgraded": "Summon   25 .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "REAP": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Common",
+    "description": "Retain .   Deal 27 damage.",
+    "description_upgraded": "Retain .   Deal  33  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "REAPER_FORM": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Whenever Attacks deal damage, they also apply that much  Doom .",
+    "description_upgraded": "Retain .   Whenever Attacks deal damage, they also apply that much  Doom .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "REAVE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 9 damage.   Add a  Soul  into your  Draw Pile .",
+    "description_upgraded": "Deal  11  damage.   Add a  Soul+  into your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "REBOOT": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Shuffle ALL your cards into your  Draw Pile .   Draw 4 cards.   Exhaust .",
+    "description_upgraded": "Shuffle ALL your cards into your  Draw Pile .   Draw  6  cards.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "REFINE_BLADE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Forge  6.   Next turn, gain  .",
+    "description_upgraded": "Forge   10 .   Next turn, gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "REFLECT": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 17  Block .   Blocked attack damage is reflected to your attacker this turn.",
+    "description_upgraded": "Gain  21   Block .   Blocked attack damage is reflected to your attacker this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "REFLEX": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 3,
+    "rarity": "Uncommon",
+    "description": "Sly .   Draw 2 cards.",
+    "description_upgraded": "Sly .   Draw  3  cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "REFRACT": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Uncommon",
+    "description": "Deal 9 damage twice.   Channel  2  Glass .",
+    "description_upgraded": "Deal  12  damage twice.   Channel  2  Glass .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "REGRET": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   At the end of your turn, if this is in your  Hand , lose 1 HP for each card in your  Hand .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RELAX": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 3,
+    "rarity": "Ancient",
+    "description": "Gain 15  Block .   Next turn, draw 2 cards and gain  .   Exhaust .",
+    "description_upgraded": "Gain  17   Block .   Next turn, draw  3  cards and gain  .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "REND": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Deal 15 damage.   Deals 5 additional damage for each unique debuff on the enemy.",
+    "description_upgraded": "Deal  18  damage.   Deals  8  additional damage for each unique debuff on the enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RESONANCE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 1  Strength . ALL enemies lose 1  Strength .",
+    "description_upgraded": "Gain  2   Strength . ALL enemies lose 1  Strength .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RESTLESSNESS": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Retain .   If your  Hand  is empty, draw 2 cards and gain  .",
+    "description_upgraded": "Retain .   If your  Hand  is empty, draw  3  cards and gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RICOCHET": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Common",
+    "description": "Sly .   Deal 3 damage to a random enemy 4 times.",
+    "description_upgraded": "Sly .   Deal 3 damage to a random enemy  5  times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RIGHT_HAND_HAND": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Osty  deals 4 damage.   Whenever you play a card that costs   or more, return this to your  Hand  from the  Discard Pile .",
+    "description_upgraded": "Osty  deals  6  damage.   Whenever you play a card that costs   or more, return this to your  Hand  from the  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ROCKET_PUNCH": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Deal 13 damage.   Draw 1 card.   When a  Status  card is created, reduce this card's cost to 0   this turn.",
+    "description_upgraded": "Deal  14  damage.   Draw  2 cards .   When a  Status  card is created, reduce this card's cost to 0   this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ROLLING_BOULDER": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "At the start of your turn, deal 5 damage to ALL enemies and increase this damage by 5.",
+    "description_upgraded": "At the start of your turn, deal  10  damage to ALL enemies and increase this damage by 5.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ROYALTIES": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "At the end of combat, gain 30  Gold .",
+    "description_upgraded": "At the end of combat, gain  35   Gold .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ROYAL_GAMBLE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Gain 9  .   Exhaust .",
+    "description_upgraded": "Retain .   Gain 9  .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "RUPTURE": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you lose HP on your turn, gain 1  Strength .",
+    "description_upgraded": "Whenever you lose HP on your turn, gain  2   Strength .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SACRIFICE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Retain .   If  Osty  is alive, he dies and you gain  Block  equal to double his Max HP.",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SALVO": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal 12 damage.   Retain  your  Hand  this turn.",
+    "description_upgraded": "Deal  16  damage.   Retain  your  Hand  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SCAVENGE": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Exhaust  a card.   Next turn, gain  .",
+    "description_upgraded": "Exhaust  a card.   Next turn, gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SCOURGE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Apply 13  Doom .   Draw 1 card.",
+    "description_upgraded": "Apply  16   Doom .   Draw  2 cards .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SCRAPE": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 7 damage.   Draw 4 cards.   Discard all cards drawn this way that do not cost 0  .",
+    "description_upgraded": "Deal  10  damage.   Draw  5  cards.   Discard all cards drawn this way that do not cost 0  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SCRAWL": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Draw cards until your  Hand  is full.   Exhaust .",
+    "description_upgraded": "Retain .   Draw cards until your  Hand  is full.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SCULPTING_STRIKE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 8 damage.   Add  Ethereal  to a card in your  Hand .",
+    "description_upgraded": "Deal  11  damage.   Add  Ethereal  to a card in your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SEANCE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Ethereal .   Transform a card in your  Draw Pile  into  Soul .",
+    "description_upgraded": "Ethereal .   Transform a card in your  Draw Pile  into  Soul+ .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SECOND_WIND": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Exhaust  all non-Attack cards in your  Hand . Gain 5  Block  for each card  Exhausted .",
+    "description_upgraded": "Exhaust  all non-Attack cards in your  Hand . Gain  7   Block  for each card  Exhausted .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SECRET_TECHNIQUE": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Put a Skill from your  Draw Pile  into your  Hand .   Exhaust .",
+    "description_upgraded": "Put a Skill from your  Draw Pile  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SECRET_WEAPON": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Put an Attack from your  Draw Pile  into your  Hand .   Exhaust .",
+    "description_upgraded": "Put an Attack from your  Draw Pile  into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SEEKER_STRIKE": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 6 damage.   Choose 1 of 3 cards in your  Draw Pile  to add into your  Hand .",
+    "description_upgraded": "Deal  9  damage.   Choose 1 of 3 cards in your  Draw Pile  to add into your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SEEKING_EDGE": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Forge  7.   Sovereign Blade  now deals damage to ALL enemies.",
+    "description_upgraded": "Forge   11 .   Sovereign Blade  now deals damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SENTRY_MODE": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "At the start of your turn, add 1  Sweeping Gaze  into your  Hand .",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SERPENT_FORM": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Whenever you play a card, deal 4 damage to a random enemy.",
+    "description_upgraded": "Whenever you play a card, deal  5  damage to a random enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SETUP_STRIKE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 7 damage.   Gain 2  Strength  this turn.",
+    "description_upgraded": "Deal  9  damage.   Gain  3   Strength  this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SEVEN_STARS": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Deal 7 damage to ALL enemies 7 times.",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SEVERANCE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Deal 13 damage.   Add a  Soul  into your  Draw Pile ,  Hand , and  Discard Pile .",
+    "description_upgraded": "Deal  18  damage.   Add a  Soul  into your  Draw Pile ,  Hand , and  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SHADOWMELD": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Double your  Block  gain this turn.",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SHADOW_SHIELD": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Gain 11  Block .   Channel  1  Dark .",
+    "description_upgraded": "Gain  15   Block .   Channel  1  Dark .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SHADOW_STEP": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Discard your  Hand .   Next turn, Attacks deal double damage.",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SHAME": {
+    "character": "N/A",
+    "card_type": "Curse",
+    "cost": "N/A",
+    "rarity": "Curse",
+    "description": "Unplayable .   At the end of your turn, if this is in your  Hand , gain 1  Frail .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SHARED_FATE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Lose 2  Strength .   Enemy loses 2  Strength .   Exhaust .",
+    "description_upgraded": "Lose 2  Strength .   Enemy loses  3   Strength .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SHATTER": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal 11 damage to ALL enemies.   Evoke  all of your Orbs.",
+    "description_upgraded": "Deal  15  damage to ALL enemies.   Evoke  all of your Orbs.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SHINING_STRIKE": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 8 damage.   Gain  .   Put this card on top of your  Draw Pile .",
+    "description_upgraded": "Deal  11  damage.   Gain  .   Put this card on top of your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SHOCKWAVE": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Apply 3  Weak  and  Vulnerable  to ALL enemies.   Exhaust .",
+    "description_upgraded": "Apply  5   Weak  and  Vulnerable  to ALL enemies.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SHROUD": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you apply  Doom , gain 2  Block .",
+    "description_upgraded": "Whenever you apply  Doom , gain  3   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SHRUG_IT_OFF": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 8  Block .   Draw 1 card.",
+    "description_upgraded": "Gain  11   Block .   Draw 1 card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SIC_EM": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Osty  deals 5 damage.   Whenever  Osty  hits this enemy this turn,  Summon  2.",
+    "description_upgraded": "Osty  deals  6  damage.   Whenever  Osty  hits this enemy this turn,  Summon   3 .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SIGNAL_BOOST": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "The next Power you play is played an additional time.   Exhaust .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SKEWER": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": "X",
+    "rarity": "Uncommon",
+    "description": "Deal 7 damage X times.",
+    "description_upgraded": "Deal  10  damage X times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SKIM": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Draw 3 cards.",
+    "description_upgraded": "Draw  4  cards.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SLEIGHT_OF_FLESH": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Whenever you apply a debuff to an enemy, they take 9 damage.",
+    "description_upgraded": "Whenever you apply a debuff to an enemy, they take  13  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SLICE": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Deal 6 damage.",
+    "description_upgraded": "Deal  9  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SMOKESTACK": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you create a  Status , deal 5 damage to ALL enemies.",
+    "description_upgraded": "Whenever you create a  Status , deal  7  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SNAKEBITE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Common",
+    "description": "Retain .   Apply 7  Poison .",
+    "description_upgraded": "Retain .   Apply  10   Poison .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SNAP": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Osty  deals 7 damage.   Add  Retain  to a card in your  Hand .",
+    "description_upgraded": "Osty  deals  10  damage.   Add  Retain  to a card in your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SNEAKY": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Sly .   Whenever another player attacks an enemy, gain 1  Block .",
+    "description_upgraded": "Sly .   Whenever another player attacks an enemy, gain  2   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SOLAR_STRIKE": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 8 damage.   Gain  .",
+    "description_upgraded": "Deal  9  damage.   Gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SOUL_STORM": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal 9 damage.   Deals 2 additional damage for each  Soul  in your  Exhaust  Pile.",
+    "description_upgraded": "Deal 9 damage.   Deals  3  additional damage for each  Soul  in your  Exhaust  Pile.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SOW": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Retain .   Deal 8 damage to ALL enemies.",
+    "description_upgraded": "Retain .   Deal  11  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SPECTRUM_SHIFT": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "At the start of your turn, add 1 random Colorless card into your  Hand .",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SPEEDSTER": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Whenever you draw a card during your turn, deal 2 damage to ALL enemies.",
+    "description_upgraded": "Whenever you draw a card during your turn, deal  3  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SPINNER": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "At the start of your turn,  Channel  1  Glass .",
+    "description_upgraded": "Channel  1  Glass .   At the start of your turn,  Channel  1  Glass .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SPIRIT_OF_ASH": {
+    "character": "Necrobinder",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Whenever you play an  Ethereal  card, gain 4  Block .",
+    "description_upgraded": "Whenever you play an  Ethereal  card, gain  5   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SPITE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Deal 6 damage.   If you lost HP this turn, draw 1 card.",
+    "description_upgraded": "Deal  9  damage.   If you lost HP this turn, draw 1 card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SPLASH": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Choose 1 of 3 random Attacks from another character to add into your  Hand . It's free to play this turn.",
+    "description_upgraded": "Choose 1 of 3 random  Upgraded  Attacks from another character to add into your  Hand . It's free to play this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SPOILS_MAP": {
+    "character": "N/A",
+    "card_type": "Quest",
+    "cost": "N/A",
+    "rarity": "Quest",
+    "description": "Unplayable .   Marks a site of 600 extra  Gold  in the next Act.",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SPOILS_OF_BATTLE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Forge  10.",
+    "description_upgraded": "Forge   15 .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SPUR": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Retain .   Summon  3.   Osty  heals 5 HP.",
+    "description_upgraded": "Retain .   Summon   5 .   Osty  heals  7  HP.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SQUASH": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Event",
+    "description": "Deal 10 damage.   Apply 2  Vulnerable .",
+    "description_upgraded": "Deal  12  damage.   Apply  3   Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SQUEEZE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "Osty  deals 25 damage.   Deals 5 additional damage for ALL your other  Osty  Attacks.",
+    "description_upgraded": "Osty  deals  30  damage.   Deals  6  additional damage for ALL your other  Osty  Attacks.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STAMPEDE": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "At the end of your turn, 1 random Attack in your  Hand  is played against a random enemy.",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STARDUST": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Deal 5 damage to a random enemy X times.",
+    "description_upgraded": "Deal  7  damage to a random enemy X times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STOKE": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Exhaust  your  Hand .   Draw a card for each card  Exhausted .   Exhaust .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STOMP": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Uncommon",
+    "description": "Deal 12 damage to ALL enemies.   Costs 1 less   for each Attack played this turn.",
+    "description_upgraded": "Deal  15  damage to ALL enemies.   Costs 1 less   for each Attack played this turn.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STONE_ARMOR": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 4  Plating .",
+    "description_upgraded": "Gain  6   Plating .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STORM": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you play a Power,  Channel  1  Lightning .",
+    "description_upgraded": "Whenever you play a Power,  Channel   2   Lightning .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STORM_OF_STEEL": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Discard your  Hand .   Add 1  Shiv  into your  Hand  for each card discarded.",
+    "description_upgraded": "Discard your  Hand .   Add 1  Shiv+  into your  Hand  for each card discarded.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STRANGLE": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 8 damage.   Whenever you play a card this turn, the enemy loses 2 HP.",
+    "description_upgraded": "Deal  10  damage.   Whenever you play a card this turn, the enemy loses  3  HP.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STRATAGEM": {
+    "character": "N/A",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you shuffle your  Draw Pile , choose a card from it to put into your  Hand .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STRIKE_DEFECT": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Deal 6 damage.",
+    "description_upgraded": "Deal  9  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STRIKE_IRONCLAD": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Deal 6 damage.",
+    "description_upgraded": "Deal  9  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STRIKE_NECROBINDER": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Deal 6 damage.",
+    "description_upgraded": "Deal  9  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STRIKE_REGENT": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Deal 6 damage.",
+    "description_upgraded": "Deal  9  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "STRIKE_SILENT": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Deal 6 damage.",
+    "description_upgraded": "Deal  9  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SUBROUTINE": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you play a Power, gain  .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SUCKER_PUNCH": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 8 damage.   Apply 1  Weak .",
+    "description_upgraded": "Deal  10  damage.   Apply  2   Weak .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SUMMON_FORTH": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Forge  8.   Put  Sovereign Blade  into your  Hand  from anywhere.",
+    "description_upgraded": "Forge   11 .   Put  Sovereign Blade  into your  Hand  from anywhere.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SUNDER": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Uncommon",
+    "description": "Deal 24 damage.   If this kills an enemy, gain  .",
+    "description_upgraded": "Deal  32  damage.   If this kills an enemy, gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SUPERCRITICAL": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Gain 4 .   Exhaust .",
+    "description_upgraded": "Gain  6 .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SUPERMASSIVE": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 5 damage.   Deals 3 additional damage for each card you created this combat.",
+    "description_upgraded": "Deal 5 damage.   Deals  4  additional damage for each card you created this combat.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SURVIVOR": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Gain 8  Block .   Discard 1 card.",
+    "description_upgraded": "Gain  11   Block .   Discard 1 card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SWEEPING_BEAM": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 6 damage to ALL enemies.   Draw 1 card.",
+    "description_upgraded": "Deal  9  damage to ALL enemies.   Draw 1 card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SWORD_BOOMERANG": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 3 damage to a random enemy 3 times.",
+    "description_upgraded": "Deal 3 damage to a random enemy  4  times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SWORD_SAGE": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Increase the cost of  Sovereign Blade  by 1.  Sovereign Blade  now hits an additional time.",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SYNCHRONIZE": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 2  Focus  this turn for each unique Orb you have.   Exhaust .",
+    "description_upgraded": "Gain 2  Focus  this turn for each unique Orb you have.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "SYNTHESIS": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Deal 12 damage.   The next Power you play costs 0  .",
+    "description_upgraded": "Deal  18  damage.   The next Power you play costs 0  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TACTICIAN": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 3,
+    "rarity": "Uncommon",
+    "description": "Sly .   Gain  .",
+    "description_upgraded": "Sly .   Gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TAG_TEAM": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Deal 11 damage.   The next Attack another player plays on the enemy is played an extra time.",
+    "description_upgraded": "Deal  15  damage.   The next Attack another player plays on the enemy is played an extra time.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TAUNT": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 7  Block .   Apply 1  Vulnerable .",
+    "description_upgraded": "Gain  8   Block .   Apply  2   Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TEAR_ASUNDER": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Deal 5 damage.   Hits an additional time for each time you lost HP this combat.",
+    "description_upgraded": "Deal  7  damage.   Hits an additional time for each time you lost HP this combat.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TEMPEST": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": "X",
+    "rarity": "Uncommon",
+    "description": "Channel  X  Lightning .",
+    "description_upgraded": "Channel   X+1   Lightning .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TERRAFORMING": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 6  Vigor .",
+    "description_upgraded": "Gain  8   Vigor .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TESLA_COIL": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Deal 3 damage.   Trigger all  Lightning  against the enemy.",
+    "description_upgraded": "Deal  6  damage.   Trigger all  Lightning  against the enemy.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "THE_BOMB": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "At the end of 3 turns, deal 40 damage to ALL enemies.",
+    "description_upgraded": "At the end of 3 turns, deal  50  damage to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "THE_GAMBIT": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Gain 50  Block .   If you take unblocked attack damage this combat, die.",
+    "description_upgraded": "Gain  75   Block .   If you take unblocked attack damage this combat, die.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "THE_HUNT": {
+    "character": "Silent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal 10 damage.   If  Fatal , gain an additional card reward.   Exhaust .",
+    "description_upgraded": "Deal  15  damage.   If  Fatal , gain an additional card reward.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "THE_SCYTHE": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Deal 13 damage.   Permanently increase this card's damage by 3.   Exhaust .",
+    "description_upgraded": "Deal 13 damage.   Permanently increase this card's damage by  4 .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "THE_SEALED_THRONE": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Ancient",
+    "description": "Whenever you play a card, gain  .",
+    "description_upgraded": "Innate .   Whenever you play a card, gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "THE_SMITH": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Forge  30.",
+    "description_upgraded": "Forge   40 .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "THINKING_AHEAD": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Uncommon",
+    "description": "Draw 2 cards.   Put 1 card from your  Hand  on top of your  Draw Pile .   Exhaust .",
+    "description_upgraded": "Draw 2 cards.   Put 1 card from your  Hand  on top of your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "THRASH": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Deal 4 damage twice.   Exhaust  a random Attack in your  Hand  and add its damage to this card.",
+    "description_upgraded": "Deal  6  damage twice.   Exhaust  a random Attack in your  Hand  and add its damage to this card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "THRUMMING_HATCHET": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 11 damage.   At the start of your next turn, return this to your  Hand .",
+    "description_upgraded": "Deal  14  damage.   At the start of your next turn, return this to your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "THUNDER": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you  Evoke   Lightning , deal 6 damage to each enemy hit.",
+    "description_upgraded": "Whenever you  Evoke   Lightning , deal  8  damage to each enemy hit.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "THUNDERCLAP": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 4 damage and apply 1  Vulnerable  to ALL enemies.",
+    "description_upgraded": "Deal  7  damage and apply 1  Vulnerable  to ALL enemies.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TIMES_UP": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Deal damage equal to the enemy's  Doom .   Exhaust .",
+    "description_upgraded": "Retain .   Deal damage equal to the enemy's  Doom .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TOOLS_OF_THE_TRADE": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "At the start of your turn, draw 1 card and discard 1 card.",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TORIC_TOUGHNESS": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Event",
+    "description": "Gain 5  Block .   Gain 5  Block  at the start of the next 2 turns.",
+    "description_upgraded": "Gain  7   Block .   Gain  7   Block  at the start of the next 2 turns.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TRACKING": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Weak  enemies take double damage from Attacks.",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TRANSFIGURE": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Add  Replay  to a card in your  Hand .   It costs an extra  .   Exhaust .",
+    "description_upgraded": "Add  Replay  to a card in your  Hand .   It costs an extra  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TRASH_TO_TREASURE": {
+    "character": "Defect",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "Whenever you create a  Status  card,  Channel  1 random Orb.",
+    "description_upgraded": "Innate .   Whenever you create a  Status  card,  Channel  1 random Orb.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TREMBLE": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Apply 2  Vulnerable .",
+    "description_upgraded": "Apply  3   Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TRUE_GRIT": {
+    "character": "Ironclad",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Gain 7  Block .   Exhaust  1 card at random.",
+    "description_upgraded": "Gain  9   Block .   Exhaust  1 card.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TURBO": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Gain  .   Add a  Void  into your  Discard Pile .",
+    "description_upgraded": "Gain  .   Add a  Void  into your  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TWIN_STRIKE": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 5 damage twice.",
+    "description_upgraded": "Deal  7  damage twice.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "TYRANNY": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Rare",
+    "description": "At the start of your turn, draw 1 card and  Exhaust  1 card from your  Hand .",
+    "description_upgraded": "Innate .   At the start of your turn, draw 1 card and  Exhaust  1 card from your  Hand .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ULTIMATE_DEFEND": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Gain 11  Block .",
+    "description_upgraded": "Gain  15   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ULTIMATE_STRIKE": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 14 damage.",
+    "description_upgraded": "Deal  20  damage.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "UNDEATH": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Rare",
+    "description": "Gain 7  Block .   Add a copy of this card into your  Discard Pile .",
+    "description_upgraded": "Gain  9   Block .   Add a copy of this card into your  Discard Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "UNLEASH": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Osty  deals 6 damage.   Deals additional damage equal to  Osty's  current HP.",
+    "description_upgraded": "Osty  deals  9  damage.   Deals additional damage equal to  Osty's  current HP.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "UNMOVABLE": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "The first time you gain  Block  from a card each turn, double the amount gained.",
+    "description_upgraded": "Cost changes from  2  to  1",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "UNRELENTING": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Deal 12 damage.   The next Attack you play costs 0  .",
+    "description_upgraded": "Deal  18  damage.   The next Attack you play costs 0  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "UNTOUCHABLE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Common",
+    "description": "Sly .   Gain 9  Block .",
+    "description_upgraded": "Sly .   Gain  12   Block .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "UPPERCUT": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Deal 13 damage.   Apply 1  Weak .   Apply 1  Vulnerable .",
+    "description_upgraded": "Deal 13 damage.   Apply  2   Weak .   Apply  2   Vulnerable .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "UPROAR": {
+    "character": "Defect",
+    "card_type": "Attack",
+    "cost": 2,
+    "rarity": "Common",
+    "description": "Deal 5 damage twice.   Play a random Attack from your  Draw Pile .",
+    "description_upgraded": "Deal  7  damage twice.   Play a random Attack from your  Draw Pile .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "UP_MY_SLEEVE": {
+    "character": "Silent",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Uncommon",
+    "description": "Add 3  Shivs  into your  Hand .   Reduce this card's cost by 1.",
+    "description_upgraded": "Add  4   Shivs  into your  Hand .   Reduce this card's cost by 1.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "VEILPIERCER": {
+    "character": "Necrobinder",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Deal 10 damage.   The next  Ethereal  card you play costs 0  .",
+    "description_upgraded": "Deal  13  damage.   The next  Ethereal  card you play costs 0  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "VENERATE": {
+    "character": "Regent",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Gain  .",
+    "description_upgraded": "Gain  .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "VICIOUS": {
+    "character": "Ironclad",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Whenever you apply  Vulnerable , draw 1 card.",
+    "description_upgraded": "Whenever you apply  Vulnerable , draw  2 cards .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "VOID_FORM": {
+    "character": "Regent",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Rare",
+    "description": "End your turn.   The first 2 cards you play each turn are free to play.",
+    "description_upgraded": "End your turn.   The first  3  cards you play each turn are free to play.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "VOLLEY": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": "X",
+    "rarity": "Uncommon",
+    "description": "Deal 10 damage to a random enemy X times.",
+    "description_upgraded": "Deal  14  damage to a random enemy X times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "VOLTAIC": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 2,
+    "rarity": "Rare",
+    "description": "Channel   Lightning  equal to the  Lightning  already  Channeled  this combat.   Exhaust .",
+    "description_upgraded": "Channel   Lightning  equal to the  Lightning  already  Channeled  this combat.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "WELL_LAID_PLANS": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "At the end of your turn,  Retain  up to 1 card.",
+    "description_upgraded": "At the end of your turn,  Retain  up to  2 cards .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "WHIRLWIND": {
+    "character": "Ironclad",
+    "card_type": "Attack",
+    "cost": "X",
+    "rarity": "Uncommon",
+    "description": "Deal 5 damage to ALL enemies X times.",
+    "description_upgraded": "Deal  8  damage to ALL enemies X times.",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "WHISTLE": {
+    "character": "N/A",
+    "card_type": "Attack",
+    "cost": 3,
+    "rarity": "Ancient",
+    "description": "Deal 33 damage.   Stun the enemy.   Exhaust .",
+    "description_upgraded": "Deal  44  damage.   Stun the enemy.   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "WHITE_NOISE": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Uncommon",
+    "description": "Add a random Power into your  Hand . It's free to play this turn.   Exhaust .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "WISH": {
+    "character": "N/A",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Ancient",
+    "description": "Put a card from your  Draw Pile  into your  Hand .   Exhaust .",
+    "description_upgraded": "Retain .   Put a card from your  Draw Pile  into your  Hand .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "WISP": {
+    "character": "Necrobinder",
+    "card_type": "Skill",
+    "cost": 0,
+    "rarity": "Common",
+    "description": "Gain  .   Exhaust .",
+    "description_upgraded": "Retain .   Gain  .   Exhaust .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "WRAITH_FORM": {
+    "character": "Silent",
+    "card_type": "Power",
+    "cost": 3,
+    "rarity": "Ancient",
+    "description": "Gain 2  Intangible .   At the start of your turn, lose 1  Dexterity .",
+    "description_upgraded": "Gain  3   Intangible .   At the start of your turn, lose 1  Dexterity .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "WROUGHT_IN_WAR": {
+    "character": "Regent",
+    "card_type": "Attack",
+    "cost": 1,
+    "rarity": "Common",
+    "description": "Deal 7 damage.   Forge  5.",
+    "description_upgraded": "Deal  9  damage.   Forge   7 .",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "ZAP": {
+    "character": "Defect",
+    "card_type": "Skill",
+    "cost": 1,
+    "rarity": "Basic",
+    "description": "Channel  1  Lightning .",
+    "description_upgraded": "Cost changes from  1  to  0",
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BECKON": {
+    "character": "N/A",
+    "card_type": "Status",
+    "cost": 1,
+    "rarity": "Status",
+    "description": "At the end of your turn, if this is in your  Hand ,    lose 6 HP.",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BURN": {
+    "character": "N/A",
+    "card_type": "Status",
+    "cost": "N/A",
+    "rarity": "Status",
+    "description": "Unplayable .   At the end of your turn, if this is in your  Hand , take 2 damage.",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  },
+  "BYRDONIS_EGG": {
+    "character": "N/A",
+    "card_type": "Quest",
+    "cost": "N/A",
+    "rarity": "Quest",
+    "description": "Unplayable .   Can be hatched at a  Rest Site .",
+    "description_upgraded": null,
+    "has_image": true,
+    "has_upgraded_image": false
+  }
+}
