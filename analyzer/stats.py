@@ -11,6 +11,7 @@ from .parser import (
     extract_card_choices,
     extract_deck_cards,
     extract_encounters,
+    extract_events,
     extract_relic_events,
     extract_rest_sites,
     get_character,
@@ -447,6 +448,64 @@ def compute_ancients(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             "runs": len(run_set),
             "win_rate": round(win_rate, 4) if win_rate is not None else None,
             "relics": relics,
+        })
+
+    results.sort(key=lambda x: x["encounters"], reverse=True)
+    return results
+
+
+# ── Events ────────────────────────────────────────────────────────────────────
+
+def compute_events(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Compute per-event stats: encounter count, unique runs, win rate,
+    and per-option pick counts and win rates (based on the primary/first choice).
+    """
+    event_run_ids: Dict[str, Set[str]] = defaultdict(set)
+    event_win_ids: Dict[str, Set[str]] = defaultdict(set)
+    event_encounters: Dict[str, int] = defaultdict(int)
+
+    # option stats keyed by (event_name, option)
+    option_runs: Dict[str, Dict[str, Set[str]]] = defaultdict(lambda: defaultdict(set))
+    option_win: Dict[str, Dict[str, Set[str]]] = defaultdict(lambda: defaultdict(set))
+
+    for run in runs:
+        run_id = get_run_id(run)
+        run_win = run.get("win", False)
+        for ev in extract_events(run):
+            name = ev["name"]
+            event_run_ids[name].add(run_id)
+            event_encounters[name] += 1
+            if run_win:
+                event_win_ids[name].add(run_id)
+            # Track only the primary (first) choice per visit
+            if ev["choices"]:
+                primary = ev["choices"][0]
+                option_runs[name][primary].add(run_id)
+                if run_win:
+                    option_win[name][primary].add(run_id)
+
+    results: List[Dict[str, Any]] = []
+    for name, run_set in event_run_ids.items():
+        win_set = event_win_ids.get(name, set())
+        win_rate = len(win_set) / len(run_set) if run_set else None
+
+        options: List[Dict[str, Any]] = []
+        for option, opt_run_set in option_runs[name].items():
+            opt_win_set = option_win[name].get(option, set())
+            opt_win_rate = len(opt_win_set) / len(opt_run_set) if opt_run_set else None
+            options.append({
+                "option": option,
+                "times_chosen": len(opt_run_set),
+                "win_rate": round(opt_win_rate, 4) if opt_win_rate is not None else None,
+            })
+        options.sort(key=lambda x: x["times_chosen"], reverse=True)
+
+        results.append({
+            "name": name,
+            "encounters": event_encounters[name],
+            "runs": len(run_set),
+            "win_rate": round(win_rate, 4) if win_rate is not None else None,
+            "options": options,
         })
 
     results.sort(key=lambda x: x["encounters"], reverse=True)
