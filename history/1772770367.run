@@ -7445,7 +7445,6 @@
             "cards_gained": [
               {
                 "current_upgrade_level": 1,
-                "floor_added_to_deck": 42,
                 "id": "CARD.BLOODLETTING"
               }
             ],
@@ -7656,7 +7655,6 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 43,
                 "id": "CARD.DEMONIC_SHIELD"
               }
             ],
@@ -9009,7 +9007,7 @@
       ]
     }
   ],
-  "run_time": 6471,
+  "run_time": 6469,
   "schema_version": 8,
   "seed": "93Y93K7F8F",
   "start_time": 1772770367,

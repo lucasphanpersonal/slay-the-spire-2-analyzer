@@ -6466,7 +6466,6 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 37,
                 "id": "CARD.ACCELERANT"
               }
             ],
@@ -6514,6 +6513,7 @@
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 37,
                 "id": "CARD.CRUELTY"
               }
             ],
@@ -6796,7 +6796,6 @@
             "cards_gained": [
               {
                 "current_upgrade_level": 1,
-                "floor_added_to_deck": 39,
                 "id": "CARD.DAGGER_THROW"
               }
             ],
@@ -6852,6 +6851,7 @@
             "cards_gained": [
               {
                 "current_upgrade_level": 1,
+                "floor_added_to_deck": 39,
                 "id": "CARD.SHRUG_IT_OFF"
               }
             ],
@@ -7083,6 +7083,7 @@
             "cards_gained": [
               {
                 "current_upgrade_level": 1,
+                "floor_added_to_deck": 40,
                 "id": "CARD.TREMBLE"
               }
             ],
@@ -7326,7 +7327,6 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 42,
                 "id": "CARD.FAN_OF_KNIVES"
               }
             ],
@@ -7532,6 +7532,54 @@
         "map_point_type": "shop",
         "player_stats": [
           {
+            "bought_relics": [
+              "RELIC.WAR_PAINT",
+              "RELIC.STRIKE_DUMMY"
+            ],
+            "card_choices": [
+              {
+                "card": {
+                  "id": "CARD.RICOCHET"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.POISONED_STAB"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.DEFLECT"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.BLADE_DANCE"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.INFINITE_BLADES"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.TAG_TEAM"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.HAND_OF_GREED"
+                },
+                "was_picked": false
+              }
+            ],
             "cards_removed": [
               {
                 "floor_added_to_deck": 35,
@@ -7542,14 +7590,28 @@
             "current_hp": 19,
             "damage_taken": 0,
             "gold_gained": 0,
-            "gold_lost": 414,
-            "gold_spent": 125,
+            "gold_lost": 0,
+            "gold_spent": 539,
             "gold_stolen": 0,
             "hp_healed": 0,
             "max_hp": 77,
             "max_hp_gained": 0,
             "max_hp_lost": 0,
             "player_id": 76561198000002844,
+            "potion_choices": [
+              {
+                "choice": "POTION.SKILL_POTION",
+                "was_picked": false
+              },
+              {
+                "choice": "POTION.FLEX_POTION",
+                "was_picked": false
+              },
+              {
+                "choice": "POTION.POWER_POTION",
+                "was_picked": false
+              }
+            ],
             "relic_choices": [
               {
                 "choice": "RELIC.WAR_PAINT",
@@ -7558,6 +7620,10 @@
               {
                 "choice": "RELIC.STRIKE_DUMMY",
                 "was_picked": true
+              },
+              {
+                "choice": "RELIC.WING_CHARM",
+                "was_picked": false
               }
             ],
             "upgraded_cards": [
@@ -7566,53 +7632,18 @@
             ]
           },
           {
-            "bought_potions": [
-              "POTION.COLORLESS_POTION"
-            ],
-            "bought_relics": [
-              "RELIC.GORGET",
-              "RELIC.THE_ABACUS"
-            ],
             "card_choices": [
               {
                 "card": {
-                  "id": "CARD.ANGER"
+                  "floor_added_to_deck": 43,
+                  "id": "CARD.SHRUG_IT_OFF"
                 },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.TEAR_ASUNDER"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.BRAND"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.BARRICADE"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.AUTOMATION"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.BEACON_OF_HOPE"
-                },
-                "was_picked": false
+                "was_picked": true
               }
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 43,
                 "id": "CARD.SHRUG_IT_OFF"
               }
             ],
@@ -7620,8 +7651,8 @@
             "current_hp": 66,
             "damage_taken": 0,
             "gold_gained": 0,
-            "gold_lost": 0,
-            "gold_spent": 513,
+            "gold_lost": 513,
+            "gold_spent": 0,
             "gold_stolen": 0,
             "hp_healed": 15,
             "max_hp": 80,
@@ -7632,14 +7663,6 @@
               {
                 "choice": "POTION.COLORLESS_POTION",
                 "was_picked": true
-              },
-              {
-                "choice": "POTION.OROBIC_ACID",
-                "was_picked": false
-              },
-              {
-                "choice": "POTION.FIRE_POTION",
-                "was_picked": false
               }
             ],
             "relic_choices": [
@@ -7650,10 +7673,6 @@
               {
                 "choice": "RELIC.THE_ABACUS",
                 "was_picked": true
-              },
-              {
-                "choice": "RELIC.FESTIVE_POPPER",
-                "was_picked": false
               }
             ]
           },

@@ -2542,7 +2542,6 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 16,
                 "id": "CARD.CREATIVE_AI"
               }
             ],
@@ -2639,6 +2638,7 @@
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 16,
                 "id": "CARD.TIMES_UP"
               }
             ],
@@ -3094,15 +3094,19 @@
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 17,
                 "id": "CARD.END_OF_DAYS"
               },
               {
+                "floor_added_to_deck": 17,
                 "id": "CARD.BONE_SHARDS"
               },
               {
+                "floor_added_to_deck": 17,
                 "id": "CARD.DELAY"
               },
               {
+                "floor_added_to_deck": 17,
                 "id": "CARD.BLIGHT_STRIKE"
               }
             ],
@@ -3254,7 +3258,6 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 18,
                 "id": "CARD.NULL"
               }
             ],
@@ -3472,7 +3475,6 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 19,
                 "id": "CARD.DEFRAGMENT"
               }
             ],
@@ -3565,6 +3567,7 @@
             "cards_gained": [
               {
                 "current_upgrade_level": 1,
+                "floor_added_to_deck": 19,
                 "id": "CARD.SEVERANCE"
               }
             ],
@@ -3686,7 +3689,6 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 20,
                 "id": "CARD.RAINBOW"
               }
             ],
@@ -4173,15 +4175,43 @@
             "card_choices": [
               {
                 "card": {
-                  "floor_added_to_deck": 23,
-                  "id": "CARD.MODDED"
+                  "id": "CARD.SWEEPING_BEAM"
                 },
-                "was_picked": true
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.TESLA_COIL"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.BOOST_AWAY"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.STORM"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.FISTICUFFS"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.SECRET_WEAPON"
+                },
+                "was_picked": false
               }
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 23,
                 "id": "CARD.MODDED"
               }
             ],
@@ -4189,14 +4219,42 @@
             "current_hp": 74,
             "damage_taken": 0,
             "gold_gained": 0,
-            "gold_lost": 155,
-            "gold_spent": 0,
+            "gold_lost": 0,
+            "gold_spent": 155,
             "gold_stolen": 0,
             "hp_healed": 0,
             "max_hp": 75,
             "max_hp_gained": 0,
             "max_hp_lost": 0,
-            "player_id": 76561198000002844
+            "player_id": 76561198000002844,
+            "potion_choices": [
+              {
+                "choice": "POTION.ATTACK_POTION",
+                "was_picked": false
+              },
+              {
+                "choice": "POTION.SKILL_POTION",
+                "was_picked": false
+              },
+              {
+                "choice": "POTION.SWIFT_POTION",
+                "was_picked": false
+              }
+            ],
+            "relic_choices": [
+              {
+                "choice": "RELIC.AKABEKO",
+                "was_picked": false
+              },
+              {
+                "choice": "RELIC.REGAL_PILLOW",
+                "was_picked": false
+              },
+              {
+                "choice": "RELIC.SLING_OF_COURAGE",
+                "was_picked": false
+              }
+            ]
           },
           {
             "card_choices": [
@@ -4244,43 +4302,15 @@
             "card_choices": [
               {
                 "card": {
-                  "id": "CARD.SIC_EM"
+                  "floor_added_to_deck": 23,
+                  "id": "CARD.HIGH_FIVE"
                 },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.NEGATIVE_PULSE"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.PUTREFY"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.DANSE_MACABRE"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.LIFT"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.SCRAWL"
-                },
-                "was_picked": false
+                "was_picked": true
               }
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 23,
                 "id": "CARD.HIGH_FIVE"
               }
             ],
@@ -4294,42 +4324,14 @@
             "current_hp": 66,
             "damage_taken": 0,
             "gold_gained": 0,
-            "gold_lost": 0,
-            "gold_spent": 136,
+            "gold_lost": 36,
+            "gold_spent": 100,
             "gold_stolen": 0,
             "hp_healed": 0,
             "max_hp": 66,
             "max_hp_gained": 0,
             "max_hp_lost": 0,
-            "player_id": 76561199228996371,
-            "potion_choices": [
-              {
-                "choice": "POTION.REGEN_POTION",
-                "was_picked": false
-              },
-              {
-                "choice": "POTION.ATTACK_POTION",
-                "was_picked": false
-              },
-              {
-                "choice": "POTION.FIRE_POTION",
-                "was_picked": false
-              }
-            ],
-            "relic_choices": [
-              {
-                "choice": "RELIC.AMETHYST_AUBERGINE",
-                "was_picked": false
-              },
-              {
-                "choice": "RELIC.PARRYING_SHIELD",
-                "was_picked": false
-              },
-              {
-                "choice": "RELIC.ROYAL_STAMP",
-                "was_picked": false
-              }
-            ]
+            "player_id": 76561199228996371
           },
           {
             "card_choices": [
@@ -4513,11 +4515,9 @@
             "cards_gained": [
               {
                 "current_upgrade_level": 1,
-                "floor_added_to_deck": 25,
                 "id": "CARD.SKIM"
               },
               {
-                "floor_added_to_deck": 25,
                 "id": "CARD.DEFRAGMENT"
               }
             ],
@@ -4618,6 +4618,7 @@
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 25,
                 "id": "CARD.GRAVEBLAST"
               }
             ],
@@ -4851,7 +4852,6 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 27,
                 "id": "CARD.STORM"
               }
             ],
@@ -4943,6 +4943,7 @@
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 27,
                 "id": "CARD.PARSE"
               }
             ],
@@ -5058,7 +5059,6 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 28,
                 "id": "CARD.CONSUMING_SHADOW"
               }
             ],
@@ -5163,6 +5163,7 @@
             "cards_gained": [
               {
                 "current_upgrade_level": 1,
+                "floor_added_to_deck": 28,
                 "id": "CARD.DEATHS_DOOR"
               }
             ],
@@ -5255,6 +5256,32 @@
                 "title": {
                   "key": "STONE_OF_ALL_TIME.pages.INITIAL.options.LIFT.title",
                   "table": "events"
+                },
+                "variables": {
+                  "DrinkRandomPotion": {
+                    "type": "DynamicString",
+                    "decimal_value": 0,
+                    "bool_value": false,
+                    "string_value": "Liquid Memories"
+                  },
+                  "DrinkMaxHpGain": {
+                    "type": "BaseDynamic",
+                    "decimal_value": 10,
+                    "bool_value": false,
+                    "string_value": null
+                  },
+                  "PushHpLoss": {
+                    "type": "BaseDynamic",
+                    "decimal_value": 6,
+                    "bool_value": false,
+                    "string_value": null
+                  },
+                  "PushVigorousAmount": {
+                    "type": "BaseDynamic",
+                    "decimal_value": 8,
+                    "bool_value": false,
+                    "string_value": null
+                  }
                 }
               }
             ],
@@ -5305,32 +5332,6 @@
                 "title": {
                   "key": "STONE_OF_ALL_TIME.pages.INITIAL.options.LIFT.title",
                   "table": "events"
-                },
-                "variables": {
-                  "DrinkRandomPotion": {
-                    "type": "DynamicString",
-                    "decimal_value": 0,
-                    "bool_value": false,
-                    "string_value": "Clarity Extract"
-                  },
-                  "DrinkMaxHpGain": {
-                    "type": "BaseDynamic",
-                    "decimal_value": 10,
-                    "bool_value": false,
-                    "string_value": null
-                  },
-                  "PushHpLoss": {
-                    "type": "BaseDynamic",
-                    "decimal_value": 6,
-                    "bool_value": false,
-                    "string_value": null
-                  },
-                  "PushVigorousAmount": {
-                    "type": "BaseDynamic",
-                    "decimal_value": 8,
-                    "bool_value": false,
-                    "string_value": null
-                  }
                 }
               }
             ],
@@ -5510,7 +5511,6 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 31,
                 "id": "CARD.ECHO_FORM"
               }
             ],
@@ -5600,6 +5600,7 @@
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 31,
                 "id": "CARD.TIMES_UP"
               }
             ],
@@ -5959,12 +5960,10 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 33,
                 "id": "CARD.ENERGY_SURGE"
               },
               {
                 "current_upgrade_level": 1,
-                "floor_added_to_deck": 33,
                 "id": "CARD.WHITE_NOISE"
               }
             ],
@@ -6060,6 +6059,7 @@
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 33,
                 "id": "CARD.PAGESTORM"
               }
             ],
@@ -6154,6 +6154,26 @@
                 "title": {
                   "key": "BATTLEWORN_DUMMY.pages.INITIAL.options.SETTING_2.title",
                   "table": "events"
+                },
+                "variables": {
+                  "Setting1Hp": {
+                    "type": "BaseDynamic",
+                    "decimal_value": 360.0,
+                    "bool_value": false,
+                    "string_value": null
+                  },
+                  "Setting2Hp": {
+                    "type": "BaseDynamic",
+                    "decimal_value": 720.0,
+                    "bool_value": false,
+                    "string_value": null
+                  },
+                  "Setting3Hp": {
+                    "type": "BaseDynamic",
+                    "decimal_value": 1440.0,
+                    "bool_value": false,
+                    "string_value": null
+                  }
                 }
               }
             ],
@@ -6206,26 +6226,6 @@
                 "title": {
                   "key": "BATTLEWORN_DUMMY.pages.INITIAL.options.SETTING_2.title",
                   "table": "events"
-                },
-                "variables": {
-                  "Setting1Hp": {
-                    "type": "BaseDynamic",
-                    "decimal_value": 360.0,
-                    "bool_value": false,
-                    "string_value": null
-                  },
-                  "Setting2Hp": {
-                    "type": "BaseDynamic",
-                    "decimal_value": 720.0,
-                    "bool_value": false,
-                    "string_value": null
-                  },
-                  "Setting3Hp": {
-                    "type": "BaseDynamic",
-                    "decimal_value": 1440.0,
-                    "bool_value": false,
-                    "string_value": null
-                  }
                 }
               }
             ],
@@ -6293,6 +6293,50 @@
         "map_point_type": "unknown",
         "player_stats": [
           {
+            "card_choices": [
+              {
+                "card": {
+                  "id": "CARD.MOMENTUM_STRIKE"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.TESLA_COIL"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.HOTFIX"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.LIGHTNING_ROD"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.SMOKESTACK"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.PANIC_BUTTON"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.JACKPOT"
+                },
+                "was_picked": false
+              }
+            ],
             "cards_removed": [
               {
                 "floor_added_to_deck": 1,
@@ -6310,7 +6354,35 @@
             "max_hp": 85,
             "max_hp_gained": 0,
             "max_hp_lost": 0,
-            "player_id": 76561198000002844
+            "player_id": 76561198000002844,
+            "potion_choices": [
+              {
+                "choice": "POTION.ENERGY_POTION",
+                "was_picked": false
+              },
+              {
+                "choice": "POTION.STRENGTH_POTION",
+                "was_picked": false
+              },
+              {
+                "choice": "POTION.BLOCK_POTION",
+                "was_picked": false
+              }
+            ],
+            "relic_choices": [
+              {
+                "choice": "RELIC.RAZOR_TOOTH",
+                "was_picked": false
+              },
+              {
+                "choice": "RELIC.WHETSTONE",
+                "was_picked": false
+              },
+              {
+                "choice": "RELIC.MEMBERSHIP_CARD",
+                "was_picked": false
+              }
+            ]
           },
           {
             "card_choices": [
@@ -6347,43 +6419,15 @@
             "card_choices": [
               {
                 "card": {
-                  "id": "CARD.FETCH"
+                  "floor_added_to_deck": 35,
+                  "id": "CARD.SHROUD"
                 },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.SEVERANCE"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.GRAVE_WARDEN"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.NEGATIVE_PULSE"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.IMPATIENCE"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.SALVO"
-                },
-                "was_picked": false
+                "was_picked": true
               }
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 35,
                 "id": "CARD.SHROUD"
               }
             ],
@@ -6397,42 +6441,14 @@
             "current_hp": 76,
             "damage_taken": 0,
             "gold_gained": 0,
-            "gold_lost": 0,
-            "gold_spent": 202,
+            "gold_lost": 77,
+            "gold_spent": 125,
             "gold_stolen": 0,
             "hp_healed": 0,
             "max_hp": 76,
             "max_hp_gained": 0,
             "max_hp_lost": 0,
-            "player_id": 76561199228996371,
-            "potion_choices": [
-              {
-                "choice": "POTION.CURE_ALL",
-                "was_picked": false
-              },
-              {
-                "choice": "POTION.POTION_OF_DOOM",
-                "was_picked": false
-              },
-              {
-                "choice": "POTION.EXPLOSIVE_AMPOULE",
-                "was_picked": false
-              }
-            ],
-            "relic_choices": [
-              {
-                "choice": "RELIC.HAPPY_FLOWER",
-                "was_picked": false
-              },
-              {
-                "choice": "RELIC.MANGO",
-                "was_picked": false
-              },
-              {
-                "choice": "RELIC.WING_CHARM",
-                "was_picked": false
-              }
-            ]
+            "player_id": 76561199228996371
           },
           {
             "cards_enchanted": [
@@ -6549,7 +6565,6 @@
             "cards_gained": [
               {
                 "current_upgrade_level": 1,
-                "floor_added_to_deck": 36,
                 "id": "CARD.GLASSWORK"
               }
             ],
@@ -6637,6 +6652,7 @@
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 36,
                 "id": "CARD.DEATHBRINGER"
               }
             ],
@@ -6973,11 +6989,9 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 39,
                 "id": "CARD.SPINNER"
               },
               {
-                "floor_added_to_deck": 39,
                 "id": "CARD.COOLANT"
               }
             ],
@@ -7096,6 +7110,7 @@
             "cards_gained": [
               {
                 "current_upgrade_level": 1,
+                "floor_added_to_deck": 39,
                 "id": "CARD.PULL_AGGRO"
               }
             ],
@@ -7191,6 +7206,53 @@
         "map_point_type": "shop",
         "player_stats": [
           {
+            "bought_relics": [
+              "RELIC.GHOST_SEED"
+            ],
+            "card_choices": [
+              {
+                "card": {
+                  "id": "CARD.GUNK_UP"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.METEOR_STRIKE"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.SCAVENGE"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.TURBO"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.HAILSTORM"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.EQUILIBRIUM"
+                },
+                "was_picked": false
+              },
+              {
+                "card": {
+                  "id": "CARD.GOLD_AXE"
+                },
+                "was_picked": false
+              }
+            ],
             "cards_removed": [
               {
                 "floor_added_to_deck": 1,
@@ -7201,18 +7263,40 @@
             "current_hp": 32,
             "damage_taken": 0,
             "gold_gained": 0,
-            "gold_lost": 258,
-            "gold_spent": 100,
+            "gold_lost": 0,
+            "gold_spent": 358,
             "gold_stolen": 0,
             "hp_healed": 0,
             "max_hp": 85,
             "max_hp_gained": 0,
             "max_hp_lost": 0,
             "player_id": 76561198000002844,
+            "potion_choices": [
+              {
+                "choice": "POTION.FIRE_POTION",
+                "was_picked": false
+              },
+              {
+                "choice": "POTION.ATTACK_POTION",
+                "was_picked": false
+              },
+              {
+                "choice": "POTION.FLEX_POTION",
+                "was_picked": false
+              }
+            ],
             "relic_choices": [
               {
                 "choice": "RELIC.GHOST_SEED",
                 "was_picked": true
+              },
+              {
+                "choice": "RELIC.INTIMIDATING_HELMET",
+                "was_picked": false
+              },
+              {
+                "choice": "RELIC.BELLOWS",
+                "was_picked": false
               }
             ]
           },
@@ -7243,49 +7327,29 @@
             ]
           },
           {
-            "bought_colorless": [
-              "CARD.PRODUCTION"
-            ],
-            "bought_potions": [
-              "POTION.POWER_POTION"
-            ],
             "card_choices": [
               {
                 "card": {
-                  "id": "CARD.REAP"
+                  "floor_added_to_deck": 40,
+                  "id": "CARD.PRODUCTION"
                 },
-                "was_picked": false
+                "was_picked": true
               },
               {
                 "card": {
-                  "id": "CARD.ERADICATE"
+                  "floor_added_to_deck": 40,
+                  "id": "CARD.FRIENDSHIP"
                 },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.INVOKE"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.NEGATIVE_PULSE"
-                },
-                "was_picked": false
-              },
-              {
-                "card": {
-                  "id": "CARD.ETERNAL_ARMOR"
-                },
-                "was_picked": false
+                "was_picked": true
               }
             ],
             "cards_gained": [
               {
+                "floor_added_to_deck": 40,
                 "id": "CARD.PRODUCTION"
               },
               {
+                "floor_added_to_deck": 40,
                 "id": "CARD.FRIENDSHIP"
               }
             ],
@@ -7293,8 +7357,8 @@
             "current_hp": 61,
             "damage_taken": 0,
             "gold_gained": 0,
-            "gold_lost": 0,
-            "gold_spent": 174,
+            "gold_lost": 174,
+            "gold_spent": 0,
             "gold_stolen": 0,
             "hp_healed": 0,
             "max_hp": 74,
@@ -7305,28 +7369,6 @@
               {
                 "choice": "POTION.POWER_POTION",
                 "was_picked": true
-              },
-              {
-                "choice": "POTION.EXPLOSIVE_AMPOULE",
-                "was_picked": false
-              },
-              {
-                "choice": "POTION.FLEX_POTION",
-                "was_picked": false
-              }
-            ],
-            "relic_choices": [
-              {
-                "choice": "RELIC.ANCHOR",
-                "was_picked": false
-              },
-              {
-                "choice": "RELIC.BLOOD_VIAL",
-                "was_picked": false
-              },
-              {
-                "choice": "RELIC.GNARLED_HAMMER",
-                "was_picked": false
               }
             ]
           },
@@ -7405,7 +7447,6 @@
             "cards_gained": [
               {
                 "current_upgrade_level": 1,
-                "floor_added_to_deck": 41,
                 "id": "CARD.COOLHEADED"
               }
             ],
@@ -7525,6 +7566,7 @@
             "cards_gained": [
               {
                 "current_upgrade_level": 1,
+                "floor_added_to_deck": 41,
                 "id": "CARD.DEBILITATE"
               }
             ],
@@ -7637,6 +7679,14 @@
                 "title": {
                   "key": "POTION_COURIER.pages.INITIAL.options.RANSACK.title",
                   "table": "events"
+                },
+                "variables": {
+                  "FoulPotions": {
+                    "type": "BaseDynamic",
+                    "decimal_value": 3,
+                    "bool_value": false,
+                    "string_value": null
+                  }
                 }
               }
             ],
@@ -7696,14 +7746,6 @@
                 "title": {
                   "key": "POTION_COURIER.pages.INITIAL.options.RANSACK.title",
                   "table": "events"
-                },
-                "variables": {
-                  "FoulPotions": {
-                    "type": "BaseDynamic",
-                    "decimal_value": 3,
-                    "bool_value": false,
-                    "string_value": null
-                  }
                 }
               }
             ],
@@ -7809,7 +7851,6 @@
             ],
             "cards_gained": [
               {
-                "floor_added_to_deck": 43,
                 "id": "CARD.DEFRAGMENT"
               }
             ],
