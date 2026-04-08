@@ -16,6 +16,7 @@ from .stats import (
     compute_encounters,
     compute_events,
     compute_overview,
+    compute_potions,
     compute_relics,
     compute_rest_sites,
     compute_run_detail,
@@ -103,6 +104,11 @@ def create_app(history_path: str) -> Flask:
     def api_relics():
         runs = filter_runs(_load(), **_filters())
         return jsonify(compute_relics(runs))
+
+    @app.route("/api/potions")
+    def api_potions():
+        runs = filter_runs(_load(), **_filters())
+        return jsonify(compute_potions(runs))
 
     @app.route("/api/encounters")
     def api_encounters():
