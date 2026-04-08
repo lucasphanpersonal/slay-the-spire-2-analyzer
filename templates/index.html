@@ -109,6 +109,7 @@
       <li class="nav-item"><a class="nav-link"        data-tab="cards"     href="#">Cards</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="relics"    href="#">Relics</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="encounters"href="#">Encounters</a></li>
+      <li class="nav-item"><a class="nav-link"        data-tab="ancients"  href="#">Ancients</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="rest"      href="#">Rest Sites</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="runs"      href="#">Runs</a></li>
     </ul>
@@ -130,6 +131,12 @@
     <label class="fw-semibold" style="color:var(--sts-gold);white-space:nowrap">Ascension</label>
     <select id="filter-ascension" class="form-select form-select-sm" style="width:130px">
       <option value="">All Levels</option>
+    </select>
+  </div>
+  <div class="d-flex align-items-center gap-2">
+    <label class="fw-semibold" style="color:var(--sts-gold);white-space:nowrap">Ancient</label>
+    <select id="filter-ancient" class="form-select form-select-sm" style="width:160px">
+      <option value="">All Ancients</option>
     </select>
   </div>
   <div class="form-check form-switch mb-0">
@@ -244,6 +251,23 @@
     </div>
   </div>
 
+  <!-- ANCIENTS TAB -->
+  <div id="tab-ancients" class="tab-pane" style="display:none">
+    <div id="ancients-loading" class="loading">Loading…</div>
+    <div id="ancients-content" style="display:none">
+      <table class="table table-sm" id="ancients-table">
+        <thead><tr>
+          <th class="sort-icon" data-col="name">Ancient</th>
+          <th class="sort-icon" data-col="encounters">Times Encountered</th>
+          <th class="sort-icon" data-col="runs">Unique Runs</th>
+          <th class="sort-icon" data-col="win_rate">Win Rate (runs with this ancient)</th>
+          <th>Relics Offered</th>
+        </tr></thead>
+        <tbody id="ancients-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- REST SITES TAB -->
   <div id="tab-rest" class="tab-pane" style="display:none">
     <div id="rest-loading" class="loading">Loading…</div>
@@ -301,6 +325,7 @@ const state = {
   tab: 'overview',
   character: '',
   ascension: '',
+  ancient: '',
   excludeMultiplayer: true,
   excludeAbandoned: true,
   minSamples: 1,
@@ -319,6 +344,7 @@ function queryParams(extra = {}) {
   const p = new URLSearchParams({
     character: state.character,
     ascension: state.ascension,
+    ancient: state.ancient,
     exclude_multiplayer: state.excludeMultiplayer,
     exclude_abandoned: state.excludeAbandoned,
     min_samples: state.minSamples,
@@ -642,6 +668,91 @@ function renderEncounters(data) {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
+// ANCIENTS
+// ────────────────────────────────────────────────────────────────────────────
+async function loadAncientFilter() {
+  try {
+    const names = await fetch('/api/ancients').then(r => r.json());
+    const sel = document.getElementById('filter-ancient');
+    sel.querySelectorAll('option:not([value=""])').forEach(o => o.remove());
+    names.forEach(n => {
+      const o = document.createElement('option');
+      o.value = n; o.textContent = n.replace(/_/g, ' ');
+      sel.appendChild(o);
+    });
+    sel.value = state.ancient;
+  } catch(e) { console.error('Failed to load ancients', e); }
+}
+
+async function loadAncients() {
+  showLoading('ancients-loading'); hideContent('ancients-content');
+  try {
+    const data = await apiFetch('ancient_stats');
+    renderAncients(data);
+    initSort('ancients-table', data, renderAncients);
+    showContent('ancients-content');
+  } catch(e) { showError('Failed to load ancients: ' + e.message); }
+  hideLoading('ancients-loading');
+}
+
+function renderAncients(data) {
+  const tbody = document.getElementById('ancients-tbody');
+  if (!data.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No ancient data</td></tr>';
+    return;
+  }
+  const rows = [];
+  data.forEach((a, idx) => {
+    const relicSummary = (a.relics || []).slice(0, 3)
+      .map(r => `<span class="relic-pill" title="Pick rate: ${Math.round(r.pick_rate*100)}%">${esc(r.relic)}</span>`)
+      .join('') +
+      ((a.relics || []).length > 3
+        ? `<button class="deck-expand-btn" data-ancient-idx="${idx}">+${a.relics.length - 3} more</button>`
+        : (a.relics.length ? `<button class="deck-expand-btn" data-ancient-idx="${idx}">details</button>` : ''));
+    rows.push(`<tr data-ancient-idx="${idx}">
+      <td><strong>${esc(a.name)}</strong></td>
+      <td>${a.encounters}</td>
+      <td>${a.runs}</td>
+      <td>${pct(a.win_rate)}</td>
+      <td>${relicSummary || '<span style="color:var(--sts-muted)">—</span>'}</td>
+    </tr>`);
+
+    // Hidden detail row with full relic table
+    const relicRows = (a.relics || []).map(r =>
+      `<tr>
+        <td style="padding-left:1.5rem">${esc(r.relic)}</td>
+        <td>${r.offered_runs}</td>
+        <td>${r.picked_runs}</td>
+        <td>${pct(r.pick_rate)}</td>
+        <td>${pct(r.win_rate)}</td>
+      </tr>`
+    ).join('');
+    const relicTable = a.relics.length ? `
+      <table class="table table-sm mb-0" style="margin-top:0.25rem">
+        <thead><tr style="font-size:0.8em">
+          <th>Relic</th><th>Offered (runs)</th><th>Picked (runs)</th><th>Pick Rate</th><th>Win Rate (when picked)</th>
+        </tr></thead>
+        <tbody>${relicRows}</tbody>
+      </table>` : '<span style="color:var(--sts-muted)">No relic data</span>';
+    rows.push(`<tr class="deck-detail-row" data-ancient-detail-for="${idx}" style="display:none">
+      <td colspan="5" style="padding:0.5rem 1rem 0.75rem 1rem;background:rgba(0,0,0,0.18)">${relicTable}</td>
+    </tr>`);
+  });
+  tbody.innerHTML = rows.join('');
+
+  tbody.querySelectorAll('.deck-expand-btn[data-ancient-idx]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const idx = btn.dataset.ancientIdx;
+      const detailRow = tbody.querySelector(`tr[data-ancient-detail-for="${idx}"]`);
+      if (detailRow) {
+        detailRow.style.display = detailRow.style.display === 'none' ? '' : 'none';
+      }
+    });
+  });
+}
+
+// ────────────────────────────────────────────────────────────────────────────
 // REST SITES
 // ────────────────────────────────────────────────────────────────────────────
 async function loadRestSites() {
@@ -770,7 +881,7 @@ function switchTab(tab) {
   document.querySelectorAll('#main-tabs .nav-link').forEach(l => {
     l.classList.toggle('active', l.dataset.tab === tab);
   });
-  ['overview','cards','relics','encounters','rest','runs'].forEach(t => {
+  ['overview','cards','relics','encounters','ancients','rest','runs'].forEach(t => {
     document.getElementById(`tab-${t}`).style.display = t === tab ? '' : 'none';
   });
   loadCurrentTab();
@@ -782,6 +893,7 @@ function loadCurrentTab() {
   if (t === 'cards')       loadCards();
   if (t === 'relics')      loadRelics();
   if (t === 'encounters')  loadEncounters();
+  if (t === 'ancients')    loadAncients();
   if (t === 'rest')        loadRestSites();
   if (t === 'runs')        loadRuns();
 }
@@ -815,6 +927,10 @@ document.getElementById('filter-character').addEventListener('change', e => {
 
 document.getElementById('filter-ascension').addEventListener('change', e => {
   state.ascension = e.target.value; invalidateCache(); loadCurrentTab();
+});
+
+document.getElementById('filter-ancient').addEventListener('change', e => {
+  state.ancient = e.target.value; invalidateCache(); loadCurrentTab();
 });
 
 document.getElementById('filter-multiplayer').addEventListener('change', e => {
@@ -853,6 +969,7 @@ document.querySelectorAll('#relic-subtabs .nav-link').forEach(link => {
 // ────────────────────────────────────────────────────────────────────────────
 loadCharacters();
 loadAscensions();
+loadAncientFilter();
 loadOverview();
 </script>
 </body>

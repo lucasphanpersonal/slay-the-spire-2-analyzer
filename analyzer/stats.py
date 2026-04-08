@@ -7,6 +7,7 @@ from typing import Any, Dict, List, Optional, Set
 
 from .parser import (
     CHOICE_SOURCES,
+    extract_ancients,
     extract_card_choices,
     extract_deck_cards,
     extract_encounters,
@@ -34,6 +35,7 @@ def filter_runs(
     *,
     character: Optional[str] = None,
     ascension: Optional[int] = None,
+    ancient: Optional[str] = None,
     exclude_multiplayer: bool = True,
     exclude_abandoned: bool = True,
 ) -> List[Dict[str, Any]]:
@@ -47,6 +49,9 @@ def filter_runs(
         If provided, keep only runs matching this character (e.g. "IRONCLAD").
     ascension:
         If provided, keep only runs at exactly this ascension level.
+    ancient:
+        If provided, keep only runs in which this Ancient was encountered
+        at least once (e.g. "NEOW", "PAEL").
     exclude_multiplayer:
         When True, discard runs with ``players.length > 1``.
     exclude_abandoned:
@@ -65,6 +70,10 @@ def filter_runs(
             continue
         if ascension is not None and run.get("ascension", 0) != ascension:
             continue
+        if ancient:
+            names = {ev["name"] for ev in extract_ancients(run)}
+            if ancient not in names:
+                continue
 
         # Dedup by seed
         rid = get_run_id(run)
@@ -86,6 +95,15 @@ def get_ascensions(runs: List[Dict[str, Any]]) -> List[int]:
     """Return sorted unique ascension levels present in *runs*."""
     levels = {r.get("ascension", 0) for r in runs}
     return sorted(levels)
+
+
+def get_ancients(runs: List[Dict[str, Any]]) -> List[str]:
+    """Return sorted unique ancient names present in *runs*."""
+    names: Set[str] = set()
+    for run in runs:
+        for ev in extract_ancients(run):
+            names.add(ev["name"])
+    return sorted(names)
 
 
 # ── Overview ──────────────────────────────────────────────────────────────────
@@ -366,6 +384,72 @@ def compute_rest_sites(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             }
         )
     results.sort(key=lambda x: x["times_used"], reverse=True)
+    return results
+
+
+# ── Ancients ──────────────────────────────────────────────────────────────────
+
+def compute_ancients(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Compute per-ancient stats: encounter count, unique runs, win rate,
+    and per-relic pick/win rates for relics offered by that ancient.
+    """
+    ancient_run_ids: Dict[str, Set[str]] = defaultdict(set)
+    ancient_win_ids: Dict[str, Set[str]] = defaultdict(set)
+    ancient_encounters: Dict[str, int] = defaultdict(int)
+
+    # relic stats keyed by (ancient_name, relic)
+    relic_offered: Dict[str, Dict[str, Set[str]]] = defaultdict(lambda: defaultdict(set))
+    relic_picked: Dict[str, Dict[str, Set[str]]] = defaultdict(lambda: defaultdict(set))
+    relic_win: Dict[str, Dict[str, Set[str]]] = defaultdict(lambda: defaultdict(set))
+
+    for run in runs:
+        run_id = get_run_id(run)
+        run_win = run.get("win", False)
+        for ev in extract_ancients(run):
+            name = ev["name"]
+            ancient_run_ids[name].add(run_id)
+            ancient_encounters[name] += 1
+            if run_win:
+                ancient_win_ids[name].add(run_id)
+            for opt in ev["ancient_choice"]:
+                relic = opt.get("TextKey", "")
+                if not relic:
+                    continue
+                relic_offered[name][relic].add(run_id)
+                if opt.get("was_chosen", False):
+                    relic_picked[name][relic].add(run_id)
+                    if run_win:
+                        relic_win[name][relic].add(run_id)
+
+    results: List[Dict[str, Any]] = []
+    for name, run_set in ancient_run_ids.items():
+        win_set = ancient_win_ids.get(name, set())
+        win_rate = len(win_set) / len(run_set) if run_set else None
+
+        relics: List[Dict[str, Any]] = []
+        for relic, offered_set in relic_offered[name].items():
+            picked_set = relic_picked[name].get(relic, set())
+            w_set = relic_win[name].get(relic, set())
+            pick_rate = len(picked_set) / len(offered_set) if offered_set else 0.0
+            relic_win_rate = len(w_set) / len(picked_set) if picked_set else None
+            relics.append({
+                "relic": relic,
+                "offered_runs": len(offered_set),
+                "picked_runs": len(picked_set),
+                "pick_rate": round(pick_rate, 4),
+                "win_rate": round(relic_win_rate, 4) if relic_win_rate is not None else None,
+            })
+        relics.sort(key=lambda x: x["offered_runs"], reverse=True)
+
+        results.append({
+            "name": name,
+            "encounters": ancient_encounters[name],
+            "runs": len(run_set),
+            "win_rate": round(win_rate, 4) if win_rate is not None else None,
+            "relics": relics,
+        })
+
+    results.sort(key=lambda x: x["encounters"], reverse=True)
     return results
 
 

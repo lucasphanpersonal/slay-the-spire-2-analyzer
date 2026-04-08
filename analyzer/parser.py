@@ -269,6 +269,32 @@ def extract_rest_sites(run: Dict[str, Any]) -> List[Dict[str, Any]]:
     return result
 
 
+# ── Ancient data ─────────────────────────────────────────────────────────────
+
+def extract_ancients(run: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Return ancient visit events with the ancient name and relic choices.
+
+    Each entry has:
+        ``{"name": str, "ancient_choice": [...]}``
+    where ``name`` is the stripped model_id (e.g. ``"NEOW"``, ``"PAEL"``)
+    and ``ancient_choice`` is the raw list from ``player_stats``.
+    """
+    result: List[Dict[str, Any]] = []
+    for node_type, stats, node in iter_nodes(run):
+        if node_type != "ancient":
+            continue
+        rooms = node.get("rooms", [])
+        room = rooms[0] if rooms else {}
+        model_id = room.get("model_id", "")
+        ancient_name = _strip_prefix(model_id) if model_id else "UNKNOWN"
+        ancient_choice = stats.get("ancient_choice") or []
+        result.append({
+            "name": ancient_name,
+            "ancient_choice": ancient_choice,
+        })
+    return result
+
+
 # ── Run summary helpers ───────────────────────────────────────────────────────
 
 def run_total_damage(run: Dict[str, Any]) -> int:
