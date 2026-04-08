@@ -1327,7 +1327,7 @@ async function loadShops() {
 }
 
 function renderShopsOverview(ov) {
-  const pctRem = Math.round((ov.pct_runs_with_removal || 0) * 100);
+  const pctRem = ((ov.pct_runs_with_removal || 0) * 100).toFixed(1);
   document.getElementById('shops-overview-cards').innerHTML = `
     <div class="col-6 col-md-3"><div class="card stat-card p-3">
       <div class="stat-value">${ov.total_shop_visits}</div>
@@ -1339,7 +1339,7 @@ function renderShopsOverview(ov) {
       <div class="stat-value" style="color:var(--sts-red)">${pctRem}%</div>
       <div class="stat-label">% Runs With Removal</div></div></div>
     <div class="col-6 col-md-3"><div class="card stat-card p-3" style="border-top-color:var(--sts-red)">
-      <div class="stat-value" style="color:var(--sts-red)">${ov.avg_removals_per_run}</div>
+      <div class="stat-value" style="color:var(--sts-red)">${(ov.avg_removals_per_run || 0).toFixed(2)}</div>
       <div class="stat-label">Avg Removals / Run</div></div></div>
   `;
 }
