@@ -1,4 +1,4 @@
-"""analyzer/scraper.py — Scrape and cache card art images from the STS2 wiki."""
+"""analyzer/scraper.py — Scrape and cache card art images from sts2.untapped.gg (with wiki fallback)."""
 
 from __future__ import annotations
 
@@ -12,17 +12,21 @@ import urllib.request
 from pathlib import Path
 from typing import Dict, List, Optional, Set
 
-# Wiki base URL for Slay the Spire 2 cards
+# Primary source: sts2.untapped.gg card pages
+UNTAPPED_BASE = "https://sts2.untapped.gg"
+UNTAPPED_CARDS_PATH = "/en/cards"
+
+# Fallback: STS2 wiki
 WIKI_API = "https://slaythespire.wiki.gg/api.php"
 WIKI_BASE = "https://slaythespire.wiki.gg"
 
 # Namespace prefix used for STS2 card pages on the wiki
 STS2_NAMESPACE = "Slay_the_Spire_2"
 
-# Delay between requests (seconds) to be polite to the wiki
+# Delay between requests (seconds)
 REQUEST_DELAY = 0.3
 
-# User-agent so the wiki knows who is calling
+# User-agent header for all requests
 USER_AGENT = "STS2-Run-Analyzer/1.0 (card-image-scraper; github.com/lucasphanpersonal/slay-the-spire-2-analyzer)"
 
 
@@ -46,6 +50,17 @@ def card_id_to_filename(card_id: str) -> str:
     return card_id.lower() + ".png"
 
 
+def card_id_to_slug(card_id: str) -> str:
+    """Convert a card ID to an untapped.gg URL slug.
+
+    Examples:
+        ALL_FOR_ONE   → all-for-one
+        BASH          → bash
+        SETUP_STRIKE  → setup-strike
+    """
+    return card_id.lower().replace("_", "-")
+
+
 # ── HTTP helpers ──────────────────────────────────────────────────────────────
 
 def _get(url: str, timeout: int = 10) -> Optional[bytes]:
@@ -67,6 +82,73 @@ def _get_json(url: str, timeout: int = 10) -> Optional[dict]:
         return json.loads(data.decode("utf-8"))
     except Exception:  # noqa: BLE001
         return None
+
+
+# ── untapped.gg image resolution ─────────────────────────────────────────────
+
+def _fetch_image_from_untapped(card_id: str) -> Optional[str]:
+    """Fetch the untapped.gg card page for *card_id* and extract the card image URL.
+
+    Tries, in order:
+    1. The ``og:image`` Open Graph meta tag (present in SSR HTML for SEO).
+    2. Embedded ``__NEXT_DATA__`` JSON (Next.js server-side props).
+    3. Any ``<img>`` src whose URL contains the card slug.
+
+    Returns the absolute image URL, or None if not found.
+    """
+    slug = card_id_to_slug(card_id)
+    page_url = f"{UNTAPPED_BASE}{UNTAPPED_CARDS_PATH}/{slug}"
+    html_bytes = _get(page_url)
+    if not html_bytes:
+        return None
+
+    try:
+        html = html_bytes.decode("utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        return None
+
+    # 1. Open Graph og:image (most reliable — server-rendered for SEO)
+    # Handle both attribute orders: property first or content first
+    og_match = re.search(
+        r'<meta[^>]+(?:'
+        r'property=["\']og:image["\'][^>]+content=["\'](https?://[^"\']+)["\']'
+        r'|content=["\'](https?://[^"\']+)["\'][^>]+property=["\']og:image["\']'
+        r')',
+        html,
+        re.IGNORECASE,
+    )
+    if og_match:
+        return og_match.group(1) or og_match.group(2)
+
+    # 2. Next.js __NEXT_DATA__ JSON blob
+    next_match = re.search(
+        r'<script[^>]+id=["\']__NEXT_DATA__["\'][^>]*>(.*?)</script>',
+        html,
+        re.DOTALL | re.IGNORECASE,
+    )
+    if next_match:
+        try:
+            next_data = json.loads(next_match.group(1))
+            # Walk the whole JSON looking for image URLs containing the slug
+            next_json_str = json.dumps(next_data)
+            img_matches = re.findall(r'https?://[^\s"\'<>]+(?:\.png|\.jpg|\.jpeg|\.webp|\.gif)', next_json_str, re.IGNORECASE)
+            for url in img_matches:
+                if slug in url.lower():
+                    return url
+        except Exception:  # noqa: BLE001
+            pass
+
+    # 3. Any <img src="..."> whose URL contains the card slug
+    img_matches = re.findall(
+        r'<img[^>]+src=["\'](https?://[^"\']+)["\']',
+        html,
+        re.IGNORECASE,
+    )
+    for src in img_matches:
+        if slug in src.lower():
+            return src
+
+    return None
 
 
 # ── Wiki image resolution ─────────────────────────────────────────────────────
@@ -174,10 +256,20 @@ def _candidate_file_titles(card_id: str) -> List[str]:
 
 
 def fetch_card_image_url(card_id: str) -> Optional[str]:
-    """Try to resolve a card image URL from the wiki for *card_id*.
+    """Try to resolve a card image URL for *card_id*.
+
+    First tries sts2.untapped.gg (primary source), then falls back to the
+    STS2 wiki (MediaWiki API).
 
     Returns the direct image URL (e.g., a CDN URL), or None if not found.
     """
+    # Primary: untapped.gg card page
+    url = _fetch_image_from_untapped(card_id)
+    if url:
+        return url
+    time.sleep(REQUEST_DELAY)
+
+    # Fallback: wiki
     for file_title in _candidate_file_titles(card_id):
         url = _resolve_image_url_via_api(file_title)
         if url:
@@ -234,7 +326,7 @@ def scrape_card_images(
         image_url = fetch_card_image_url(card_id)
         if not image_url:
             if verbose:
-                print("not found on wiki")
+                print("not found")
             continue
 
         image_data = _get(image_url)
@@ -296,7 +388,7 @@ def run_scrape(history_path: str, output_dir: str) -> None:
     card_ids = collect_card_ids_from_runs(history_path)
     print(f"Found {len(card_ids)} unique card IDs.\n")
 
-    print("Fetching images from the wiki…")
+    print("Fetching images from sts2.untapped.gg (with wiki fallback)…")
     downloaded = scrape_card_images(card_ids, output_dir, verbose=True)
 
     print(f"\nDone. Downloaded {len(downloaded)}/{len(card_ids)} images → {output_dir}")
