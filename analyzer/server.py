@@ -26,6 +26,43 @@ from .stats import (
 
 
 def create_app(history_path: str) -> Flask:
+    """Create and return the Flask application.
+
+    All ``.run`` files are loaded fresh on every request so that new files
+    dropped into *history_path* are picked up without restarting the server.
+
+    Parameters
+    ----------
+    history_path:
+        Absolute path to the folder (or tree) that contains ``.run`` files.
+
+    API endpoints
+    -------------
+    GET /                       — serves the single-page dashboard (index.html)
+    GET /api/diagnostic         — raw file / run counts, schema anomalies
+    GET /api/characters         — sorted list of character names in the dataset
+    GET /api/ascensions         — sorted list of ascension levels in the dataset
+    GET /api/ancients           — sorted list of ancient names in the dataset
+    GET /api/ancient_stats      — per-ancient encounter/relic statistics
+    GET /api/overview           — high-level aggregated statistics
+    GET /api/cards              — per-card pick-rate / win-rate table
+    GET /api/relics             — choice and forced relic statistics
+    GET /api/encounters         — per-encounter damage / death statistics
+    GET /api/rest_sites         — rest-site choice frequency and win rate
+    GET /api/runs               — one summary row per run (for the Runs tab)
+    GET /api/run/<filename>     — full detail for a single run file
+
+    Common query parameters (all stat endpoints except /api/diagnostic):
+        character           — filter to a specific character name
+        ascension           — filter to an exact ascension level (integer)
+        ancient             — filter to runs containing this ancient
+        exclude_multiplayer — "true"/"false", default true
+        exclude_abandoned   — "true"/"false", default true
+
+    Additional parameter for /api/cards:
+        min_samples         — minimum times a card must have been offered
+                              before it appears in the results (default: 1)
+    """
     root = os.path.dirname(os.path.dirname(__file__))
     template_dir = os.path.join(root, "templates")
     static_dir = os.path.join(root, "static")
@@ -35,6 +72,7 @@ def create_app(history_path: str) -> Flask:
     # ── Helpers ───────────────────────────────────────────────────────────────
 
     def _load() -> list:
+        """Load all run files from the configured history path."""
         return load_run_files(app.config["HISTORY_PATH"])
 
     def _bool(value: str | None, default: bool = True) -> bool:

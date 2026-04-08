@@ -146,3 +146,21 @@ For **ancient nodes**, `ancient_choice` should be a list of options:
 
 - **Backend:** Python + [Flask](https://flask.palletsprojects.com/)
 - **Frontend:** Single-page HTML with Bootstrap 5 + Chart.js (bundled locally — works offline)
+
+## Troubleshooting
+
+**No data shows up in the dashboard**  
+Run `python run.py --diagnostic` to confirm that your `.run` files are being found and parsed correctly.  Check the output for file counts and schema anomalies.
+
+**The history folder can't be found**  
+Use `--history` to point to the exact folder: `python run.py --history /full/path/to/run_history`.
+
+**A `.run` file is silently skipped**  
+The loader prints `[warn] Could not parse <filename>: <error>` to the console for any file it cannot read.  The most common cause is a file that isn't valid JSON.
+
+**Stats look wrong or cards/relics are missing**  
+Open an issue and include the output of `python run.py --diagnostic` plus an anonymised snippet from the affected `.run` file.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the architecture overview, module reference, and guidance on adding new features.

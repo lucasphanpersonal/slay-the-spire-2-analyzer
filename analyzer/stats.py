@@ -109,6 +109,18 @@ def get_ancients(runs: List[Dict[str, Any]]) -> List[str]:
 # ── Overview ──────────────────────────────────────────────────────────────────
 
 def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Compute high-level aggregated statistics for a set of runs.
+
+    Returns a dict with:
+        total_runs      — number of runs in the filtered set
+        wins            — number of winning runs
+        win_rate        — wins / total_runs (0.0–1.0)
+        avg_damage_taken — mean total damage taken across all runs
+        avg_deck_size   — mean final deck size across all runs
+        avg_run_time_s  — mean run duration in seconds (runs with no time excluded)
+        acts_reached    — ``{str(acts): count}`` distribution
+        kills_by        — ``{killer: count}`` for the top-15 death causes (losses only)
+    """
     total = len(runs)
     if total == 0:
         return {
