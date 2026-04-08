@@ -65,9 +65,7 @@ def create_app(history_path: str) -> Flask:
     @app.route("/api/characters")
     def api_characters():
         all_runs = _load()
-        # Characters from all solo runs (before character filter)
-        solo = [r for r in all_runs if True]  # no char filter here
-        return jsonify(get_characters(solo))
+        return jsonify(get_characters(all_runs))
 
     @app.route("/api/ascensions")
     def api_ascensions():
