@@ -58,10 +58,33 @@ def create_app(history_path: str) -> Flask:
     app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
     app.config["HISTORY_PATH"] = history_path
 
+    # ── Run-file cache ────────────────────────────────────────────────────────
+    # Re-loading hundreds of .run files on every API request is expensive.
+    # We cache the result and only invalidate when the history directory's
+    # modification time changes (i.e. a new .run file has been added/removed).
+    _cache: dict = {"runs": [], "mtime": -1.0}
+
+    def _dir_mtime(path: str) -> float:
+        """Return the latest mtime of any file in the directory tree."""
+        try:
+            mtimes = [
+                os.path.getmtime(os.path.join(dp, f))
+                for dp, _dirs, files in os.walk(path)
+                for f in files
+                if f.endswith(".run") and not f.endswith(".run.backup")
+            ]
+            return max(mtimes) if mtimes else 0.0
+        except OSError:
+            return 0.0
+
     # ── Helpers ───────────────────────────────────────────────────────────────
 
     def _load() -> list:
-        return load_run_files(app.config["HISTORY_PATH"])
+        current_mtime = _dir_mtime(app.config["HISTORY_PATH"])
+        if current_mtime != _cache["mtime"]:
+            _cache["runs"] = load_run_files(app.config["HISTORY_PATH"])
+            _cache["mtime"] = current_mtime
+        return _cache["runs"]
 
     def _bool(value: str | None, default: bool = True) -> bool:
         if value is None:

@@ -475,34 +475,44 @@ def compute_encounters(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 # ── Rest sites ────────────────────────────────────────────────────────────────
 
 def compute_rest_sites(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Compute rest-site choice frequency and win rate."""
+    """Compute rest-site choice frequency and win rate.
+
+    ``times_used`` is the total number of rest-site visits for each choice
+    (not a count of unique runs).  ``win_rate`` is still computed per-run so
+    that runs with many rest sites don't have outsized influence.
+    """
+    # Per-visit tallies (for times_used / frequency / avg_hp_healed)
+    choice_visit_count: Dict[str, int] = defaultdict(int)
+    choice_healed: Dict[str, List[int]] = defaultdict(list)
+    # Per-run sets (for win_rate)
     choice_runs: Dict[str, Set[str]] = defaultdict(set)
     choice_win: Dict[str, Set[str]] = defaultdict(set)
-    choice_healed: Dict[str, List[int]] = defaultdict(list)
 
     for run in runs:
         run_id = get_run_id(run)
         run_win = run.get("win", False)
         for event in extract_rest_sites(run):
             choice = event["choice"]
+            choice_visit_count[choice] += 1
             choice_runs[choice].add(run_id)
             if run_win:
                 choice_win[choice].add(run_id)
             if event["hp_healed"]:
                 choice_healed[choice].append(event["hp_healed"])
 
-    total_visits = sum(len(v) for v in choice_runs.values())
+    total_visits = sum(choice_visit_count.values())
 
     results: List[Dict[str, Any]] = []
-    for choice, run_set in choice_runs.items():
+    for choice, visit_count in choice_visit_count.items():
+        run_set = choice_runs.get(choice, set())
         won_set = choice_win.get(choice, set())
         healed = choice_healed.get(choice, [])
-        frequency = len(run_set) / total_visits if total_visits else 0.0
+        frequency = visit_count / total_visits if total_visits else 0.0
         win_rate = len(won_set) / len(run_set) if run_set else None
         results.append(
             {
                 "choice": choice,
-                "times_used": len(run_set),
+                "times_used": visit_count,
                 "frequency": round(frequency, 4),
                 "win_rate": round(win_rate, 4) if win_rate is not None else None,
                 "avg_hp_healed": round(sum(healed) / len(healed), 1) if healed else None,
@@ -734,6 +744,10 @@ def compute_diagnostic(all_runs: List[Dict[str, Any]]) -> Dict[str, Any]:
     abandoned_first_floor = sum(
         1 for r in all_runs if is_abandoned_first_floor(r)
     )
+    # Count wins/losses separately for solo vs multiplayer runs so that
+    # multiplayer wins don't inflate the solo-loss count.
+    solo_wins = sum(1 for r in all_runs if is_solo_run(r) and r.get("win", False))
+    solo_runs = total - multiplayer
     wins = sum(1 for r in all_runs if r.get("win", False))
 
     char_counts: Dict[str, int] = defaultdict(int)
@@ -759,9 +773,9 @@ def compute_diagnostic(all_runs: List[Dict[str, Any]]) -> Dict[str, Any]:
     return {
         "total_files": total,
         "multiplayer_runs": multiplayer,
-        "solo_runs": total - multiplayer,
+        "solo_runs": solo_runs,
         "wins": wins,
-        "losses": total - multiplayer - wins,
+        "losses": solo_runs - solo_wins,
         "abandoned_first_floor": abandoned_first_floor,
         "duplicate_seeds": dupe_seeds,
         "characters": dict(sorted(char_counts.items())),
