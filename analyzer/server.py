@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 from typing import Any
 
@@ -128,6 +129,18 @@ def create_app(history_path: str) -> Flask:
     def api_runs():
         runs = filter_runs(_load(), **_filters())
         return jsonify(compute_runs_list(runs))
+
+    @app.route("/api/card_data")
+    def api_card_data():
+        """Return scraped card metadata from card_data.json (empty dict if not yet scraped)."""
+        data_file = os.path.join(static_dir, "card_images", "card_data.json")
+        try:
+            with open(data_file, encoding="utf-8") as f:
+                return jsonify(json.load(f))
+        except FileNotFoundError:
+            return jsonify({})
+        except Exception:
+            return jsonify({"error": "Failed to load card data"}), 500
 
     @app.route("/api/run/<path:filename>")
     def api_run_detail(filename: str):

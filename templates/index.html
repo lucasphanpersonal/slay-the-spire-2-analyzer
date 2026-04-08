@@ -131,6 +131,33 @@
     .choice-picked { color: var(--sts-green); font-weight: 600; }
     .choice-skipped { color: var(--sts-muted); font-style: italic; }
     .runs-tbody-clickable tr[data-run-idx] { cursor: pointer; }
+    /* Card detail modal */
+    #cardDetailModal { display: none; position: fixed; inset: 0; z-index: 1060;
+                       background: rgba(0,0,0,0.75); align-items: center; justify-content: center; }
+    #cardDetailModal.show { display: flex !important; }
+    .card-detail-inner { background: var(--sts-surface); border: 1px solid var(--sts-gold);
+                          border-radius: 8px; max-width: 560px; width: 95%; max-height: 90vh;
+                          overflow-y: auto; padding: 1.5rem; position: relative; }
+    .card-detail-header { display: flex; justify-content: space-between; align-items: center;
+                           margin-bottom: 1rem; border-bottom: 1px solid var(--sts-border); padding-bottom: 0.75rem; }
+    .card-detail-title { color: var(--sts-gold); margin: 0; font-weight: 700; font-size: 1.2rem; }
+    .card-detail-close { background: none; border: none; color: var(--sts-muted); font-size: 1.5rem;
+                          cursor: pointer; padding: 0; line-height: 1; }
+    .card-detail-close:hover { color: var(--sts-text); }
+    .card-detail-body { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .card-detail-art-col { flex-shrink: 0; text-align: center; }
+    #card-detail-art-img { width: 160px; height: auto; border-radius: 6px; border: 2px solid var(--sts-border); display: block; }
+    .card-detail-art-placeholder { width: 160px; height: 200px; background: var(--sts-border); border-radius: 6px;
+                                    display: none; align-items: center; justify-content: center; font-size: 3rem; }
+    .card-detail-toggle { margin-top: 0.5rem; display: none; gap: 4px; justify-content: center; }
+    .card-detail-toggle button { font-size: 0.75rem; padding: 2px 10px; border-radius: 3px; cursor: pointer; transition: all 0.15s; }
+    .card-detail-toggle .btn-active { background: var(--sts-gold); color: #1a1611; border: none; font-weight: 600; }
+    .card-detail-toggle .btn-inactive { background: var(--sts-bg); color: var(--sts-text); border: 1px solid var(--sts-border); }
+    .card-detail-info { flex: 1; min-width: 0; }
+    .card-detail-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+    .card-detail-desc-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+                               letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+    .card-detail-desc-text { font-size: 0.9rem; line-height: 1.55; margin-bottom: 0.75rem; }
   </style>
 </head>
 <body>
@@ -427,6 +454,40 @@
   </div>
 </div>
 
+<!-- Card Detail Modal -->
+<div id="cardDetailModal">
+  <div class="card-detail-inner">
+    <div class="card-detail-header">
+      <h5 class="card-detail-title" id="cardDetailModalLabel"></h5>
+      <button class="card-detail-close" onclick="closeCardDetail()" aria-label="Close">×</button>
+    </div>
+    <div class="card-detail-body">
+      <div class="card-detail-art-col">
+        <img id="card-detail-art-img" src="" alt="" onerror="cardDetailArtFallback()" />
+        <div class="card-detail-art-placeholder" id="card-detail-art-placeholder">🃏</div>
+        <div class="card-detail-toggle" id="card-detail-toggle">
+          <button id="btn-art-normal"   class="btn-active"   onclick="setCardArtView(false)">Normal</button>
+          <button id="btn-art-upgraded" class="btn-inactive" onclick="setCardArtView(true)">Upgraded</button>
+        </div>
+      </div>
+      <div class="card-detail-info">
+        <div class="card-detail-meta"  id="card-detail-meta"></div>
+        <div id="card-detail-desc-normal" style="display:none">
+          <div class="card-detail-desc-label" style="color:var(--sts-gold)">Description</div>
+          <div class="card-detail-desc-text" id="card-detail-desc-normal-text"></div>
+        </div>
+        <div id="card-detail-desc-upgraded" style="display:none">
+          <div class="card-detail-desc-label" style="color:var(--sts-blue)">Upgraded Description</div>
+          <div class="card-detail-desc-text" id="card-detail-desc-upgraded-text"></div>
+        </div>
+        <div id="card-detail-no-data" style="display:none;color:var(--sts-muted);font-style:italic;font-size:0.9rem">
+          No card data available — run <code>python run.py --scrape-images</code> to fetch card info.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 // ────────────────────────────────────────────────────────────────────────────
 // State
@@ -645,6 +706,27 @@ function chartOpts(yLabel) {
 // ────────────────────────────────────────────────────────────────────────────
 // CARDS
 // ────────────────────────────────────────────────────────────────────────────
+
+/** Generate a clickable card pill for a deck card object {id, upgrade, enchantment, enchant_amount}. */
+function cardPillHtml(c) {
+  const upg = c.upgrade > 0 ? `<sup class="card-upgrade">+${c.upgrade}</sup>` : '';
+  const oc = `event.stopPropagation();openCardDetail('${jsStr(c.id)}')`;
+  if (c.enchantment) {
+    const enchAmt = c.enchant_amount > 1 ? ` x${c.enchant_amount}` : '';
+    return `<span class="card-pill enchanted" onclick="${oc}" style="cursor:pointer">${esc(c.id)}${upg}<span class="enchant-badge">✦ ${esc(c.enchantment)}${esc(enchAmt)}</span></span>`;
+  }
+  return `<span class="card-pill" onclick="${oc}" style="cursor:pointer">${esc(c.id)}${upg}</span>`;
+}
+
+/** Generate a clickable card pill for a plain card ID string (e.g. from card choices). */
+function cardIdPillHtml(cardId, picked = false) {
+  const oc = `event.stopPropagation();openCardDetail('${jsStr(cardId)}')`;
+  if (picked) {
+    return `<span class="card-pill" onclick="${oc}" style="cursor:pointer;background:rgba(90,170,90,0.35);border-color:var(--sts-green);font-weight:600">${esc(cardId)} ✓</span>`;
+  }
+  return `<span class="card-pill" onclick="${oc}" style="cursor:pointer;opacity:0.6">${esc(cardId)}</span>`;
+}
+
 let allCards = [];
 async function loadCards() {
   showLoading('cards-loading'); hideContent('cards-content');
@@ -661,14 +743,20 @@ function cardArtHtml(cardId) {
   const filename = cardId.toLowerCase() + '.png';
   const url = `/static/card_images/${filename}`;
   // Use data-card-id to avoid constructing HTML inside the onerror attribute
-  return `<img src="${esc(url)}" class="card-art" alt="${esc(cardId)}" data-card-id="${esc(cardId)}" onerror="cardArtFallback(this)" />`;
+  return `<img src="${esc(url)}" class="card-art" alt="${esc(cardId)}" data-card-id="${esc(cardId)}" onerror="cardArtFallback(this)" onclick="event.stopPropagation();openCardDetail('${jsStr(cardId)}')" style="cursor:pointer" />`;
 }
 
 function cardArtFallback(img) {
+  const cardId = img.dataset.cardId || '';
   const span = document.createElement('span');
   span.className = 'card-art-placeholder';
-  span.title = img.dataset.cardId || '';
+  span.title = cardId;
   span.textContent = '🃏';
+  if (cardId) {
+    span.dataset.cardId = cardId;
+    span.style.cursor = 'pointer';
+    span.onclick = e => { e.stopPropagation(); openCardDetail(cardId); };
+  }
   img.replaceWith(span);
 }
 
@@ -716,7 +804,7 @@ function renderCardsTable(data) {
           : '<span style="color:var(--sts-muted)">—</span>';
         return `<tr>
           <td>${cardArtHtml(r.card)}</td>
-          <td>${esc(r.card)}</td>
+          <td><span onclick="openCardDetail('${jsStr(r.card)}')" style="cursor:pointer;text-decoration:underline dotted">${esc(r.card)}</span></td>
           <td>${r.offered_runs}</td>
           <td>${r.picked_runs}</td>
           <td>${pct(r.pick_rate)}</td>
@@ -1048,14 +1136,7 @@ function renderRuns(data) {
       <td>${r.killed_by ? esc(r.killed_by) : (r.win ? '🏆' : '—')}</td>
     </tr>`);
     // Pre-render the hidden deck detail row
-    const deckHtml = (r.deck || []).map(c => {
-      const upg = c.upgrade > 0 ? `<sup class="card-upgrade">+${c.upgrade}</sup>` : '';
-      if (c.enchantment) {
-        const enchAmt = c.enchant_amount > 1 ? ` x${c.enchant_amount}` : '';
-        return `<span class="card-pill enchanted">${esc(c.id)}${upg}<span class="enchant-badge">✦ ${esc(c.enchantment)}${esc(enchAmt)}</span></span>`;
-      }
-      return `<span class="card-pill">${esc(c.id)}${upg}</span>`;
-    }).join('') || '<span style="color:var(--sts-muted)">—</span>';
+    const deckHtml = (r.deck || []).map(c => cardPillHtml(c)).join('') || '<span style="color:var(--sts-muted)">—</span>';
     rows.push(`<tr class="deck-detail-row" data-deck-for="${idx}" style="display:none">
       <td colspan="10">${deckHtml}</td>
     </tr>`);
@@ -1170,14 +1251,7 @@ function renderDetailSummary(d) {
   const hpPct = d.max_hp ? d.hp / d.max_hp : 0;
   const hpClass = hpPct < 0.3 ? 'low' : hpPct < 0.6 ? 'mid' : '';
   const enchantedCount = (d.deck || []).filter(c => c.enchantment).length;
-  const deckHtml = (d.deck || []).map(c => {
-    const upg = c.upgrade > 0 ? `<sup class="card-upgrade">+${c.upgrade}</sup>` : '';
-    if (c.enchantment) {
-      const enchAmt = c.enchant_amount > 1 ? ` x${c.enchant_amount}` : '';
-      return `<span class="card-pill enchanted">${esc(c.id)}${upg}<span class="enchant-badge">✦ ${esc(c.enchantment)}${esc(enchAmt)}</span></span>`;
-    }
-    return `<span class="card-pill">${esc(c.id)}${upg}</span>`;
-  }).join('') || '<span style="color:var(--sts-muted)">—</span>';
+  const deckHtml = (d.deck || []).map(c => cardPillHtml(c)).join('') || '<span style="color:var(--sts-muted)">—</span>';
 
   const relicsHtml = (d.relics || []).map(r => `<span class="relic-pill">${esc(r)}</span>`).join('') ||
     '<span style="color:var(--sts-muted)">—</span>';
@@ -1267,9 +1341,7 @@ function renderDetailCards(d) {
   }
   const html = choices.map((c, i) => {
     const offeredHtml = (c.offered || []).map(card =>
-      card === c.picked
-        ? `<span class="card-pill" style="background:rgba(90,170,90,0.35);border-color:var(--sts-green);font-weight:600">${esc(card)} ✓</span>`
-        : `<span class="card-pill" style="opacity:0.6">${esc(card)}</span>`
+      cardIdPillHtml(card, card === c.picked)
     ).join('');
     const skipped = !c.picked;
     return `<div class="choice-event">
@@ -1346,6 +1418,125 @@ function renderDetailRest(d) {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
+// CARD DETAIL MODAL
+// ────────────────────────────────────────────────────────────────────────────
+let cardDataCache = null;
+let currentCardDetailId = null;
+let cardDetailShowingUpgraded = false;
+
+async function ensureCardData() {
+  if (cardDataCache !== null) return;
+  try {
+    cardDataCache = await fetch('/api/card_data').then(r => r.json());
+  } catch(e) {
+    cardDataCache = {};
+  }
+}
+
+function cardDisplayName(cardId) {
+  return cardId.split('_').filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+}
+
+async function openCardDetail(cardId) {
+  await ensureCardData();
+  currentCardDetailId = cardId;
+  cardDetailShowingUpgraded = false;
+
+  const modal = document.getElementById('cardDetailModal');
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+
+  document.getElementById('cardDetailModalLabel').textContent = cardDisplayName(cardId);
+
+  const data = (cardDataCache && cardDataCache[cardId]) || null;
+  const normalSrc = `/static/card_images/${cardId.toLowerCase()}.png`;
+
+  // Art
+  const img = document.getElementById('card-detail-art-img');
+  const placeholder = document.getElementById('card-detail-art-placeholder');
+  img.src = normalSrc;
+  img.style.display = '';
+  placeholder.style.display = 'none';
+
+  // Upgrade toggle
+  const toggleDiv = document.getElementById('card-detail-toggle');
+  if (data && data.has_upgraded_image) {
+    toggleDiv.style.display = 'flex';
+    _updateArtToggle(false);
+  } else {
+    toggleDiv.style.display = 'none';
+  }
+
+  // Metadata badges
+  const metaDiv = document.getElementById('card-detail-meta');
+  if (data) {
+    const badges = [];
+    if (data.character)      badges.push(`<span class="badge" style="background:var(--sts-purple)">${esc(data.character)}</span>`);
+    if (data.card_type)      badges.push(`<span class="badge" style="background:var(--sts-blue)">${esc(data.card_type)}</span>`);
+    if (data.cost != null)   badges.push(`<span class="badge" style="background:var(--sts-gold);color:#1a1611">${data.cost} Energy</span>`);
+    if (data.rarity)         badges.push(`<span class="badge" style="background:rgba(90,90,90,0.6)">${esc(data.rarity)}</span>`);
+    metaDiv.innerHTML = badges.join(' ');
+  } else {
+    metaDiv.innerHTML = '';
+  }
+
+  // Descriptions
+  const descNormal   = document.getElementById('card-detail-desc-normal');
+  const descUpgraded = document.getElementById('card-detail-desc-upgraded');
+  const noData       = document.getElementById('card-detail-no-data');
+
+  if (data && (data.description || data.description_upgraded)) {
+    noData.style.display = 'none';
+    if (data.description) {
+      descNormal.style.display = '';
+      document.getElementById('card-detail-desc-normal-text').textContent = data.description;
+    } else {
+      descNormal.style.display = 'none';
+    }
+    if (data.description_upgraded) {
+      descUpgraded.style.display = '';
+      document.getElementById('card-detail-desc-upgraded-text').textContent = data.description_upgraded;
+    } else {
+      descUpgraded.style.display = 'none';
+    }
+  } else {
+    descNormal.style.display = 'none';
+    descUpgraded.style.display = 'none';
+    noData.style.display = '';
+  }
+}
+
+function cardDetailArtFallback() {
+  document.getElementById('card-detail-art-img').style.display = 'none';
+  document.getElementById('card-detail-art-placeholder').style.display = 'flex';
+}
+
+function setCardArtView(upgraded) {
+  cardDetailShowingUpgraded = upgraded;
+  const suffix = upgraded ? '_upgraded' : '';
+  const img = document.getElementById('card-detail-art-img');
+  const placeholder = document.getElementById('card-detail-art-placeholder');
+  img.src = `/static/card_images/${currentCardDetailId.toLowerCase()}${suffix}.png`;
+  img.style.display = '';
+  placeholder.style.display = 'none';
+  _updateArtToggle(upgraded);
+}
+
+function _updateArtToggle(upgraded) {
+  document.getElementById('btn-art-normal').className   = upgraded ? 'btn-inactive' : 'btn-active';
+  document.getElementById('btn-art-upgraded').className = upgraded ? 'btn-active'   : 'btn-inactive';
+}
+
+function closeCardDetail() {
+  document.getElementById('cardDetailModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('cardDetailModal').addEventListener('click', function(e) {
+  if (e.target === this) closeCardDetail();
+});
+
+// ────────────────────────────────────────────────────────────────────────────
 // Tab routing
 // ────────────────────────────────────────────────────────────────────────────
 function switchTab(tab) {
@@ -1386,6 +1577,11 @@ function showError(msg) {
 
 function esc(s) {
   return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/** Escape a value for safe embedding inside a JS single-quoted string in an HTML attribute. */
+function jsStr(s) {
+  return String(s ?? '').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
 }
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -1445,6 +1641,7 @@ loadCharacters();
 loadAscensions();
 loadAncientFilter();
 loadOverview();
+ensureCardData();
 </script>
 </body>
 </html>
