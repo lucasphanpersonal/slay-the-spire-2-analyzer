@@ -204,6 +204,8 @@ def compute_cards(
             for added in event.get("added", []):
                 if added:
                     added_runs[added].add(run_id)
+                    if run_win:
+                        win_runs[added].add(run_id)
 
         for deck_card in extract_deck_cards(run):
             card = deck_card["card"]
@@ -228,7 +230,9 @@ def compute_cards(
         added_set = added_runs.get(card, set())
         won_set = win_runs.get(card, set())
         pick_rate = len(picked_set) / len(offered_set) if offered_set else 0.0
-        win_rate = len(won_set) / len(picked_set) if picked_set else None
+        # Win rate covers all runs where the card was acquired (picked or relic-added).
+        acquired_set = picked_set | added_set
+        win_rate = len(won_set) / len(acquired_set) if acquired_set else None
 
         upgrade_levels = deck_upgrade_levels.get(card, [])
         avg_upgrade = round(sum(upgrade_levels) / len(upgrade_levels), 4) if upgrade_levels else None
