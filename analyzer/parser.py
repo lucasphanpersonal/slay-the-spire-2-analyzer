@@ -337,6 +337,38 @@ def extract_deck_cards(run: Dict[str, Any]) -> List[Dict[str, Any]]:
     return result
 
 
+def run_deck(run: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Return the final deck as a list of card objects with enchantment info.
+
+    Each entry has:
+        ``{"id": "BASH", "upgrade": int, "enchantment": str | None, "enchant_amount": int | None}``
+    """
+    players = run.get("players", [])
+    if not players:
+        return []
+    raw_deck = players[0].get("deck") or []
+    result: List[Dict[str, Any]] = []
+    for card in raw_deck:
+        if not isinstance(card, dict):
+            continue
+        card_id = _strip_prefix(card.get("id", ""))
+        upgrade = card.get("current_upgrade_level", 0)
+        enc = card.get("enchantment")
+        enchantment: Optional[str] = None
+        enchant_amount: Optional[int] = None
+        if isinstance(enc, dict):
+            enc_id = enc.get("id", "")
+            enchantment = _strip_prefix(enc_id) if enc_id else None
+            enchant_amount = enc.get("amount")
+        result.append({
+            "id": card_id,
+            "upgrade": upgrade,
+            "enchantment": enchantment,
+            "enchant_amount": enchant_amount,
+        })
+    return result
+
+
 def run_acts_reached(run: Dict[str, Any]) -> int:
     return len(run.get("map_point_history", []))
 
