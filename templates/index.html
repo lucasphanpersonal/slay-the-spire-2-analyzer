@@ -514,8 +514,16 @@ async function loadCards() {
 function cardArtHtml(cardId) {
   const filename = cardId.toLowerCase() + '.png';
   const url = `/static/card_images/${filename}`;
-  return `<img src="${url}" class="card-art" alt="${esc(cardId)}"
-               onerror="this.outerHTML='<span class=\\'card-art-placeholder\\' title=\\'${esc(cardId)}\\'>🃏</span>'" />`;
+  // Use data-card-id to avoid constructing HTML inside the onerror attribute
+  return `<img src="${esc(url)}" class="card-art" alt="${esc(cardId)}" data-card-id="${esc(cardId)}" onerror="cardArtFallback(this)" />`;
+}
+
+function cardArtFallback(img) {
+  const span = document.createElement('span');
+  span.className = 'card-art-placeholder';
+  span.title = img.dataset.cardId || '';
+  span.textContent = '🃏';
+  img.replaceWith(span);
 }
 
 function renderCardsTable(data) {

@@ -189,7 +189,7 @@ def compute_cards(
         win_rate = len(won_set) / len(picked_set) if picked_set else None
 
         upgrade_levels = deck_upgrade_levels.get(card, [])
-        avg_upgrade = round(sum(upgrade_levels) / len(upgrade_levels), 2) if upgrade_levels else None
+        avg_upgrade = round(sum(upgrade_levels) / len(upgrade_levels), 4) if upgrade_levels else None
         pct_upgraded = round(sum(1 for u in upgrade_levels if u > 0) / len(upgrade_levels), 4) if upgrade_levels else None
 
         results.append(

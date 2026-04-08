@@ -92,20 +92,6 @@ def _resolve_image_url_via_api(file_title: str) -> Optional[str]:
     return None
 
 
-def _candidate_file_titles(card_id: str) -> List[str]:
-    """Return candidate MediaWiki ``File:`` titles to try for *card_id*."""
-    display = card_display_name(card_id)
-    display_underscored = display.replace(" ", "_")
-
-    candidates = [
-        f"File:{display_underscored}.png",
-        f"File:{display_underscored}.jpg",
-        f"File:{display_underscored}_(Card).png",
-        f"File:{display_underscored}_(card).png",
-    ]
-    return candidates
-
-
 def card_display_name(card_id: str) -> str:
     """Convert card ID to a wiki-style display name.
 
@@ -124,6 +110,20 @@ def card_display_name(card_id: str) -> str:
             char = suffix.title()
             return f"{base} ({char})"
     return " ".join(p.title() for p in parts)
+
+
+def _candidate_file_titles(card_id: str) -> List[str]:
+    """Return candidate MediaWiki ``File:`` titles to try for *card_id*."""
+    display = card_display_name(card_id)
+    display_underscored = display.replace(" ", "_")
+
+    candidates = [
+        f"File:{display_underscored}.png",
+        f"File:{display_underscored}.jpg",
+        f"File:{display_underscored}_(Card).png",
+        f"File:{display_underscored}_(card).png",
+    ]
+    return candidates
 
 
 def fetch_card_image_url(card_id: str) -> Optional[str]:
