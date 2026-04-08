@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚔ STS2 Run Analyzer</title>
+  <link rel="stylesheet" href="/static/bootstrap.min.css" />
+  <script src="/static/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --sts-bg: #1a1611;
+      --sts-surface: #251f18;
+      --sts-border: #3d3326;
+      --sts-gold: #c9a84c;
+      --sts-red: #c74848;
+      --sts-green: #5aaa5a;
+      --sts-blue: #4a8cbf;
+      --sts-purple: #9b59b6;
+      --sts-text: #e8dcc8;
+      --sts-muted: #8a7d6a;
+    }
+    body {
+      background: var(--sts-bg);
+      color: var(--sts-text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .navbar {
+      background: var(--sts-surface) !important;
+      border-bottom: 2px solid var(--sts-gold);
+    }
+    .navbar-brand { color: var(--sts-gold) !important; font-weight: 700; font-size: 1.3rem; }
+    .nav-link { color: var(--sts-muted) !important; }
+    .nav-link.active { color: var(--sts-gold) !important; border-bottom: 2px solid var(--sts-gold); }
+    .nav-link:hover { color: var(--sts-text) !important; }
+    .card {
+      background: var(--sts-surface);
+      border: 1px solid var(--sts-border);
+      color: var(--sts-text);
+    }
+    .card-header { background: rgba(0,0,0,0.25); border-bottom: 1px solid var(--sts-border); font-weight: 600; }
+    .stat-card { border-top: 3px solid var(--sts-gold); }
+    .stat-value { font-size: 2rem; font-weight: 700; color: var(--sts-gold); }
+    .stat-label { color: var(--sts-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .table { --bs-table-bg: transparent; --bs-table-color: var(--sts-text); }
+    .table th { color: var(--sts-gold); border-color: var(--sts-border); white-space: nowrap; cursor: pointer; user-select: none; }
+    .table td { border-color: var(--sts-border); vertical-align: middle; }
+    .table tbody tr:hover { background: rgba(201,168,76,0.07); }
+    .badge-monster { background: #555; color: #ddd; }
+    .badge-elite   { background: var(--sts-purple); }
+    .badge-boss    { background: var(--sts-red); }
+    .badge-shop    { background: #2d6a2d; }
+    .badge-ancient { background: #4a3080; }
+    .badge-treasure{ background: #7a5a20; }
+    .badge-forced  { background: #555; }
+    .badge-win     { background: var(--sts-green); color: #000; }
+    .badge-loss    { background: var(--sts-red); }
+    .filter-bar { background: var(--sts-surface); border-bottom: 1px solid var(--sts-border); padding: 0.6rem 1rem; }
+    .form-select, .form-control {
+      background: var(--sts-bg); border: 1px solid var(--sts-border);
+      color: var(--sts-text);
+    }
+    .form-select:focus, .form-control:focus {
+      background: var(--sts-bg); color: var(--sts-text);
+      border-color: var(--sts-gold); box-shadow: 0 0 0 2px rgba(201,168,76,0.2);
+    }
+    .form-check-input:checked { background-color: var(--sts-gold); border-color: var(--sts-gold); }
+    .btn-gold { background: var(--sts-gold); color: #1a1611; font-weight: 600; border: none; }
+    .btn-gold:hover { background: #e0bb5c; color: #1a1611; }
+    .sort-icon::after { content: ' ↕'; opacity: 0.4; font-size: 0.8em; }
+    .sort-asc::after  { content: ' ↑'; opacity: 1; color: var(--sts-gold); font-size: 0.8em; }
+    .sort-desc::after { content: ' ↓'; opacity: 1; color: var(--sts-gold); font-size: 0.8em; }
+    .pct-bar { display: inline-block; height: 6px; background: var(--sts-gold); border-radius: 3px; vertical-align: middle; margin-left: 6px; }
+    .loading { text-align: center; padding: 3rem; color: var(--sts-muted); }
+    .empty-state { text-align: center; padding: 4rem 2rem; color: var(--sts-muted); }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .tab-content { padding-top: 1.5rem; }
+    #toast-container { position: fixed; top: 70px; right: 16px; z-index: 9999; }
+    .relic-pill { display: inline-block; background: rgba(74,48,128,0.4); border: 1px solid #4a3080;
+                   border-radius: 4px; padding: 1px 6px; font-size: 0.75rem; margin: 1px; }
+    .hp-bar { width: 80px; height: 8px; background: var(--sts-border); border-radius: 4px; display: inline-block; vertical-align: middle; }
+    .hp-bar-fill { height: 100%; background: var(--sts-green); border-radius: 4px; }
+    .hp-bar-fill.low { background: var(--sts-red); }
+    .hp-bar-fill.mid { background: var(--sts-gold); }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container-fluid">
+    <span class="navbar-brand">⚔ STS2 Run Analyzer</span>
+    <ul class="nav nav-underline ms-3" id="main-tabs" role="tablist">
+      <li class="nav-item"><a class="nav-link active" data-tab="overview"  href="#">Overview</a></li>
+      <li class="nav-item"><a class="nav-link"        data-tab="cards"     href="#">Cards</a></li>
+      <li class="nav-item"><a class="nav-link"        data-tab="relics"    href="#">Relics</a></li>
+      <li class="nav-item"><a class="nav-link"        data-tab="encounters"href="#">Encounters</a></li>
+      <li class="nav-item"><a class="nav-link"        data-tab="rest"      href="#">Rest Sites</a></li>
+      <li class="nav-item"><a class="nav-link"        data-tab="runs"      href="#">Runs</a></li>
+    </ul>
+    <div class="ms-auto">
+      <span id="run-count-badge" class="badge" style="background:var(--sts-gold);color:#1a1611;font-size:.9rem;"></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Filter bar -->
+<div class="filter-bar d-flex flex-wrap gap-3 align-items-center">
+  <div class="d-flex align-items-center gap-2">
+    <label class="fw-semibold" style="color:var(--sts-gold);white-space:nowrap">Character</label>
+    <select id="filter-character" class="form-select form-select-sm" style="width:180px">
+      <option value="">All Characters</option>
+    </select>
+  </div>
+  <div class="form-check form-switch mb-0">
+    <input class="form-check-input" type="checkbox" id="filter-multiplayer" checked />
+    <label class="form-check-label" for="filter-multiplayer">Exclude multiplayer</label>
+  </div>
+  <div class="form-check form-switch mb-0">
+    <input class="form-check-input" type="checkbox" id="filter-abandoned" checked />
+    <label class="form-check-label" for="filter-abandoned">Exclude abandoned (floor 1)</label>
+  </div>
+  <div class="d-flex align-items-center gap-2 ms-auto">
+    <label class="fw-semibold" style="color:var(--sts-muted);white-space:nowrap;font-size:.85rem">Min samples</label>
+    <input type="number" id="filter-min-samples" class="form-control form-control-sm" value="1" min="1" style="width:70px" />
+  </div>
+</div>
+
+<!-- Toast container -->
+<div id="toast-container"></div>
+
+<!-- Main content -->
+<div class="container-fluid py-3 px-4">
+
+  <!-- OVERVIEW TAB -->
+  <div id="tab-overview" class="tab-pane active">
+    <div id="overview-loading" class="loading">Loading…</div>
+    <div id="overview-content" style="display:none">
+      <div class="row g-3 mb-4" id="overview-stat-cards"></div>
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card"><div class="card-header">Acts Reached Distribution</div>
+            <div class="card-body"><canvas id="acts-chart" height="220"></canvas></div></div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card"><div class="card-header">Top Deaths By</div>
+            <div class="card-body"><canvas id="kills-chart" height="220"></canvas></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARDS TAB -->
+  <div id="tab-cards" class="tab-pane" style="display:none">
+    <div class="mb-3">
+      <input type="text" id="card-search" class="form-control" placeholder="Filter cards…" style="max-width:300px" />
+    </div>
+    <div id="cards-loading" class="loading">Loading…</div>
+    <div id="cards-content" style="display:none">
+      <table class="table table-sm" id="cards-table">
+        <thead><tr>
+          <th class="sort-icon" data-col="card">Card</th>
+          <th class="sort-icon" data-col="offered_runs">Offered (runs)</th>
+          <th class="sort-icon" data-col="picked_runs">Picked (runs)</th>
+          <th class="sort-icon" data-col="pick_rate">Pick Rate</th>
+          <th class="sort-icon" data-col="win_rate">Win Rate (when picked)</th>
+        </tr></thead>
+        <tbody id="cards-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- RELICS TAB -->
+  <div id="tab-relics" class="tab-pane" style="display:none">
+    <ul class="nav nav-pills mb-3" id="relic-subtabs">
+      <li class="nav-item"><a class="nav-link active btn-gold" data-relic-tab="choice" href="#">Choice Relics (shop/ancient)</a></li>
+      <li class="nav-item ms-2"><a class="nav-link" data-relic-tab="forced" href="#" style="color:var(--sts-text);background:var(--sts-surface);border:1px solid var(--sts-border)">Forced Relics</a></li>
+    </ul>
+    <div id="relics-loading" class="loading">Loading…</div>
+    <div id="relics-choice-content" style="display:none">
+      <table class="table table-sm" id="choice-relics-table">
+        <thead><tr>
+          <th class="sort-icon" data-col="relic">Relic</th>
+          <th class="sort-icon" data-col="source">Source</th>
+          <th class="sort-icon" data-col="offered_runs">Offered (runs)</th>
+          <th class="sort-icon" data-col="picked_runs">Picked (runs)</th>
+          <th class="sort-icon" data-col="pick_rate">Pick Rate</th>
+          <th class="sort-icon" data-col="win_rate">Win Rate (when picked)</th>
+        </tr></thead>
+        <tbody id="choice-relics-tbody"></tbody>
+      </table>
+    </div>
+    <div id="relics-forced-content" style="display:none">
+      <table class="table table-sm" id="forced-relics-table">
+        <thead><tr>
+          <th class="sort-icon" data-col="relic">Relic</th>
+          <th class="sort-icon" data-col="source">Source</th>
+          <th class="sort-icon" data-col="acquired_runs">Acquired (runs)</th>
+          <th class="sort-icon" data-col="win_rate">Win Rate (with relic)</th>
+        </tr></thead>
+        <tbody id="forced-relics-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ENCOUNTERS TAB -->
+  <div id="tab-encounters" class="tab-pane" style="display:none">
+    <div id="encounters-loading" class="loading">Loading…</div>
+    <div id="encounters-content" style="display:none">
+      <table class="table table-sm" id="encounters-table">
+        <thead><tr>
+          <th class="sort-icon" data-col="name">Encounter</th>
+          <th class="sort-icon" data-col="type">Type</th>
+          <th class="sort-icon" data-col="count">Times Faced</th>
+          <th class="sort-icon" data-col="avg_damage">Avg Damage Taken</th>
+          <th class="sort-icon" data-col="avg_turns">Avg Turns</th>
+        </tr></thead>
+        <tbody id="encounters-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- REST SITES TAB -->
+  <div id="tab-rest" class="tab-pane" style="display:none">
+    <div id="rest-loading" class="loading">Loading…</div>
+    <div id="rest-content" style="display:none">
+      <div class="row g-3 mb-4">
+        <div class="col-md-5">
+          <div class="card"><div class="card-header">Rest Choice Frequency</div>
+            <div class="card-body"><canvas id="rest-chart" height="250"></canvas></div></div>
+        </div>
+        <div class="col-md-7">
+          <table class="table table-sm" id="rest-table">
+            <thead><tr>
+              <th class="sort-icon" data-col="choice">Choice</th>
+              <th class="sort-icon" data-col="times_used">Times Used</th>
+              <th class="sort-icon" data-col="frequency">Frequency</th>
+              <th class="sort-icon" data-col="win_rate">Win Rate</th>
+              <th class="sort-icon" data-col="avg_hp_healed">Avg HP Healed</th>
+            </tr></thead>
+            <tbody id="rest-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RUNS TAB -->
+  <div id="tab-runs" class="tab-pane" style="display:none">
+    <div id="runs-loading" class="loading">Loading…</div>
+    <div id="runs-content" style="display:none">
+      <table class="table table-sm" id="runs-table">
+        <thead><tr>
+          <th class="sort-icon" data-col="character">Character</th>
+          <th class="sort-icon" data-col="win">Result</th>
+          <th class="sort-icon" data-col="ascension">A</th>
+          <th class="sort-icon" data-col="acts_reached">Acts</th>
+          <th>HP</th>
+          <th class="sort-icon" data-col="gold">Gold</th>
+          <th class="sort-icon" data-col="deck_size">Deck</th>
+          <th class="sort-icon" data-col="total_damage">Total Dmg</th>
+          <th>Relics</th>
+          <th>Killed By</th>
+        </tr></thead>
+        <tbody id="runs-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ────────────────────────────────────────────────────────────────────────────
+// State
+// ────────────────────────────────────────────────────────────────────────────
+const state = {
+  tab: 'overview',
+  character: '',
+  excludeMultiplayer: true,
+  excludeAbandoned: true,
+  minSamples: 1,
+  relicSubtab: 'choice',
+  // cached data
+  cache: {},
+  // sort state per table
+  sort: {},
+};
+let actsChart = null, killsChart = null, restChart = null;
+
+// ────────────────────────────────────────────────────────────────────────────
+// Utilities
+// ────────────────────────────────────────────────────────────────────────────
+function queryParams(extra = {}) {
+  const p = new URLSearchParams({
+    character: state.character,
+    exclude_multiplayer: state.excludeMultiplayer,
+    exclude_abandoned: state.excludeAbandoned,
+    min_samples: state.minSamples,
+    ...extra,
+  });
+  return p.toString();
+}
+
+async function apiFetch(endpoint, extra = {}) {
+  const url = `/api/${endpoint}?${queryParams(extra)}`;
+  const key = url;
+  if (state.cache[key]) return state.cache[key];
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`API error ${res.status}`);
+  const data = await res.json();
+  state.cache[key] = data;
+  return data;
+}
+
+function invalidateCache() { state.cache = {}; }
+
+function pct(v) {
+  if (v == null) return '<span style="color:var(--sts-muted)">—</span>';
+  const p = Math.round(v * 100);
+  const color = p >= 60 ? 'var(--sts-green)' : p >= 40 ? 'var(--sts-gold)' : 'var(--sts-red)';
+  return `<span style="color:${color};font-weight:600">${p}%</span>` +
+    `<span class="pct-bar" style="width:${Math.min(p,100)*0.5}px;background:${color}"></span>`;
+}
+
+function typeBadge(type) {
+  const cls = { monster: 'badge-monster', elite: 'badge-elite', boss: 'badge-boss',
+                shop: 'badge-shop', ancient: 'badge-ancient', treasure: 'badge-treasure' }[type] || 'badge-forced';
+  return `<span class="badge ${cls}">${type}</span>`;
+}
+
+function sourceBadge(sources) {
+  return (Array.isArray(sources) ? sources : [sources])
+    .map(s => `<span class="badge badge-${s.toLowerCase() === 'ancient' ? 'ancient' : s.toLowerCase() === 'shop' ? 'shop' : 'forced'}">${s}</span>`)
+    .join(' ');
+}
+
+function fmtTime(s) {
+  if (!s) return '—';
+  const m = Math.floor(s / 60), sec = s % 60;
+  return m >= 60 ? `${Math.floor(m/60)}h ${m%60}m` : `${m}m ${sec}s`;
+}
+
+function showLoading(id)  { const el = document.getElementById(id); if (el) el.style.display = ''; }
+function hideLoading(id)  { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
+function showContent(id)  { const el = document.getElementById(id); if (el) el.style.display = ''; }
+function hideContent(id)  { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
+
+// ────────────────────────────────────────────────────────────────────────────
+// Sortable tables
+// ────────────────────────────────────────────────────────────────────────────
+function initSort(tableId, data, renderFn) {
+  if (!state.sort[tableId]) state.sort[tableId] = { col: null, dir: 1 };
+  const table = document.getElementById(tableId);
+  if (!table) return;
+  table.querySelectorAll('th[data-col]').forEach(th => {
+    th.onclick = () => {
+      const col = th.dataset.col;
+      const s = state.sort[tableId];
+      s.dir = (s.col === col) ? -s.dir : -1;
+      s.col = col;
+      table.querySelectorAll('th').forEach(h => h.className = h.dataset.col ? 'sort-icon' : '');
+      th.className = s.dir === -1 ? 'sort-desc' : 'sort-asc';
+      const sorted = [...data].sort((a, b) => {
+        const av = a[col] ?? '', bv = b[col] ?? '';
+        return typeof av === 'number' ? (av - bv) * s.dir
+                                      : String(av).localeCompare(String(bv)) * s.dir;
+      });
+      renderFn(sorted);
+    };
+  });
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Character dropdown
+// ────────────────────────────────────────────────────────────────────────────
+async function loadCharacters() {
+  try {
+    const chars = await fetch('/api/characters').then(r => r.json());
+    const sel = document.getElementById('filter-character');
+    // keep first option
+    sel.querySelectorAll('option:not([value=""])').forEach(o => o.remove());
+    chars.forEach(c => {
+      const o = document.createElement('option');
+      o.value = c; o.textContent = c.replace(/_/g, ' ');
+      sel.appendChild(o);
+    });
+    sel.value = state.character;
+  } catch(e) { console.error('Failed to load characters', e); }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// OVERVIEW
+// ────────────────────────────────────────────────────────────────────────────
+async function loadOverview() {
+  showLoading('overview-loading'); hideContent('overview-content');
+  try {
+    const d = await apiFetch('overview');
+    renderOverview(d);
+  } catch(e) { showError('Failed to load overview: ' + e.message); }
+  hideLoading('overview-loading'); showContent('overview-content');
+}
+
+function renderOverview(d) {
+  const wr = d.win_rate != null ? Math.round(d.win_rate * 100) : 0;
+  const wrColor = wr >= 60 ? 'var(--sts-green)' : wr >= 40 ? 'var(--sts-gold)' : 'var(--sts-red)';
+  document.getElementById('run-count-badge').textContent = `${d.total_runs} runs`;
+  document.getElementById('overview-stat-cards').innerHTML = `
+    <div class="col-6 col-md-4 col-xl-2"><div class="card stat-card p-3">
+      <div class="stat-value">${d.total_runs}</div><div class="stat-label">Total Runs</div></div></div>
+    <div class="col-6 col-md-4 col-xl-2"><div class="card stat-card p-3">
+      <div class="stat-value" style="color:${wrColor}">${wr}%</div>
+      <div class="stat-label">Win Rate (${d.wins}W / ${d.total_runs - d.wins}L)</div></div></div>
+    <div class="col-6 col-md-4 col-xl-2"><div class="card stat-card p-3">
+      <div class="stat-value">${d.avg_damage_taken}</div><div class="stat-label">Avg Dmg Taken</div></div></div>
+    <div class="col-6 col-md-4 col-xl-2"><div class="card stat-card p-3">
+      <div class="stat-value">${d.avg_deck_size}</div><div class="stat-label">Avg Deck Size</div></div></div>
+    <div class="col-6 col-md-4 col-xl-2"><div class="card stat-card p-3">
+      <div class="stat-value">${fmtTime(d.avg_run_time_s)}</div><div class="stat-label">Avg Run Time</div></div></div>
+  `;
+
+  // Acts chart
+  const actLabels = Object.keys(d.acts_reached).map(a => `Act ${a}`);
+  const actValues = Object.values(d.acts_reached);
+  if (actsChart) actsChart.destroy();
+  actsChart = new Chart(document.getElementById('acts-chart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: actLabels,
+      datasets: [{ label: 'Runs', data: actValues,
+        backgroundColor: 'rgba(201,168,76,0.7)', borderColor: '#c9a84c', borderWidth: 1 }]
+    },
+    options: chartOpts('Runs'),
+  });
+
+  // Kills chart
+  const killNames = Object.keys(d.kills_by);
+  const killCounts = Object.values(d.kills_by);
+  if (killsChart) killsChart.destroy();
+  if (killNames.length) {
+    killsChart = new Chart(document.getElementById('kills-chart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: killNames,
+        datasets: [{ label: 'Deaths', data: killCounts,
+          backgroundColor: 'rgba(199,72,72,0.7)', borderColor: '#c74848', borderWidth: 1 }]
+      },
+      options: { ...chartOpts('Deaths'), indexAxis: 'y' },
+    });
+  } else {
+    document.getElementById('kills-chart').closest('.card').querySelector('.card-body').innerHTML =
+      '<div class="empty-state">No loss data 🎉</div>';
+  }
+}
+
+function chartOpts(yLabel) {
+  return {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: '#8a7d6a' }, grid: { color: '#3d3326' } },
+      y: { ticks: { color: '#8a7d6a' }, grid: { color: '#3d3326' }, title: { display: !!yLabel, text: yLabel, color: '#8a7d6a' } },
+    },
+  };
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// CARDS
+// ────────────────────────────────────────────────────────────────────────────
+let allCards = [];
+async function loadCards() {
+  showLoading('cards-loading'); hideContent('cards-content');
+  try {
+    allCards = await apiFetch('cards', { min_samples: state.minSamples });
+    renderCardsTable(allCards);
+    initSort('cards-table', allCards, renderCardsTable);
+    showContent('cards-content');
+  } catch(e) { showError('Failed to load cards: ' + e.message); }
+  hideLoading('cards-loading');
+}
+
+function renderCardsTable(data) {
+  const search = document.getElementById('card-search').value.toLowerCase();
+  const filtered = search ? data.filter(r => r.card.toLowerCase().includes(search)) : data;
+  document.getElementById('cards-tbody').innerHTML = filtered.length
+    ? filtered.map(r => `<tr>
+        <td>${esc(r.card)}</td>
+        <td>${r.offered_runs}</td>
+        <td>${r.picked_runs}</td>
+        <td>${pct(r.pick_rate)}</td>
+        <td>${pct(r.win_rate)}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="5" class="empty-state">No data</td></tr>';
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// RELICS
+// ────────────────────────────────────────────────────────────────────────────
+let relicsData = { choice: [], forced: [] };
+async function loadRelics() {
+  showLoading('relics-loading');
+  hideContent('relics-choice-content'); hideContent('relics-forced-content');
+  try {
+    relicsData = await apiFetch('relics');
+    renderRelicSubtab(state.relicSubtab);
+    initSort('choice-relics-table', relicsData.choice, d => renderChoiceRelics(d));
+    initSort('forced-relics-table', relicsData.forced, d => renderForcedRelics(d));
+  } catch(e) { showError('Failed to load relics: ' + e.message); }
+  hideLoading('relics-loading');
+}
+
+function renderRelicSubtab(tab) {
+  if (tab === 'choice') {
+    renderChoiceRelics(relicsData.choice);
+    showContent('relics-choice-content'); hideContent('relics-forced-content');
+  } else {
+    renderForcedRelics(relicsData.forced);
+    showContent('relics-forced-content'); hideContent('relics-choice-content');
+  }
+}
+
+function renderChoiceRelics(data) {
+  document.getElementById('choice-relics-tbody').innerHTML = data.length
+    ? data.map(r => `<tr>
+        <td>${esc(r.relic)}</td>
+        <td>${sourceBadge(r.source)}</td>
+        <td>${r.offered_runs}</td>
+        <td>${r.picked_runs}</td>
+        <td>${pct(r.pick_rate)}</td>
+        <td>${pct(r.win_rate)}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="6" class="empty-state">No choice relic data</td></tr>';
+}
+
+function renderForcedRelics(data) {
+  document.getElementById('forced-relics-tbody').innerHTML = data.length
+    ? data.map(r => `<tr>
+        <td>${esc(r.relic)}</td>
+        <td>${sourceBadge(r.source)}</td>
+        <td>${r.acquired_runs}</td>
+        <td>${pct(r.win_rate)}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="4" class="empty-state">No forced relic data</td></tr>';
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// ENCOUNTERS
+// ────────────────────────────────────────────────────────────────────────────
+async function loadEncounters() {
+  showLoading('encounters-loading'); hideContent('encounters-content');
+  try {
+    const data = await apiFetch('encounters');
+    renderEncounters(data);
+    initSort('encounters-table', data, renderEncounters);
+    showContent('encounters-content');
+  } catch(e) { showError('Failed to load encounters: ' + e.message); }
+  hideLoading('encounters-loading');
+}
+
+function renderEncounters(data) {
+  document.getElementById('encounters-tbody').innerHTML = data.length
+    ? data.map(r => `<tr>
+        <td>${esc(r.name)}</td>
+        <td>${typeBadge(r.type)}</td>
+        <td>${r.count}</td>
+        <td>${r.avg_damage}</td>
+        <td>${r.avg_turns ?? '—'}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="5" class="empty-state">No encounter data</td></tr>';
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// REST SITES
+// ────────────────────────────────────────────────────────────────────────────
+async function loadRestSites() {
+  showLoading('rest-loading'); hideContent('rest-content');
+  try {
+    const data = await apiFetch('rest_sites');
+    renderRestSites(data);
+    initSort('rest-table', data, renderRestSites);
+    showContent('rest-content');
+  } catch(e) { showError('Failed to load rest sites: ' + e.message); }
+  hideLoading('rest-loading');
+}
+
+function renderRestSites(data) {
+  document.getElementById('rest-tbody').innerHTML = data.length
+    ? data.map(r => `<tr>
+        <td><strong>${esc(r.choice)}</strong></td>
+        <td>${r.times_used}</td>
+        <td>${pct(r.frequency)}</td>
+        <td>${pct(r.win_rate)}</td>
+        <td>${r.avg_hp_healed != null ? r.avg_hp_healed : '—'}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="5" class="empty-state">No rest site data</td></tr>';
+
+  const CHOICE_COLORS = {
+    SMITH: '#4a8cbf', REST: '#5aaa5a', TOKE: '#9b59b6',
+    LIFT: '#c9a84c', DIG: '#c74848', RECALL: '#2d9b9b', UNKNOWN: '#555',
+  };
+  const labels = data.map(r => r.choice);
+  const freqs  = data.map(r => Math.round(r.frequency * 100));
+  const colors = labels.map(l => CHOICE_COLORS[l] || '#777');
+
+  if (restChart) restChart.destroy();
+  restChart = new Chart(document.getElementById('rest-chart').getContext('2d'), {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data: freqs, backgroundColor: colors, borderColor: '#1a1611', borderWidth: 2 }] },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: '#e8dcc8' } },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` } },
+      },
+    },
+  });
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// RUNS
+// ────────────────────────────────────────────────────────────────────────────
+async function loadRuns() {
+  showLoading('runs-loading'); hideContent('runs-content');
+  try {
+    const data = await apiFetch('runs');
+    renderRuns(data);
+    initSort('runs-table', data, renderRuns);
+    showContent('runs-content');
+  } catch(e) { showError('Failed to load runs: ' + e.message); }
+  hideLoading('runs-loading');
+}
+
+function renderRuns(data) {
+  document.getElementById('runs-tbody').innerHTML = data.length
+    ? data.map(r => {
+        const hpPct = r.max_hp ? r.hp / r.max_hp : 0;
+        const hpClass = hpPct < 0.3 ? 'low' : hpPct < 0.6 ? 'mid' : '';
+        const relicsHtml = (r.relics || []).slice(0, 6).map(rel =>
+          `<span class="relic-pill">${esc(rel)}</span>`
+        ).join('') + ((r.relics || []).length > 6 ? `<span class="relic-pill">+${r.relics.length - 6}</span>` : '');
+        return `<tr>
+          <td><strong>${r.character.replace(/_/g,' ')}</strong></td>
+          <td>${r.win ? '<span class="badge badge-win">WIN</span>' : '<span class="badge badge-loss">LOSS</span>'}</td>
+          <td>${r.ascension}</td>
+          <td>${r.acts_reached}</td>
+          <td>
+            ${r.hp != null ? `${r.hp}/${r.max_hp}` : '—'}
+            ${r.hp != null && r.max_hp ? `<div class="hp-bar"><div class="hp-bar-fill ${hpClass}" style="width:${Math.round(hpPct*100)}%"></div></div>` : ''}
+          </td>
+          <td>${r.gold ?? '—'}</td>
+          <td>${r.deck_size}</td>
+          <td>${r.total_damage}</td>
+          <td>${relicsHtml || '<span style="color:var(--sts-muted)">—</span>'}</td>
+          <td>${r.killed_by ? esc(r.killed_by) : (r.win ? '🏆' : '—')}</td>
+        </tr>`;
+      }).join('')
+    : '<tr><td colspan="10" class="empty-state">No runs match the current filters</td></tr>';
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Tab routing
+// ────────────────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  state.tab = tab;
+  document.querySelectorAll('#main-tabs .nav-link').forEach(l => {
+    l.classList.toggle('active', l.dataset.tab === tab);
+  });
+  ['overview','cards','relics','encounters','rest','runs'].forEach(t => {
+    document.getElementById(`tab-${t}`).style.display = t === tab ? '' : 'none';
+  });
+  loadCurrentTab();
+}
+
+function loadCurrentTab() {
+  const t = state.tab;
+  if (t === 'overview')    loadOverview();
+  if (t === 'cards')       loadCards();
+  if (t === 'relics')      loadRelics();
+  if (t === 'encounters')  loadEncounters();
+  if (t === 'rest')        loadRestSites();
+  if (t === 'runs')        loadRuns();
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Error toast
+// ────────────────────────────────────────────────────────────────────────────
+function showError(msg) {
+  const div = document.createElement('div');
+  div.className = 'toast align-items-center text-bg-danger border-0 show';
+  div.innerHTML = `<div class="d-flex"><div class="toast-body">${esc(msg)}</div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" onclick="this.closest('.toast').remove()"></button></div>`;
+  document.getElementById('toast-container').appendChild(div);
+  setTimeout(() => div.remove(), 5000);
+}
+
+function esc(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Event wiring
+// ────────────────────────────────────────────────────────────────────────────
+document.querySelectorAll('#main-tabs .nav-link').forEach(link => {
+  link.addEventListener('click', e => { e.preventDefault(); switchTab(link.dataset.tab); });
+});
+
+document.getElementById('filter-character').addEventListener('change', e => {
+  state.character = e.target.value; invalidateCache(); loadCurrentTab();
+});
+
+document.getElementById('filter-multiplayer').addEventListener('change', e => {
+  state.excludeMultiplayer = e.target.checked; invalidateCache(); loadCurrentTab();
+});
+
+document.getElementById('filter-abandoned').addEventListener('change', e => {
+  state.excludeAbandoned = e.target.checked; invalidateCache(); loadCurrentTab();
+});
+
+document.getElementById('filter-min-samples').addEventListener('change', e => {
+  state.minSamples = parseInt(e.target.value) || 1; invalidateCache();
+  if (state.tab === 'cards') loadCards();
+});
+
+document.getElementById('card-search').addEventListener('input', () => {
+  renderCardsTable(allCards);
+});
+
+document.querySelectorAll('#relic-subtabs .nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    state.relicSubtab = link.dataset.relicTab;
+    document.querySelectorAll('#relic-subtabs .nav-link').forEach(l => {
+      l.classList.remove('active', 'btn-gold');
+      l.style.cssText = 'color:var(--sts-text);background:var(--sts-surface);border:1px solid var(--sts-border)';
+    });
+    link.classList.add('active', 'btn-gold');
+    link.style.cssText = '';
+    renderRelicSubtab(state.relicSubtab);
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// Init
+// ────────────────────────────────────────────────────────────────────────────
+loadCharacters();
+loadOverview();
+</script>
+</body>
+</html>
