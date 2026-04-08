@@ -17,6 +17,7 @@ from .stats import (
     compute_rest_sites,
     compute_runs_list,
     filter_runs,
+    get_ascensions,
     get_characters,
 )
 
@@ -39,8 +40,11 @@ def create_app(history_path: str) -> Flask:
         return value.lower() not in ("false", "0", "no", "off")
 
     def _filters() -> dict[str, Any]:
+        raw_asc = request.args.get("ascension")
+        ascension = int(raw_asc) if raw_asc is not None and raw_asc != "" else None
         return {
             "character": request.args.get("character") or None,
+            "ascension": ascension,
             "exclude_multiplayer": _bool(request.args.get("exclude_multiplayer"), True),
             "exclude_abandoned": _bool(request.args.get("exclude_abandoned"), True),
         }
@@ -61,9 +65,12 @@ def create_app(history_path: str) -> Flask:
     @app.route("/api/characters")
     def api_characters():
         all_runs = _load()
-        # Characters from all solo runs (before character filter)
-        solo = [r for r in all_runs if True]  # no char filter here
-        return jsonify(get_characters(solo))
+        return jsonify(get_characters(all_runs))
+
+    @app.route("/api/ascensions")
+    def api_ascensions():
+        all_runs = _load()
+        return jsonify(get_ascensions(all_runs))
 
     @app.route("/api/overview")
     def api_overview():
