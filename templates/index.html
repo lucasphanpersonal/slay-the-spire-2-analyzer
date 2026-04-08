@@ -81,6 +81,12 @@
     .hp-bar-fill { height: 100%; background: var(--sts-green); border-radius: 4px; }
     .hp-bar-fill.low { background: var(--sts-red); }
     .hp-bar-fill.mid { background: var(--sts-gold); }
+    .card-art { width: 48px; height: 48px; object-fit: cover; border-radius: 4px; border: 1px solid var(--sts-border); }
+    .card-art-placeholder { width: 48px; height: 48px; background: var(--sts-border); border-radius: 4px;
+                             display: inline-flex; align-items: center; justify-content: center;
+                             font-size: 1.3rem; color: var(--sts-muted); }
+    .upgrade-badge { display: inline-block; background: rgba(74,140,191,0.25); border: 1px solid var(--sts-blue);
+                     border-radius: 3px; padding: 0 5px; font-size: 0.72rem; color: var(--sts-blue); font-weight: 600; }
     .card-pill { display: inline-block; background: rgba(30,60,90,0.45); border: 1px solid #2a4a6a;
                   border-radius: 4px; padding: 1px 6px; font-size: 0.75rem; margin: 1px; }
     .card-pill.enchanted { background: rgba(80,40,120,0.55); border-color: #7a40c0; }
@@ -173,11 +179,14 @@
     <div id="cards-content" style="display:none">
       <table class="table table-sm" id="cards-table">
         <thead><tr>
+          <th style="width:60px">Art</th>
           <th class="sort-icon" data-col="card">Card</th>
           <th class="sort-icon" data-col="offered_runs">Offered (runs)</th>
           <th class="sort-icon" data-col="picked_runs">Picked (runs)</th>
           <th class="sort-icon" data-col="pick_rate">Pick Rate</th>
           <th class="sort-icon" data-col="win_rate">Win Rate (when picked)</th>
+          <th class="sort-icon" data-col="avg_upgrade_level">Avg Upgrade</th>
+          <th class="sort-icon" data-col="pct_upgraded">% Upgraded</th>
         </tr></thead>
         <tbody id="cards-tbody"></tbody>
       </table>
@@ -512,18 +521,47 @@ async function loadCards() {
   hideLoading('cards-loading');
 }
 
+function cardArtHtml(cardId) {
+  const filename = cardId.toLowerCase() + '.png';
+  const url = `/static/card_images/${filename}`;
+  // Use data-card-id to avoid constructing HTML inside the onerror attribute
+  return `<img src="${esc(url)}" class="card-art" alt="${esc(cardId)}" data-card-id="${esc(cardId)}" onerror="cardArtFallback(this)" />`;
+}
+
+function cardArtFallback(img) {
+  const span = document.createElement('span');
+  span.className = 'card-art-placeholder';
+  span.title = img.dataset.cardId || '';
+  span.textContent = '🃏';
+  img.replaceWith(span);
+}
+
 function renderCardsTable(data) {
   const search = document.getElementById('card-search').value.toLowerCase();
   const filtered = search ? data.filter(r => r.card.toLowerCase().includes(search)) : data;
   document.getElementById('cards-tbody').innerHTML = filtered.length
-    ? filtered.map(r => `<tr>
-        <td>${esc(r.card)}</td>
-        <td>${r.offered_runs}</td>
-        <td>${r.picked_runs}</td>
-        <td>${pct(r.pick_rate)}</td>
-        <td>${pct(r.win_rate)}</td>
-      </tr>`).join('')
-    : '<tr><td colspan="5" class="empty-state">No data</td></tr>';
+    ? filtered.map(r => {
+        const upgColor = r.avg_upgrade_level != null
+          ? (r.avg_upgrade_level >= 0.7 ? 'var(--sts-green)' : r.avg_upgrade_level >= 0.3 ? 'var(--sts-gold)' : 'var(--sts-muted)')
+          : 'var(--sts-muted)';
+        const avgUpg = r.avg_upgrade_level != null
+          ? `<span style="color:${upgColor};font-weight:600">${r.avg_upgrade_level.toFixed(2)}</span>`
+          : '<span style="color:var(--sts-muted)">—</span>';
+        const pctUpg = r.pct_upgraded != null
+          ? pct(r.pct_upgraded)
+          : '<span style="color:var(--sts-muted)">—</span>';
+        return `<tr>
+          <td>${cardArtHtml(r.card)}</td>
+          <td>${esc(r.card)}</td>
+          <td>${r.offered_runs}</td>
+          <td>${r.picked_runs}</td>
+          <td>${pct(r.pick_rate)}</td>
+          <td>${pct(r.win_rate)}</td>
+          <td>${avgUpg}</td>
+          <td>${pctUpg}</td>
+        </tr>`;
+      }).join('')
+    : '<tr><td colspan="8" class="empty-state">No data</td></tr>';
 }
 
 // ────────────────────────────────────────────────────────────────────────────

@@ -6,6 +6,7 @@ Usage:
     python run.py --port 8080              # custom port
     python run.py --history /path/to/runs  # custom history folder
     python run.py --diagnostic             # print diagnostic summary and exit
+    python run.py --scrape-images          # download card art images from wiki and exit
 """
 
 import argparse
@@ -35,6 +36,11 @@ def main() -> None:
         action="store_true",
         help="Print diagnostic summary and exit without starting the server",
     )
+    parser.add_argument(
+        "--scrape-images",
+        action="store_true",
+        help="Download card art images from the wiki into static/card_images/ and exit",
+    )
     args = parser.parse_args()
 
     history_path = os.path.abspath(args.history)
@@ -42,6 +48,11 @@ def main() -> None:
     if args.diagnostic:
         from analyzer.cli import run_diagnostic
         run_diagnostic(history_path)
+    elif args.scrape_images:
+        root = os.path.dirname(os.path.abspath(__file__))
+        output_dir = os.path.join(root, "static", "card_images")
+        from analyzer.scraper import run_scrape
+        run_scrape(history_path, output_dir)
     else:
         from analyzer.server import create_app
         app = create_app(history_path)
