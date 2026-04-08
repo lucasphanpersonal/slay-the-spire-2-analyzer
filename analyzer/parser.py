@@ -329,6 +329,53 @@ def extract_ancients(run: Dict[str, Any]) -> List[Dict[str, Any]]:
     return result
 
 
+# ── Event data ────────────────────────────────────────────────────────────────
+
+def _parse_event_option(key: str) -> str:
+    """Extract the option name from an event choice title key.
+
+    Key format: ``"EVENT_NAME.pages.PAGE.options.OPTION_NAME.title"``
+    Falls back to the first segment of the key if the pattern isn't found.
+    """
+    parts = key.split(".options.")
+    if len(parts) >= 2:
+        option_part = parts[-1]  # "OPTION_NAME.title"
+        return option_part.split(".")[0]
+    # Fallback: use the first dot-segment (e.g. "BING_BONG" from "BING_BONG.title")
+    return key.split(".")[0]
+
+
+def extract_events(run: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Return event node visits with the event name and choices made.
+
+    Only ``unknown`` map nodes with an ``EVENT.*`` model_id are included.
+
+    Each entry has:
+        ``{"name": str, "choices": [str, ...]}``
+    where ``name`` is the stripped model_id (e.g. ``"WELLSPRING"``) and
+    ``choices`` is the list of option names chosen (in order, for multi-step
+    events).
+    """
+    result: List[Dict[str, Any]] = []
+    for node_type, stats, node in iter_nodes(run):
+        if node_type != "unknown":
+            continue
+        rooms = node.get("rooms", [])
+        room = rooms[0] if rooms else {}
+        model_id = room.get("model_id", "")
+        if not model_id.upper().startswith("EVENT."):
+            continue
+        event_name = _strip_prefix(model_id)
+        raw_choices = stats.get("event_choices") or []
+        choices: List[str] = []
+        for ec in raw_choices:
+            title_key = ec.get("title", {}).get("key", "") if isinstance(ec, dict) else ""
+            if title_key:
+                choices.append(_parse_event_option(title_key))
+        result.append({"name": event_name, "choices": choices})
+    return result
+
+
 # ── Run summary helpers ───────────────────────────────────────────────────────
 
 def run_total_damage(run: Dict[str, Any]) -> int:

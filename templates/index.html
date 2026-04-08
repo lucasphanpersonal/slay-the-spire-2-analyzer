@@ -147,6 +147,7 @@
       <li class="nav-item"><a class="nav-link"        data-tab="encounters"href="#">Encounters</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="ancients"  href="#">Ancients</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="rest"      href="#">Rest Sites</a></li>
+      <li class="nav-item"><a class="nav-link"        data-tab="events"    href="#">Events</a></li>
       <li class="nav-item"><a class="nav-link"        data-tab="runs"      href="#">Runs</a></li>
     </ul>
     <div class="ms-auto">
@@ -348,6 +349,23 @@
           </table>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- EVENTS TAB -->
+  <div id="tab-events" class="tab-pane" style="display:none">
+    <div id="events-loading" class="loading">Loading…</div>
+    <div id="events-content" style="display:none">
+      <table class="table table-sm" id="events-table">
+        <thead><tr>
+          <th class="sort-icon" data-col="name">Event</th>
+          <th class="sort-icon" data-col="encounters">Times Seen</th>
+          <th class="sort-icon" data-col="runs">Unique Runs</th>
+          <th class="sort-icon" data-col="win_rate">Win Rate</th>
+          <th>Top Options</th>
+        </tr></thead>
+        <tbody id="events-tbody"></tbody>
+      </table>
     </div>
   </div>
 
@@ -951,6 +969,37 @@ function renderRestSites(data) {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
+// EVENTS
+// ────────────────────────────────────────────────────────────────────────────
+async function loadEvents() {
+  showLoading('events-loading'); hideContent('events-content');
+  try {
+    const data = await apiFetch('events');
+    renderEvents(data);
+    initSort('events-table', data, renderEvents);
+    showContent('events-content');
+  } catch(e) { showError('Failed to load events: ' + e.message); }
+  hideLoading('events-loading');
+}
+
+function renderEvents(data) {
+  document.getElementById('events-tbody').innerHTML = data.length
+    ? data.map(e => {
+        const optHtml = (e.options || []).slice(0, 3).map(o =>
+          `<span class="badge me-1" style="background:var(--sts-surface);color:var(--sts-text);border:1px solid var(--sts-border)">${esc(o.option)} <small class="text-muted">(${o.times_chosen}${o.win_rate != null ? ' · ' + pct(o.win_rate) : ''})</small></span>`
+        ).join('');
+        return `<tr>
+          <td><strong>${esc(e.name)}</strong></td>
+          <td>${e.encounters}</td>
+          <td>${e.runs}</td>
+          <td>${pct(e.win_rate)}</td>
+          <td>${optHtml || '—'}</td>
+        </tr>`;
+      }).join('')
+    : '<tr><td colspan="5" class="empty-state">No event data</td></tr>';
+}
+
+// ────────────────────────────────────────────────────────────────────────────
 // RUNS
 // ────────────────────────────────────────────────────────────────────────────
 let currentRunsData = [];
@@ -1304,7 +1353,7 @@ function switchTab(tab) {
   document.querySelectorAll('#main-tabs .nav-link').forEach(l => {
     l.classList.toggle('active', l.dataset.tab === tab);
   });
-  ['overview','cards','relics','potions','encounters','ancients','rest','runs'].forEach(t => {
+  ['overview','cards','relics','potions','encounters','ancients','rest','events','runs'].forEach(t => {
     document.getElementById(`tab-${t}`).style.display = t === tab ? '' : 'none';
   });
   loadCurrentTab();
@@ -1319,6 +1368,7 @@ function loadCurrentTab() {
   if (t === 'encounters')  loadEncounters();
   if (t === 'ancients')    loadAncients();
   if (t === 'rest')        loadRestSites();
+  if (t === 'events')      loadEvents();
   if (t === 'runs')        loadRuns();
 }
 

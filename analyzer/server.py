@@ -13,6 +13,7 @@ from .stats import (
     compute_cards,
     compute_diagnostic,
     compute_encounters,
+    compute_events,
     compute_overview,
     compute_potions,
     compute_relics,
@@ -117,6 +118,11 @@ def create_app(history_path: str) -> Flask:
     def api_rest_sites():
         runs = filter_runs(_load(), **_filters())
         return jsonify(compute_rest_sites(runs))
+
+    @app.route("/api/events")
+    def api_events():
+        runs = filter_runs(_load(), **_filters())
+        return jsonify(compute_events(runs))
 
     @app.route("/api/runs")
     def api_runs():
