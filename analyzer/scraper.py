@@ -10,7 +10,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Set
 
 # Wiki base URL for Slay the Spire 2 cards
 WIKI_API = "https://slaythespire.wiki.gg/api.php"
@@ -164,7 +164,7 @@ def _candidate_file_titles(card_id: str) -> List[str]:
     ]
 
     # Deduplicate while preserving order (page images first)
-    seen: set[str] = set()
+    seen: Set[str] = set()
     candidates: List[str] = []
     for title in png_images + guesses:
         if title not in seen:
