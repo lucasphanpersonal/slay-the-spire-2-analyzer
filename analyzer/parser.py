@@ -16,11 +16,31 @@ FORCED_SOURCES: frozenset[str] = frozenset(
 )
 
 
+# ── ID normalization helpers ──────────────────────────────────────────────────
+
+def _strip_prefix(value: str) -> str:
+    """Strip the STS2 type prefix from an ID string.
+
+    e.g. ``"CARD.SETUP_STRIKE"`` → ``"SETUP_STRIKE"``
+         ``"RELIC.BURNING_BLOOD"`` → ``"BURNING_BLOOD"``
+         ``"ENCOUNTER.NIBBITS_WEAK"`` → ``"NIBBITS_WEAK"``
+    """
+    if "." in value:
+        return value.split(".", 1)[1]
+    return value
+
+
+def _is_none(value: Optional[str]) -> bool:
+    """Return True for null/NONE.NONE values."""
+    return not value or value.upper() in ("NONE.NONE", "NONE", "")
+
+
 # ── File loading ──────────────────────────────────────────────────────────────
 
 def load_run_files(history_path: str) -> List[Dict[str, Any]]:
     """Recursively load all *.run files from *history_path*.
 
+    Skips ``.backup`` files.
     Each run dict has an extra ``_filename`` key added for debugging.
     Files that fail to parse are skipped with a warning.
     """
@@ -29,6 +49,9 @@ def load_run_files(history_path: str) -> List[Dict[str, Any]]:
     if not path.exists():
         return runs
     for f in sorted(path.rglob("*.run")):
+        # Skip backup files
+        if f.name.endswith(".run.backup") or f.suffix != ".run":
+            continue
         try:
             with open(f, encoding="utf-8") as fp:
                 data: Dict[str, Any] = json.load(fp)
@@ -62,13 +85,13 @@ def is_abandoned_first_floor(run: Dict[str, Any]) -> bool:
 
 
 def get_character(run: Dict[str, Any]) -> str:
-    """Return the character name, e.g. ``'IRONCLAD'`` or ``'THE_SILENT'``."""
+    """Return the character name, e.g. ``'IRONCLAD'`` or ``'NECROBINDER'``."""
     players = run.get("players", [])
     if not players:
         return "UNKNOWN"
     raw = players[0].get("character", "UNKNOWN")
     # "CHARACTER.IRONCLAD" → "IRONCLAD"
-    return raw.split(".", 1)[1] if "." in raw else raw
+    return _strip_prefix(raw)
 
 
 def get_run_id(run: Dict[str, Any]) -> str:
@@ -76,13 +99,13 @@ def get_run_id(run: Dict[str, Any]) -> str:
     seed = run.get("seed")
     if seed:
         return str(seed)
-    return run.get("_filename", id(run))
+    return run.get("_filename", str(id(run)))
 
 
 # ── Node iteration ────────────────────────────────────────────────────────────
 
-def iter_nodes(run: Dict[str, Any]) -> Iterator[Tuple[str, Dict[str, Any]]]:
-    """Yield ``(node_type, player_stats_dict)`` for every map node in the run."""
+def iter_nodes(run: Dict[str, Any]) -> Iterator[Tuple[str, Dict[str, Any], Dict[str, Any]]]:
+    """Yield ``(node_type, player_stats_dict, node_dict)`` for every map node."""
     for act in run.get("map_point_history", []):
         for node in act:
             node_type: str = node.get("map_point_type", "unknown").lower()
@@ -96,20 +119,29 @@ def iter_nodes(run: Dict[str, Any]) -> Iterator[Tuple[str, Dict[str, Any]]]:
 def extract_card_choices(run: Dict[str, Any]) -> List[Dict[str, Any]]:
     """Return a list of card-choice events across the whole run.
 
-    Each event:
-        ``{"offered": [...], "picked": str | None}``
+    Real schema: ``card_choices`` is a flat list of
+    ``{"card": {"id": "CARD.XXX", ...}, "was_picked": bool}``
+    All entries on a node form one offering; the one with ``was_picked=True``
+    is what the player chose.
+
+    Returns events of the form:
+        ``{"offered": ["SETUP_STRIKE", "TREMBLE", ...], "picked": str | None}``
     """
     result: List[Dict[str, Any]] = []
     for _node_type, stats, _node in iter_nodes(run):
-        for choice in stats.get("card_choices", []):
-            offered = (
-                choice.get("cards_offered")
-                or choice.get("offered")
-                or []
-            )
-            picked = choice.get("card_picked") or choice.get("picked")
-            # Normalize card IDs — strip suffix like "_R" added for upgraded cards
-            # in the offered list (picked card is treated as-is for display)
+        choices = stats.get("card_choices", [])
+        if not choices:
+            continue
+        offered: List[str] = []
+        picked: Optional[str] = None
+        for entry in choices:
+            card = entry.get("card", {})
+            card_id = _strip_prefix(card.get("id", "")) if isinstance(card, dict) else ""
+            if card_id:
+                offered.append(card_id)
+            if entry.get("was_picked", False) and card_id:
+                picked = card_id
+        if offered:
             result.append({"offered": offered, "picked": picked})
     return result
 
@@ -119,144 +151,120 @@ def extract_card_choices(run: Dict[str, Any]) -> List[Dict[str, Any]]:
 def extract_relic_events(run: Dict[str, Any]) -> List[Dict[str, Any]]:
     """Return all relic acquisition events, correctly handling ancient nodes.
 
-    Each event:
-        ``{"relic": str, "source": str, "offered": [...], "picked": bool}``
+    Real schema for relic_choices:
+        ``[{"choice": "RELIC.XXX", "was_picked": bool}, ...]``
+        All entries form one offering; ``was_picked=True`` is the chosen one.
 
-    Quirk handled:
-        Ancient nodes double-write relics.  We use ``ancient_choice`` for those
-        nodes and **skip** ``relic_choices`` to avoid double-counting.
+    Real schema for ancient_choice:
+        ``[{"TextKey": "RELIC_NAME", "was_chosen": bool}, ...]``
+        Use this for ancient nodes instead of relic_choices.
+
+    Returns events of the form:
+        ``{"relic": str, "source": str, "offered": [...], "picked": bool}``
     """
     result: List[Dict[str, Any]] = []
 
     for node_type, stats, _node in iter_nodes(run):
         if node_type == "ancient":
-            # ── Ancient node: use ancient_choice, ignore relic_choices ──────
-            ancient = stats.get("ancient_choice")
-            if not ancient:
+            # ── Ancient node: use ancient_choice, skip relic_choices ──────────
+            ancient = stats.get("ancient_choice", [])
+            if not ancient or not isinstance(ancient, list):
                 continue
-
-            if isinstance(ancient, list):
-                # Format A: [{"relic": "X", "picked": false}, ...]
-                offered = [
-                    _relic_id(opt)
-                    for opt in ancient
-                    if _relic_id(opt)
-                ]
-                for opt in ancient:
-                    rid = _relic_id(opt)
-                    if rid:
-                        picked = bool(
-                            opt.get("picked")
-                            or opt.get("selected")
-                            or opt.get("was_picked")
-                        )
-                        result.append(
-                            {
-                                "relic": rid,
-                                "source": "ancient",
-                                "offered": offered,
-                                "picked": picked,
-                            }
-                        )
-            elif isinstance(ancient, dict):
-                # Format B: {"relics_offered": [...], "relic_picked": "X"}
-                offered = ancient.get("relics_offered") or ancient.get("offered") or []
-                picked_relic = ancient.get("relic_picked") or ancient.get("picked")
-                for r in offered:
-                    result.append(
-                        {
-                            "relic": r,
-                            "source": "ancient",
-                            "offered": offered,
-                            "picked": r == picked_relic,
-                        }
-                    )
+            offered: List[str] = []
+            for opt in ancient:
+                relic_name = opt.get("TextKey", "")
+                if relic_name:
+                    offered.append(relic_name)
+            for opt in ancient:
+                relic_name = opt.get("TextKey", "")
+                if relic_name:
+                    result.append({
+                        "relic": relic_name,
+                        "source": "ancient",
+                        "offered": offered,
+                        "picked": bool(opt.get("was_chosen", False)),
+                    })
         else:
             # ── Non-ancient node: use relic_choices ──────────────────────────
-            for choice in stats.get("relic_choices", []):
-                offered = (
-                    choice.get("relics_offered")
-                    or choice.get("offered")
-                    or []
-                )
-                picked_relic = choice.get("relic_picked") or choice.get("picked")
-                all_relics = offered if offered else (
-                    [picked_relic] if picked_relic else []
-                )
-                for r in all_relics:
-                    if r:
-                        result.append(
-                            {
-                                "relic": r,
-                                "source": node_type,
-                                "offered": offered,
-                                "picked": r == picked_relic,
-                            }
-                        )
+            choices = stats.get("relic_choices", [])
+            if not choices:
+                continue
+            offered = [
+                _strip_prefix(c.get("choice", ""))
+                for c in choices
+                if c.get("choice")
+            ]
+            for entry in choices:
+                relic_raw = entry.get("choice", "")
+                relic_id = _strip_prefix(relic_raw)
+                if relic_id:
+                    result.append({
+                        "relic": relic_id,
+                        "source": node_type,
+                        "offered": offered,
+                        "picked": bool(entry.get("was_picked", False)),
+                    })
 
     return result
-
-
-def _relic_id(opt: Any) -> Optional[str]:
-    if isinstance(opt, dict):
-        return opt.get("relic") or opt.get("relic_id") or opt.get("id") or opt.get("name")
-    if isinstance(opt, str):
-        return opt
-    return None
 
 
 # ── Encounter data ────────────────────────────────────────────────────────────
 
 def extract_encounters(run: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """Return combat nodes with damage and turn info."""
+    """Return combat nodes with damage and turn info.
+
+    Real schema: encounter name comes from ``node["rooms"][0]["model_id"]``,
+    turns from ``node["rooms"][0]["turns_taken"]``.
+    """
     result: List[Dict[str, Any]] = []
     for node_type, stats, node in iter_nodes(run):
         if node_type not in ("monster", "elite", "boss"):
             continue
-        encounter_name = (
-            node.get("encounter_id")
-            or node.get("encounter_name")
-            or node.get("encounter")
-            or node.get("name")
-            or f"[{node_type}]"
-        )
-        result.append(
-            {
-                "name": encounter_name,
-                "type": node_type,
-                "damage_taken": stats.get("damage_taken", 0),
-                "turns": node.get("turns") or node.get("num_turns"),
-            }
-        )
+        rooms = node.get("rooms", [])
+        room = rooms[0] if rooms else {}
+        model_id = room.get("model_id", "")
+        encounter_name = _strip_prefix(model_id) if model_id else f"[{node_type}]"
+        turns = room.get("turns_taken")
+        result.append({
+            "name": encounter_name,
+            "type": node_type,
+            "damage_taken": stats.get("damage_taken", 0) or 0,
+            "turns": turns,
+        })
     return result
 
 
 # ── Rest site data ────────────────────────────────────────────────────────────
 
 def extract_rest_sites(run: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """Return rest-site events with choice and HP healed."""
+    """Return rest-site events with choice and HP healed.
+
+    Real schema: ``rest_site_choices`` is a list of strings like ``["SMITH"]``.
+    Also handles dict entries ``{"rest_site_choice": "SMITH"}`` for robustness.
+    """
     result: List[Dict[str, Any]] = []
     for node_type, stats, _node in iter_nodes(run):
         if node_type != "rest_site":
             continue
         choices = stats.get("rest_site_choices", [])
-        hp_healed = stats.get("hp_healed", 0)
+        hp_healed = stats.get("hp_healed", 0) or 0
         if choices:
-            for c in choices:
-                choice_name = (
-                    c.get("rest_site_choice")
-                    or c.get("choice")
-                    or c.get("type")
-                    or "UNKNOWN"
-                )
-                result.append(
-                    {
-                        "choice": str(choice_name).upper(),
-                        "hp_healed": hp_healed,
-                    }
-                )
+            for choice in choices:
+                if isinstance(choice, dict):
+                    # e.g. {"rest_site_choice": "SMITH"}
+                    choice_name = (
+                        choice.get("rest_site_choice")
+                        or choice.get("choice")
+                        or choice.get("type")
+                        or "UNKNOWN"
+                    )
+                else:
+                    choice_name = str(choice)
+                result.append({
+                    "choice": str(choice_name).upper(),
+                    "hp_healed": hp_healed,
+                })
         else:
-            # Node visited but no choice recorded — mark as unknown
             result.append({"choice": "UNKNOWN", "hp_healed": hp_healed})
     return result
 
@@ -265,7 +273,7 @@ def extract_rest_sites(run: Dict[str, Any]) -> List[Dict[str, Any]]:
 
 def run_total_damage(run: Dict[str, Any]) -> int:
     return sum(
-        stats.get("damage_taken", 0)
+        (stats.get("damage_taken") or 0)
         for _, stats, _ in iter_nodes(run)
     )
 
@@ -299,20 +307,26 @@ def run_final_gold(run: Dict[str, Any]) -> Optional[int]:
 
 
 def run_deck_size(run: Dict[str, Any]) -> int:
-    """Approximate deck size: cards picked minus cards removed."""
-    picked = sum(
-        1
-        for _, stats, _ in iter_nodes(run)
-        for c in stats.get("card_choices", [])
-        if (c.get("card_picked") or c.get("picked"))
-    )
-    removed = sum(
-        len(stats.get("cards_removed", []))
-        for _, stats, _ in iter_nodes(run)
-    )
-    # STS characters start with ~10 cards
-    return max(0, 10 + picked - removed)
+    """Return the final deck size using the deck list from players[0]."""
+    players = run.get("players", [])
+    if players:
+        deck = players[0].get("deck", [])
+        if deck is not None:
+            return len(deck)
+    return 0
 
 
 def run_acts_reached(run: Dict[str, Any]) -> int:
     return len(run.get("map_point_history", []))
+
+
+def run_killed_by(run: Dict[str, Any]) -> Optional[str]:
+    """Return a cleaned killed-by string, or None for wins/none."""
+    enc = run.get("killed_by_encounter")
+    if enc and not _is_none(enc):
+        return _strip_prefix(enc)
+    ev = run.get("killed_by_event")
+    if ev and not _is_none(ev):
+        return _strip_prefix(ev)
+    return None
+

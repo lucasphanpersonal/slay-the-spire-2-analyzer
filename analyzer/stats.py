@@ -20,6 +20,7 @@ from .parser import (
     run_final_gold,
     run_final_hp,
     run_final_max_hp,
+    run_killed_by,
     run_total_damage,
 )
 
@@ -110,7 +111,7 @@ def compute_overview(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
     for r in runs:
         if r.get("win"):
             continue
-        killer = r.get("killed_by_encounter") or r.get("killed_by_event") or "Unknown"
+        killer = run_killed_by(r) or "Unknown"
         kills_by[str(killer)] += 1
 
     return {
@@ -331,12 +332,25 @@ def compute_rest_sites(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 def compute_runs_list(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Return a summary row for each run (for the Runs tab table)."""
+    from .parser import _strip_prefix
+
     rows: List[Dict[str, Any]] = []
     for run in runs:
+        # Use the final relic list from players[0].relics if available
+        # (most accurate — reflects the actual end-of-run state)
+        players = run.get("players", [])
         relics: List[str] = []
-        for event in extract_relic_events(run):
-            if event["picked"] and event["relic"] not in relics:
-                relics.append(event["relic"])
+        if players:
+            for r in players[0].get("relics", []):
+                relic_id = _strip_prefix(r.get("id", "")) if isinstance(r, dict) else _strip_prefix(str(r))
+                if relic_id and relic_id not in relics:
+                    relics.append(relic_id)
+
+        # Fallback: collect from relic events if players[0].relics is empty
+        if not relics:
+            for event in extract_relic_events(run):
+                if event["picked"] and event["relic"] not in relics:
+                    relics.append(event["relic"])
 
         rows.append(
             {
@@ -351,8 +365,7 @@ def compute_runs_list(runs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                 "deck_size": run_deck_size(run),
                 "total_damage": run_total_damage(run),
                 "relics": relics,
-                "killed_by": run.get("killed_by_encounter")
-                or run.get("killed_by_event"),
+                "killed_by": run_killed_by(run),
                 "run_time_s": run.get("run_time"),
                 "was_abandoned": run.get("was_abandoned", False),
                 "seed": run.get("seed"),
